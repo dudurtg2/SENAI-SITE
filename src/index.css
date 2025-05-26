@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  @keyframes scroll {
+@keyframes scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); } /* Move metade da largura total (imagens duplicadas) */
-  }
+}
 
+@layer utilities {
   .animate-scroll {
     animation: scroll 30s linear infinite; /* Ajuste a duração (30s) conforme necessário */
   }

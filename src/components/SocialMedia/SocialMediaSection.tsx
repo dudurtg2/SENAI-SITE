@@ -24,10 +24,10 @@ const SocialMediaSection: React.FC<SocialMediaSectionProps> = () => {
   return (
     <section className="w-full">
       {/* Seção Superior com fundo escuro - Altura aumentada novamente */}
-      <div className="bg-slate-900 py-12 flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-20"> {/* Alterado py-12 expessura da faixa azul */}
+      <div className="bg-slate-900 py-12 flex flex-col md:flex-row justify-center items-center space-y- md:space-y-0 md:space-x-20"> {/* Alterado py-12 expessura da faixa azul */}
         {/* Bloco Instagram */}
         <div className="flex items-center text-white">
-          <img src={instagramIconPath} alt="Instagram" className="w-10 h-10 mr-4" />
+          <img src={instagramIconPath} alt="Instagram" className="w-20 h-20 mr-4" />
           <div className="flex flex-col">
             <span className="text-lg font-semibold">#Mobilizasenai</span>
             <span className="text-sm">@Mobilizasenai</span>
@@ -35,7 +35,7 @@ const SocialMediaSection: React.FC<SocialMediaSectionProps> = () => {
         </div>
         {/* Bloco Facebook */}
         <div className="flex items-center text-white">
-          <img src={facebookIconPath} alt="Facebook" className="w-10 h-10 mr-4" />
+          <img src={facebookIconPath} alt="Facebook" className="w-20 h-20 mr-4" />
           <div className="flex flex-col">
             <span className="text-lg font-semibold">Follow us</span>
             <span className="text-sm">@Mobilizasenai</span>

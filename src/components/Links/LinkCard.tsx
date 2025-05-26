@@ -7,13 +7,18 @@ interface LinkCardProps {
 
 const LinkCard: React.FC<LinkCardProps> = ({ title, description }) => {
   return (
-    <div className="bg-gray-100 p-4 rounded shadow-sm hover:shadow-md transition-shadow">
+    // Adjusted background, padding, and removed shadow to match the image
+    <div className="bg-zinc-200/70 p-4 rounded-lg">
       <div className="flex items-start">
-        <div className="bg-blue-800 w-6 h-6 rounded-sm flex-shrink-0 mr-3"></div>
+        {/* Adjusted icon color, size, rounding, and margin */}
+        <div className="bg-slate-900 w-10 h-10 rounded-md flex-shrink-0 mr-3 mt-1"></div>
         <div>
-          <h3 className="text-sm font-semibold">{title}</h3>
-          <p className="text-xs text-gray-600 mt-1">{description}</p>
-          <a href="#" className="text-xs text-blue-600 mt-2 inline-block">Ver site</a>
+          {/* Adjusted title size, weight, and color */}
+          <h3 className="text-base font-medium text-gray-800">{title}</h3>
+          {/* Adjusted description size, color, and margin */}
+          <p className="text-sm text-gray-600 mt-1">{description}</p>
+          {/* Adjusted link size, color, and margin */}
+          <a href="#" className="text-sm text-blue-500 hover:text-blue-600 mt-2 inline-block">Ver site</a>
         </div>
       </div>
     </div>
@@ -21,3 +26,4 @@ const LinkCard: React.FC<LinkCardProps> = ({ title, description }) => {
 };
 
 export default LinkCard;
+

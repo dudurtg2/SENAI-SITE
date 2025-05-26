@@ -17,10 +17,10 @@ const Header: React.FC<HeaderProps> = () => {
         <div className="flex items-center space-x-8"> {/* Aumentado espaço entre logo e links */}
           {/* Logo como Imagem */}
           <a href="/">
-            <img src={senaiLogoPath} alt="Logo SENAI" className="h-8" /> {/* Ajuste a altura (h-8) conforme necessário */}
+            <img src={senaiLogoPath} alt="Logo SENAI" className="h-10" /> {/* Ajuste a altura (h-8) conforme necessário */}
           </a>
           {/* Links de Navegação (Visível em telas médias+) */}
-          <nav className="hidden md:flex space-x-6"> {/* Ajustado espaço entre links */}
+          <nav className="hidden md:flex space-x-8"> {/* Ajustado espaço entre links */}
             <a href="#repositorio" className="text-gray-600 hover:text-senai-blue text-sm">Repositório</a>
             <a href="#lab-maker" className="text-gray-600 hover:text-senai-blue text-sm">Lab Maker</a>
             <a href="#biblioteca-maker" className="text-gray-600 hover:text-senai-blue text-sm">Biblioteca Maker</a>
