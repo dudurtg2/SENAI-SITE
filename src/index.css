@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Move metade da largura total (imagens duplicadas) */
+}
+
+@layer utilities {
+  .animate-scroll {
+    animation: scroll 30s linear infinite; /* Ajuste a duração (30s) conforme necessário */
+  }
+
+  /* Opcional: Pausar animação no hover */
+  .group:hover .animate-scroll {
+    animation-play-state: paused;
+  }
+  
+  /* Classe para pausar explicitamente via JS se necessário */
+  .pause {
+      animation-play-state: paused;
+  }
+}
+
