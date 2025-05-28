@@ -17,7 +17,7 @@ const LinksSection: React.FC = () => {
   return (
     <section className="py-8 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-center text-2xl font-bold mb-8">OUTROS LINKS</h2>
+        <h2 className="text-center text-2xl font-light mb-8">OUTROS LINKS</h2>
         <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {links.map(link => (
             <LinkCard 
