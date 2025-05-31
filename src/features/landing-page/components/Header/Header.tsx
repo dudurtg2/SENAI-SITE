@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // Importar o logo
 
@@ -10,6 +11,11 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const navigate = useNavigate()
+
+  const handleLogin = () => {
+    navigate('/login')
+  }
 
   return (
     <header className="bg-white w-full shadow-md">
@@ -53,7 +59,10 @@ const Header: React.FC<HeaderProps> = () => {
         </div>
         {/* Botão de Login (Visível em telas médias+) */}
         <div className="hidden md:flex items-center">
-          <button className="bg-black text-white px-4 py-2 rounded-md flex items-center space-x-2 text-sm hover:bg-gray-800 transition-colors">
+          <button 
+            onClick={handleLogin}
+            className="bg-black text-white px-4 py-2 rounded-md flex items-center space-x-2 text-sm hover:bg-gray-800 transition-colors"
+          >
             {/* Ícone de Login (Placeholder SVG - substitua por um ícone real se disponível) */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +126,10 @@ const Header: React.FC<HeaderProps> = () => {
             >
               Biblioteca Maker
             </a>
-            <button className="bg-black text-white px-4 py-2 rounded-md flex items-center justify-center space-x-2 text-sm hover:bg-gray-800 transition-colors mt-2">
+            <button 
+              onClick={handleLogin}
+              className="bg-black text-white px-4 py-2 rounded-md flex items-center justify-center space-x-2 text-sm hover:bg-gray-800 transition-colors mt-2"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4"

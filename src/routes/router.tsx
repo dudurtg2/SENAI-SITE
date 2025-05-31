@@ -6,16 +6,18 @@ import LandingPage from '../features/landing-page/page'
 import Dashboard from '../features/dashboard/page'
 import ProjectsPage from '../features/projects/page'
 import AccountPage from '../features/account/page'
+import LoginPage from '../features/login/page'
 
 const Routers: React.FC = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/app" element={<Layout />}>
           <Route index element={<ProjectsPage />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="account" element={<AccountPage />} />
-          <Route path="" element={<Dashboard />} />
         </Route>
       </Routes>
     </Router>
