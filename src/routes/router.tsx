@@ -7,6 +7,7 @@ import Dashboard from '../features/dashboard/page'
 import ProjectsPage from '../features/projects/page'
 import AccountPage from '../features/account/page'
 import LoginPage from '../features/login/page'
+import ProjectDetailPage from '../features/project-detail/page'
 
 const Routers: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const Routers: React.FC = () => {
           <Route index element={<ProjectsPage />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="account" element={<AccountPage />} />
+          <Route path="projects/:projectId" element={<ProjectDetailPage />} />
         </Route>
       </Routes>
     </Router>

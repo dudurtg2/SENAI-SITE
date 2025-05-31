@@ -7,13 +7,13 @@ const LoginHeader = () => {
     <header className="bg-white shadow">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center">
+          <div className="flex items-center">
             <img
               className="h-8 w-auto"
               src={senaiLogo}
               alt="Logo SENAI"
             />
-          </Link>
+          </div>
           <nav className="flex space-x-4">
             <Link
               to="/"
