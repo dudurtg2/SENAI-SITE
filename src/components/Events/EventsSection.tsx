@@ -65,9 +65,6 @@ const EventsSection: React.FC = () => {
                 key={topRowEvents[0].id}
                 imageUrl={topRowEvents[0].imageUrl}
                 isLarge={topRowEvents[0].isLarge}
-                //mainTitle={topRowEvents[0].mainTitle}
-                dateText={topRowEvents[0].dateText}
-                //hashtag={topRowEvents[0].hashtag}
                 buttonLink={topRowEvents[0].buttonLink} // Passar o link
               />
             )}

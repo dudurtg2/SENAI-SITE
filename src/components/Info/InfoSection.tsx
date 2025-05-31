@@ -49,8 +49,8 @@ const InfoSection: React.FC<InfoSectionProps> = () => {
   const doubledMembers = [...teamMembers, ...teamMembers];
 
   return (
-    <section className="py-8 bg-gray-100"> {/* Fundo cinza claro */}
-      <div className="container mx-auto px-4">
+    <section className="py-12 bg-gray-100"> {/* Fundo cinza claro */}
+      <div className="container mx-auto px-8">
         <h2 className="text-2xl font-light text-center mb-4">INFORMAÇÃO SOBRE</h2>
         <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
           Lorem ipsum dolor sit amet. Ut nihil praesentium eos enim esse est possimus internos sit soluta tempore et maiores veritatis ab asperiores sequi ut repudiandae quia.

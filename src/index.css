@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,3 +24,15 @@
   }
 }
 
+.image-banner1{
+  background-image: url('./assets/images/Imagens/001-ComunidadeMaker.jpg');
+}
+.image-banner2{
+  background-image: url('./assets/images/Imagens/002-Biblioteca Maker.jpg');
+}
+.image-banner3{
+  background-image: url('./assets/images/Imagens/003-Lab Maker.jpg');
+}
+.image-banner4{
+  background-image: url('./assets/images/Imagens/004-Reproducao de Projetos.jpg');
+}
