@@ -1,7 +1,15 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Rambla:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+*{
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Rambla", sans-serif
+}
 
 @keyframes scroll {
     0% { transform: translateX(0); }
@@ -24,15 +32,43 @@
   }
 }
 
-.image-banner1{
-  background-image: url('./assets/images/Imagens/001-ComunidadeMaker.jpg');
+
+
+.App {
+  text-align: center;
 }
-.image-banner2{
-  background-image: url('./assets/images/Imagens/002-Biblioteca Maker.jpg');
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
-.image-banner3{
-  background-image: url('./assets/images/Imagens/003-Lab Maker.jpg');
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
-.image-banner4{
-  background-image: url('./assets/images/Imagens/004-Reproducao de Projetos.jpg');
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
