@@ -1,5 +1,4 @@
-import { Plus, Edit3, Award, User } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Plus, Edit3, Award, User, Undo2 } from 'lucide-react'
 const Sidebar = () => {
   return (
     <aside className="w-64 bg-bg-layouts text-black min-h-screen text-center">
@@ -20,42 +19,46 @@ const Sidebar = () => {
 
       <div className="mb-6">
         <h4 className="text-sm font-semibold mb-3">Projetos</h4>
-        <div className="flex space-x-4 mb-4 justify-center">
-          <div className="text-center">
-            <div className="w-8 h-8 bg-button-primary rounded mb-1 flex items-center justify-center">
-              <span className="text-xs">7</span>
+        <div className="flex  justify-center gap-2  items-center">
+          <div className=" flex flex-col space-y-2">
+            <div className="p-2 rounded-lg border-primary-text border  cursor-pointer hover:bg-button-primary hover:text-gray-100 transition-colors duration-200">
+              <div className="flex items-center space-x-2 justify-center">
+                <span className="text-lg font-semibold">5</span>
+                <Undo2 style={{ transform: 'rotate(180deg)' }} />
+              </div>
+              <div className="">
+                <p>Projetos</p>
+                <p>Pendentes</p>
+              </div>
             </div>
-            <span className="text-xs text-black">
-              Projetos
-              <br />
-              aprovados
-            </span>
           </div>
-          <div className="text-center">
-            <div className="w-8 h-8 bg-button-primary rounded mb-1 flex items-center justify-center">
-              <span className="text-xs">3</span>
+          <div className=" flex flex-col space-y-2">
+            <div className="p-2 rounded-lg border-primary-text border  cursor-pointer  hover:bg-button-primary hover:text-gray-100 transition-colors duration-200">
+              <div className="flex items-center space-x-2 justify-center">
+                <span className="text-lg font-semibold">5</span>
+                <Undo2 style={{ transform: 'rotate(180deg)' }} />
+              </div>
+              <div className="">
+                <p>Projetos</p>
+                <p>Pendentes</p>
+              </div>
             </div>
-            <span className="text-xs text-black">
-              Projetos
-              <br />
-              pendentes
-            </span>
           </div>
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Link to="/app/create-project" className="flex items-center space-x-2 w-full justify-center p-2 rounded hover:bg-gray-700">
+      <div className="space-y-2 px-4">
+        <button className="flex items-center space-x-2 w-full justify-center p-2 rounded-md hover:bg-button-primary hover:text-gray-100 border border-primary-text  transition-colors duration-200">
           <Plus size={16} />
-          <span className="text-sm text-black">Adicionar Projeto</span>
-        </Link>
-        <button className="flex items-center space-x-2 w-full justify-center p-2 rounded hover:bg-gray-700">
-          <Edit3 size={16} />
-          <span className="text-sm text-black">Atualizar Projeto</span>
+          <span className="text-sm ">Adicionar Projeto</span>
         </button>
-        <button className="flex items-center space-x-2 w-full justify-center p-2 rounded hover:bg-gray-700">
+        <button className="flex items-center space-x-2 w-full justify-center p-2 rounded-md hover:bg-button-primary hover:text-gray-100 border border-primary-text  transition-colors duration-200">
+          <Edit3 size={16} />
+          <span className="text-sm ">Atualizar Projeto</span>
+        </button>
+        <button className="flex items-center space-x-2 w-full justify-center p-2 rounded-md hover:bg-button-primary hover:text-gray-100 border border-primary-text  transition-colors duration-200">
           <Award size={16} />
-          <span className="text-sm text-black">Certificados</span>
+          <span className="text-sm ">Certificados</span>
         </button>
       </div>
     </aside>
