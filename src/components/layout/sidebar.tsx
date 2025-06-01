@@ -1,4 +1,5 @@
 import { Plus, Edit3, Award, User } from 'lucide-react'
+import { Link } from 'react-router-dom'
 const Sidebar = () => {
   return (
     <aside className="w-64 bg-bg-layouts text-black min-h-screen text-center">
@@ -44,10 +45,10 @@ const Sidebar = () => {
       </div>
 
       <div className="space-y-2">
-        <button className="flex items-center space-x-2 w-full justify-center p-2 rounded hover:bg-gray-700">
+        <Link to="/app/create-project" className="flex items-center space-x-2 w-full justify-center p-2 rounded hover:bg-gray-700">
           <Plus size={16} />
           <span className="text-sm text-black">Adicionar Projeto</span>
-        </button>
+        </Link>
         <button className="flex items-center space-x-2 w-full justify-center p-2 rounded hover:bg-gray-700">
           <Edit3 size={16} />
           <span className="text-sm text-black">Atualizar Projeto</span>

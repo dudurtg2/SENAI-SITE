@@ -91,6 +91,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-gray-800"
+              onClick={(e) => e.stopPropagation()}
             >
               <Github size={20} />
             </a>

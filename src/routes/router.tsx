@@ -8,20 +8,31 @@ import ProjectsPage from '../features/projects/page'
 import AccountPage from '../features/account/page'
 import LoginPage from '../features/login/page'
 import ProjectDetailPage from '../features/project-detail/page'
+import CreateProjectPage from '../features/create-project/page'
+import NotificationsPage from '../features/notifications/NotificationsPage'
+import { NotificationProvider } from '../contexts/notification-context'
+import CalendarPage from '../features/calendar/CalendarPage'
+import CommunityPage from '../features/community/CommunityPage'
 
 const Routers: React.FC = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/app" element={<Layout />}>
-          <Route index element={<ProjectsPage />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="account" element={<AccountPage />} />
-          <Route path="projects/:projectId" element={<ProjectDetailPage />} />
-        </Route>
-      </Routes>
+      <NotificationProvider>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/app" element={<Layout />}>
+            <Route index element={<ProjectsPage />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="account" element={<AccountPage />} />
+            <Route path="projects/:projectId" element={<ProjectDetailPage />} />
+            <Route path="create-project" element={<CreateProjectPage />} />
+            <Route path="notifications" element={<NotificationsPage />} />
+            <Route path="calendar" element={<CalendarPage />} />
+            <Route path="community" element={<CommunityPage />} />
+          </Route>
+        </Routes>
+      </NotificationProvider>
     </Router>
   )
 }
