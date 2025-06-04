@@ -9,10 +9,10 @@ import AccountPage from '../features/account/page'
 import LoginPage from '../features/login/page'
 import ProjectDetailPage from '../features/project-detail/page'
 import CreateProjectPage from '../features/create-project/page'
-import NotificationsPage from '../features/notifications/NotificationsPage'
+import NotificationsPage from '../features/notifications/notifications-page'
 import { NotificationProvider } from '../contexts/notification-context'
-import CalendarPage from '../features/calendar/CalendarPage'
-import CommunityPage from '../features/community/CommunityPage'
+import CalendarPage from '../features/calendar/calendar-page'
+import CommunityPage from '../features/community/community-page'
 
 const Routers: React.FC = () => {
   return (
