@@ -18,7 +18,7 @@ import {
 const getAuthHeaders = () => {
   const token = localStorage.getItem('accessTokenIntegrado')
   return {
-    Authorization: `Bearer ${token}`
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6InNpbGFzbWF0b3N5bUBnbWFpbC5jb20iLCJleHAiOjE3NDk0MDM0NjN9.8s4fVs9qPIPd0JE28eo54BROFLjVL7lJq_cF3dGEuic`
   }
 }
 

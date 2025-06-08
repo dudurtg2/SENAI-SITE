@@ -25,7 +25,8 @@ import {
   createProjetoAluno,
   createProjetoProfessor,
   createEtapaProjeto,
-  createAnexoEtapa
+  createAnexoEtapa,
+  GoogleLogin
 } from '../api/mutations'
 
 export function useLoginAuth(
@@ -38,7 +39,16 @@ export function useLoginAuth(
     ...options
   })
 }
-
+export function useGoogleLogin(
+  options?: UseMutationOptions<any, Error, string>
+) {
+  return useMutation({
+    mutationKey: ['googleLogin'],
+    mutationFn: () => GoogleLogin(),
+    retry: 0,
+    ...options
+  })
+}
 // Aluno
 export function useCreateAluno(
   options?: UseMutationOptions<any, Error, CreateAlunoMutation>

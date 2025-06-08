@@ -74,20 +74,13 @@ export interface CommunityData {
   }>;
 }
 
-// Novos tipos baseados na API
-export interface Aluno {
+// Tipos atualizados baseados na resposta real da API
+export interface Usuario {
   uuid: string
-  usuarios: {
-    uuid: string
-  }
-  matricula: string
-  curso: string
-  telefonePessoal: string
-  telefoneProfissional: string
-  linkedin: string
-  endereco: {
-    uuid: string
-  }
+  usuario: string
+  senha: string
+  email: string
+  tipo: string
   status: string
   criadoEm: string
   atualizadoEm: string
@@ -103,6 +96,20 @@ export interface Endereco {
   cidade: string
   estado: string
   pais: string
+}
+
+export interface Aluno {
+  uuid: string
+  usuarios: Usuario
+  matricula: string
+  curso: string
+  telefonePessoal: string
+  telefoneProfissional: string
+  linkedin: string
+  endereco: Endereco
+  status: string
+  criadoEm: string
+  atualizadoEm: string
 }
 
 export interface Professor {
@@ -128,12 +135,23 @@ export interface UnidadeCurricular {
   atualizadoEm: string
 }
 
+// Tipo atualizado para Projeto baseado na resposta real da API
 export interface Projeto {
   uuid: string
-  nome: string
-  professor: {
-    uuid: string
-  }
+  titulo: string
+  descricao: string
+  curso: string
+  turma: string
+  labMaker: boolean
+  participouSaga: boolean
+  itinerario: boolean
+  unidadeCurricular: UnidadeCurricular
+  liderProjeto: Aluno
+  bannerUrl: string
+  codigo: string
+  visibilidadeCodigo: string
+  visibilidadeAnexos: string
+  status: string
   criadoEm: string
   atualizadoEm: string
 }
