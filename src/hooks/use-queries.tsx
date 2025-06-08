@@ -41,7 +41,7 @@ export function useDashboard(options?: UseQueryOptions<any, Error>) {
         ...options
       }
     ]
-  })
+  })  
 }
 
 export function useNotifications(
