@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
+import { useUser } from '../../../contexts/user-context'
 
 const LoginForm = () => {
   const navigate = useNavigate()
+  const { setUserType, setIsAuthenticated, setUserInfo } = useUser()
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    userType: 'student' as 'student' | 'teacher'
   })
   const [error, setError] = useState('')
 
@@ -16,7 +19,6 @@ const LoginForm = () => {
   const validateEmailDomain = (email: string): boolean => {
     return allowedDomains.some(domain => email.endsWith(domain))
   }
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
@@ -28,8 +30,18 @@ const LoginForm = () => {
 
     // Lógica de autenticação (substitua com sua implementação real)
     console.log('Login com formulário', formData)
-    // Se a autenticação for bem-sucedida:
-    navigate('/app') // Redireciona para a área logada
+    
+    // Define o tipo de usuário e autentica
+    setUserType(formData.userType)
+    setIsAuthenticated(true)
+    setUserInfo({ email: formData.email, type: formData.userType })
+    
+    // Redireciona baseado no tipo de usuário
+    if (formData.userType === 'teacher') {
+      navigate('/teacher/dashboard')
+    } else {
+      navigate('/app')
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +53,6 @@ const LoginForm = () => {
     // Limpa o erro ao digitar novamente
     setError('')
   }
-
   const handleGoogleSuccess = (credentialResponse: any) => {
     try {
       const credentialResponseDecoded: any = jwtDecode(credentialResponse.credential)
@@ -49,14 +60,23 @@ const LoginForm = () => {
 
       if (!validateEmailDomain(email)) {
         setError('Login com Google falhou: Por favor, use um email institucional do SENAI.')
-        // Aqui você pode adicionar lógica adicional, como logout do Google se necessário
         return
       }
 
       // Lógica de autenticação com Google (substitua com sua implementação real)
       console.log('Login com Google bem-sucedido', credentialResponseDecoded)
-      // Se a autenticação for bem-sucedida:
-      navigate('/app') // Redireciona para a área logada
+      
+      // Define o tipo de usuário e autentica
+      setUserType(formData.userType)
+      setIsAuthenticated(true)
+      setUserInfo({ email, type: formData.userType })
+      
+      // Redireciona baseado no tipo de usuário
+      if (formData.userType === 'teacher') {
+        navigate('/teacher/dashboard')
+      } else {
+        navigate('/app')
+      }
     } catch (err) {
       console.error('Erro ao decodificar token do Google', err)
       setError('Ocorreu um erro ao processar o login com o Google. Tente novamente.')
@@ -68,10 +88,40 @@ const LoginForm = () => {
     setError('Login com Google falhou. Tente novamente.')
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+  return (    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
       <div className="space-y-4">
+        {/* Seleção de tipo de usuário */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Tipo de usuário
+          </label>
+          <div className="flex space-x-4">
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="userType"
+                value="student"
+                checked={formData.userType === 'student'}
+                onChange={handleChange}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
+              <span className="ml-2 text-sm text-gray-700">Estudante</span>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="userType"
+                value="teacher"
+                checked={formData.userType === 'teacher'}
+                onChange={handleChange}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
+              <span className="ml-2 text-sm text-gray-700">Professor</span>
+            </label>
+          </div>
+        </div>
+
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             Email institucional
