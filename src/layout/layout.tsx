@@ -16,7 +16,7 @@ const Layout = () => {
       <div className="flex flex-1 overflow-hidden">
         {!hideSidebar && (
           <div className="w-64 flex-shrink-0 overflow-hidden mb-3 ml-3 rounded-md">
-            <Sidebar />
+            <Sidebar isLoggedIn={true} />
           </div>
         )}
 

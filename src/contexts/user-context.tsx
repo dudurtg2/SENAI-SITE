@@ -1,47 +1,37 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react'
 
-export type UserType = 'student' | 'teacher' | null
+type User = {
+  id: string
+  name: string
+  email: string
+  token: string
+  type?: 'student' | 'teacher' | null
+}
 
-interface UserContextType {
-  userType: UserType
-  setUserType: (type: UserType) => void
+type UserContextType = {
+  user: User | null
+  setUser: (user: User | null) => void
   isAuthenticated: boolean
   setIsAuthenticated: (auth: boolean) => void
-  userInfo: any
-  setUserInfo: (info: any) => void
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
-export const useUser = () => {
-  const context = useContext(UserContext)
-  if (!context) {
-    throw new Error('useUser must be used within a UserProvider')
-  }
-  return context
-}
-
-interface UserProviderProps {
-  children: ReactNode
-}
-
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [userType, setUserType] = useState<UserType>(null)
+export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [userInfo, setUserInfo] = useState(null)
-
-  const value = {
-    userType,
-    setUserType,
-    isAuthenticated,
-    setIsAuthenticated,
-    userInfo,
-    setUserInfo
-  }
 
   return (
-    <UserContext.Provider value={value}>
+    <UserContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
       {children}
     </UserContext.Provider>
   )
+}
+
+export const useUser = () => {
+  const context = useContext(UserContext)
+  if (!context) {
+    throw new Error('useUser deve ser usado dentro de um UserProvider')
+  }
+  return context
 }
