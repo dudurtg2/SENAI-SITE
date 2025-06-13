@@ -13,6 +13,8 @@ type UserContextType = {
   setUser: (user: User | null) => void
   isAuthenticated: boolean
   setIsAuthenticated: (auth: boolean) => void
+  setUserType: (type: 'student' | 'teacher' | null) => void
+  setUserInfo: (info: User | null) => void
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -21,8 +23,27 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
+  const setUserType = (type: 'student' | 'teacher' | null) => {
+    if (user) {
+      setUser({ ...user, type })
+    }
+  }
+
+  const setUserInfo = (info: User | null) => {
+    setUser(info)
+  }
+
   return (
-    <UserContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
+    <UserContext.Provider 
+      value={{ 
+        user, 
+        setUser, 
+        isAuthenticated, 
+        setIsAuthenticated,
+        setUserType,
+        setUserInfo 
+      }}
+    >
       {children}
     </UserContext.Provider>
   )
