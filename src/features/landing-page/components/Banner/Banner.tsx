@@ -1,5 +1,12 @@
 import React from 'react'
 
+// Importar as imagens diretamente
+import img1 from '../../../../assets/images/Imagens/001-Comunidade Maker.jpg'
+import img2 from '../../../../assets/images/Imagens/002-Biblioteca Maker.jpg'
+import img3 from '../../../../assets/images/Imagens/003-Lab Maker.jpg'
+import img4 from '../../../../assets/images/Imagens/004-Reproducao de Projetos.jpg'
+import img5 from '../../../../assets/images/Imagens/005-Titulo sobre o Senai.png'
+
 // Define a interface para as propriedades de cada item do banner
 interface BannerItemProps {
   imageUrl: string
@@ -34,28 +41,27 @@ const BannerItem: React.FC<BannerItemProps> = ({ imageUrl, title }) => {
 }
 
 // Componente principal do Banner
-const Banner: React.FC = () => {
-  // Array com os itens do banner, incluindo o novo item genérico
+const Banner: React.FC = () => {  // Array com os itens do banner usando as imagens importadas
   const bannerItems = [
     {
-      imageUrl: '/images/Imagens/001-Comunidade Maker.jpg',
+      imageUrl: img1,
       title: 'Comunidade Maker'
     },
     {
-      imageUrl: '/images/Imagens/002-Biblioteca Maker.jpg',
+      imageUrl: img2,
       title: 'Biblioteca Maker'
     },
     {
-      imageUrl: '/images/Imagens/003-Lab Maker.jpg',
+      imageUrl: img3,
       title: 'Lab Maker'
     },
     {
-      imageUrl: '/images/Imagens/004-Reproducao de Projetos.jpg',
+      imageUrl: img4,
       title: 'Reprodução de Projetos'
     },
     {
-      // Adiciona o novo card com a imagem genérica salva
-      imageUrl: '/images/Imagens/005-Oficina-Maker-Generica.jpeg',
+      // Adiciona o novo card usando uma das imagens disponíveis
+      imageUrl: img5,
       title: 'Oficina Criativa' // Título genérico para o novo card
     }
   ]
