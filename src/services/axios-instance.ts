@@ -1,18 +1,10 @@
 
 import axios from "axios";
-
 import Cookies from 'js-cookie';
 import { showModalUnauthorized } from '../contexts/unauthorized-context';
 
-
-declare global {
-  interface ImportMetaEnv {
-    readonly VITE_API_URL: string;
-  }
-}
-
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080',
 });
 
 axiosInstance.interceptors.request.use((config) => {

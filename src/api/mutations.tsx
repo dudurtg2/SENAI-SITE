@@ -27,11 +27,6 @@ export async function Login(payload: LoginMutation) {
   return response.data
 }
 
-export async function GoogleLogin() {
-  const response = await axiosInstance.post('/')
-  return response.data
-}
-
 export async function Register(payload: RegisterMutation) {
   const response = await axiosInstance.post('/register', payload, {})
   return response.data

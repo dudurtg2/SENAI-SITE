@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { GoogleLogin } from '@react-oauth/google'
-import { jwtDecode } from 'jwt-decode'
 import { useUser } from '../../../contexts/user-context'
-import { useLoginAuth, useGoogleLogin } from '../../../hooks/use-mutation'
+import { useLoginAuth } from '../../../hooks/use-mutation'
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -31,25 +29,17 @@ const LoginForm = () => {
       console.log('Login bem-sucedido:', data)
       setUser(data)
       setIsAuthenticated(true)
-      navigate('/app')
+      
+      // Redirecionamento baseado no tipo de usuário
+      if (formData.userType === 'teacher') {
+        navigate('/teacher')
+      } else {
+        navigate('/app')
+      }
     },
     onError: (error: any) => {
       console.error('Erro no login:', error)
       setError('Email ou senha incorretos. Tente novamente.')
-      setIsLoading(false)
-    }
-  })
-
-  const googleLoginMutation = useGoogleLogin({
-    onSuccess: data => {
-      console.log('Login Google bem-sucedido:', data)
-      setUser(data)
-      setIsAuthenticated(true)
-      navigate('/app')
-    },
-    onError: error => {
-      console.error('Erro no login com Google:', error)
-      setError('Erro ao fazer login com Google. Tente novamente.')
       setIsLoading(false)
     }
   })
@@ -66,7 +56,6 @@ const LoginForm = () => {
     const value = e.target.value as 'student' | 'teacher'
     setFormData(prev => ({ ...prev, userType: value }))
   }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
@@ -84,32 +73,11 @@ const LoginForm = () => {
     }
 
     setIsLoading(true)
-      // Enviar requisição de login
+    // Enviar requisição de login
     loginMutation.mutate({
       login: email, 
       senha: password
     })
-  }
-
-  const handleGoogleSuccess = (credentialResponse: any) => {
-    try {
-      const decoded = jwtDecode<any>(credentialResponse.credential)
-      const email = decoded.email
-
-      if (!validateEmailDomain(email)) {
-        setError('Este domínio de e-mail não é permitido')
-        return
-      }
-
-      const userType = email.endsWith('@ba.estudante.senai.br') ? 'student' : 'teacher'
-      
-      // Como o uso do Google Login está com tipo string, apenas chamar sem argumentos
-      // e configurar o usuário com os dados recebidos no onSuccess
-      googleLoginMutation.mutate("")
-    } catch (error) {
-      console.error('Erro ao decodificar credencial Google:', error)
-      setError('Erro ao processar login com Google')
-    }
   }
 
   return (
@@ -203,9 +171,7 @@ const LoginForm = () => {
             Esqueceu sua senha?
           </a>
         </div>
-      </div>
-
-      <div>
+      </div>      <div>
         <button
           type="submit"
           disabled={isLoading}
@@ -213,27 +179,6 @@ const LoginForm = () => {
         >
           {isLoading ? 'Entrando...' : 'Entrar'}
         </button>
-      </div>
-
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-300"></div>
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-white text-gray-500">Ou continue com</span>
-        </div>
-      </div>
-
-      <div className="flex justify-center">
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={() => {
-            console.error('Login com Google falhou')
-            setError('Erro ao fazer login com Google')
-          }}
-          shape="circle"
-          text="signin_with"
-        />
       </div>
     </form>
   )

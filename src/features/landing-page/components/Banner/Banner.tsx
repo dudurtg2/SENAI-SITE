@@ -11,11 +11,10 @@ const BannerItem: React.FC<BannerItemProps> = ({ imageUrl, title }) => {
   return (
     // Ajusta a largura para acomodar 5 itens em telas médias/grandes (md:w-1/5)
     <div className="relative w-full md:w-1/5 h-[600px] group overflow-hidden">
-      {/* Imagem de fundo */}
-      <div
+      {/* Imagem de fundo */}      <div
         className="absolute inset-0 bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110 "
         // Carrega a imagem da pasta public
-        style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${imageUrl})` }}
+        style={{ backgroundImage: `url(${imageUrl})` }}
       ></div>
 
       {/* Overlay escuro simples */}
