@@ -1,6 +1,7 @@
 import { useMutation, UseMutationOptions } from '@tanstack/react-query'
 import {
   LoginMutation,
+  RegisterMutation,
   CreateAlunoMutation,
   CreateEnderecoMutation,
   CreateProfessorMutation,
@@ -15,6 +16,7 @@ import {
 } from '../types/types-mutations'
 import {
   Login,
+  Register,
   createAluno,
   createEndereco,
   createProfessor,
@@ -31,8 +33,20 @@ import {
 export function useLoginAuth(
   options?: UseMutationOptions<any, Error, LoginMutation>
 ) {
-  return useMutation({    mutationKey: ['login'],
+  return useMutation({
+    mutationKey: ['login'],
     mutationFn: (payload: LoginMutation) => Login(payload),
+    retry: 0,
+    ...options
+  })
+}
+
+export function useRegisterAuth(
+  options?: UseMutationOptions<any, Error, RegisterMutation>
+) {
+  return useMutation({
+    mutationKey: ['register'],
+    mutationFn: (payload: RegisterMutation) => Register(payload),
     retry: 0,
     ...options
   })

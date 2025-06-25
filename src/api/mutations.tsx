@@ -1,4 +1,4 @@
-import axiosInstance from '../services/axios-instance'
+import axiosInstance from '../Services/axios-instance'
 import type {
   LoginMutation,
   RegisterMutation,
@@ -23,12 +23,12 @@ const getAuthHeaders = () => {
 }
 
 export async function Login(payload: LoginMutation) {
-  const response = await axiosInstance.post('/login', payload, {})
+  const response = await axiosInstance.post('/api/user/login', payload, {})
   return response.data
 }
 
 export async function Register(payload: RegisterMutation) {
-  const response = await axiosInstance.post('/register', payload, {})
+  const response = await axiosInstance.post('/api/user/auth/register', payload, {})
   return response.data
 }
 

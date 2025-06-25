@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Final CORS SENAI</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .success { color: green; background: #e8f5e8; padding: 10px; border-radius: 5px; }
+        .error { color: red; background: #ffeaea; padding: 10px; border-radius: 5px; }
+        .loading { color: orange; background: #fff8e1; padding: 10px; border-radius: 5px; }
+        pre { background: #f5f5f5; padding: 10px; overflow: auto; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste Final - CORS Portal SENAI</h1>
+    <p>Este teste simula exatamente o que o React faria para buscar dados da API.</p>
+    
+    <button onclick="testCORS()">🚀 Executar Teste de CORS</button>
+    <div id="result"></div>
+
+    <script>
+        async function testCORS() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="loading">🔄 Testando CORS e API...</div>';
+            
+            try {
+                // Simulando o que o React Query faria
+                const response = await fetch('http://localhost:8080/api/v1/senai/projeto/findAll', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include' // Equivale ao axiosInstance com credentials
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const projects = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h3>✅ CORS Funcionando Perfeitamente!</h3>
+                        <p><strong>Status:</strong> ${response.status} ${response.statusText}</p>
+                        <p><strong>Projetos encontrados:</strong> ${projects.length}</p>
+                        <p><strong>CORS Headers:</strong></p>
+                        <ul>
+                            <li>Access-Control-Allow-Origin: ${response.headers.get('Access-Control-Allow-Origin') || 'N/A'}</li>
+                            <li>Access-Control-Allow-Credentials: ${response.headers.get('Access-Control-Allow-Credentials') || 'N/A'}</li>
+                        </ul>
+                        
+                        <h4>📊 Primeiros 2 projetos:</h4>
+                        <pre>${JSON.stringify(projects.slice(0, 2), null, 2)}</pre>
+                        
+                        <p style="margin-top: 15px;">
+                            <strong>🎯 Conclusão:</strong> O frontend React conseguirá acessar os dados da API sem problemas de CORS!
+                        </p>
+                    </div>
+                `;
+                
+            } catch (error) {
+                let errorType = 'Erro desconhecido';
+                let solution = '';
+                
+                if (error.message.includes('CORS')) {
+                    errorType = 'Erro de CORS';
+                    solution = 'Verificar configuração de CORS no backend.';
+                } else if (error.message.includes('Failed to fetch')) {
+                    errorType = 'Falha na conexão';
+                    solution = 'Verificar se o backend está rodando na porta 8080.';
+                } else if (error.message.includes('404')) {
+                    errorType = 'Endpoint não encontrado';
+                    solution = 'Verificar URL da API.';
+                }
+                
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ ${errorType}</h3>
+                        <p><strong>Erro:</strong> ${error.message}</p>
+                        <p><strong>Solução:</strong> ${solution}</p>
+                        <details>
+                            <summary>Ver detalhes técnicos</summary>
+                            <pre>${JSON.stringify(error, null, 2)}</pre>
+                        </details>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

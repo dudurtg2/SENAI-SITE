@@ -1,59 +1,90 @@
-import React, { useState, useEffect } from 'react'
-import { Award, Download, Plus, Search, Filter, Eye, Share2, Star, TrendingUp, Users, Calendar, CheckCircle, Clock, Zap, Medal, Trophy, Target } from 'lucide-react'
+import React, { useState } from 'react'
+import { Award, Download, Plus, Search, Filter, Eye, Share2, Star, TrendingUp, Users, Calendar, CheckCircle, Clock, Zap, Medal, Trophy, Target, Trash2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { useAlunos, useProjetos } from '../../../hooks/use-queries'
+import DeleteConfirmationModal from '../../../components/modals/delete-confirmation-modal'
+import SuccessModal from '../../../components/modals/success-modal'
+import LoadingModal from '../../../components/modals/loading-modal'
+import { useModal, useConfirmationModal } from '../../../hooks/use-modal'
 
 const TeacherCertificates = () => {
   const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterStatus, setFilterStatus] = useState('all')
-  const [selectedCertificate, setSelectedCertificate] = useState<number | null>(null)
+  const [selectedCertificate, setSelectedCertificate] = useState<string | null>(null)
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 800)
-  }, [])
-
-  const certificates = [
-    {
-      id: 1,
-      studentName: 'João Silva',
-      avatar: '👨‍💻',
-      projectTitle: 'Sistema de Gestão Escolar',
-      class: 'TDS-2024-A',
-      completionDate: '2025-06-01',
-      status: 'issued',
-      grade: 9.5,
-      skills: ['React', 'Node.js', 'MongoDB'],
-      mentor: 'Prof. Ana Costa',
-      downloadCount: 12,
-      shareCount: 5,
-      validationCode: 'CERT-2024-001',
-      description: 'Projeto completo de sistema de gestão com interface moderna e backend robusto'
-    },
-    {
-      id: 2,
-      studentName: 'Maria Santos',
-      avatar: '👩‍💻',
-      projectTitle: 'App de Controle Financeiro',
-      class: 'TDS-2024-A',
-      completionDate: '2025-05-28',
-      status: 'issued',
-      grade: 9.8,
-      skills: ['React Native', 'Firebase', 'TypeScript'],
-      mentor: 'Prof. Carlos Silva',
-      downloadCount: 8,
-      shareCount: 3,
-      validationCode: 'CERT-2024-002',
-      description: 'Aplicativo mobile completo para gestão financeira pessoal'
+  // Modais
+  const successModal = useModal()
+  const loadingModal = useModal()
+  const [certificateToDelete, setCertificateToDelete] = useState<any>(null)
+  
+  const deleteModal = useConfirmationModal({
+    onConfirm: async () => {
+      // Simular exclusão
+      loadingModal.open()
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      loadingModal.close()
+      successModal.open()
+      setCertificateToDelete(null)
     }
-  ]
+  })
+
+  // Busca dados reais do backend
+  const { data: alunos = [], isLoading: isLoadingAlunos } = useAlunos()
+  const { data: projetos = [], isLoading: isLoadingProjetos } = useProjetos()
+  const isLoading = isLoadingAlunos || isLoadingProjetos
+
+  // Função para abrir modal de exclusão
+  const handleDeleteCertificate = (certificate: any) => {
+    setCertificateToDelete(certificate)
+    deleteModal.open()
+  }
+
+  // Função para gerar certificado (exemplo)
+  const handleGenerateCertificate = async () => {
+    loadingModal.open()
+    // Simular geração
+    await new Promise(resolve => setTimeout(resolve, 3000))
+    loadingModal.close()
+    successModal.open()
+  }
+
+  // Gera certificados baseados em projetos concluídos
+  const certificates = React.useMemo(() => {
+    if (!projetos || !alunos) return []
+    
+    return projetos
+      .filter(projeto => projeto.status === 'CONCLUIDO' || projeto.status === 'FINALIZADO')
+      .map((projeto) => {
+        const student = alunos.find(aluno => aluno.uuid === projeto.liderProjeto?.uuid)
+        
+        return {
+          id: projeto.uuid,
+          studentName: student?.usuarios?.usuario || 'Aluno não encontrado',
+          avatar: '👤',
+          projectTitle: projeto.titulo,
+          class: projeto.turma || 'Turma não informada',
+          completionDate: new Date(projeto.atualizadoEm || projeto.criadoEm).toISOString().split('T')[0],
+          status: 'issued',
+          grade: 8.5,
+          skills: [],
+          mentor: 'Professor Responsável',
+          downloadCount: 0,
+          shareCount: 0,
+          certificateNumber: `CERT-${projeto.uuid.substring(0, 8).toUpperCase()}`,
+          workload: '40h',
+          validationCode: `CERT-${projeto.uuid.substring(0, 8).toUpperCase()}`,
+          description: projeto.descricao || 'Projeto concluído com sucesso'
+        }
+      })
+  }, [projetos, alunos])
 
   const stats = {
     totalCertificates: certificates.length,
     issuedCertificates: certificates.filter(c => c.status === 'issued').length,
     pendingCertificates: certificates.filter(c => c.status === 'pending').length,
-    averageGrade: (certificates.reduce((acc, c) => acc + c.grade, 0) / certificates.length).toFixed(1),
+    averageGrade: certificates.length > 0 ? (certificates.reduce((acc, c) => acc + c.grade, 0) / certificates.length).toFixed(1) : '0.0',
     totalDownloads: certificates.reduce((acc, c) => acc + c.downloadCount, 0)
   }
 
@@ -68,13 +99,20 @@ const TeacherCertificates = () => {
     }
   }
 
+  const filteredCertificates = certificates.filter(cert => {
+    const matchesStatus = filterStatus === 'all' || cert.status === filterStatus
+    const matchesSearch = cert.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         cert.projectTitle.toLowerCase().includes(searchTerm.toLowerCase())
+    return matchesStatus && matchesSearch
+  })
+
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 via-yellow-50 to-orange-50">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50">
         <div className="text-center">
           <div className="relative">
-            <div className="w-20 h-20 border-4 border-yellow-200 rounded-full animate-spin border-t-yellow-600 mx-auto"></div>
-            <Award className="h-8 w-8 text-yellow-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+            <div className="w-20 h-20 border-4 border-purple-200 rounded-full animate-spin border-t-purple-600 mx-auto"></div>
+            <Award className="h-8 w-8 text-purple-600 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
           </div>
           <p className="mt-4 text-gray-600 font-medium">Carregando certificados...</p>
         </div>
@@ -83,189 +121,240 @@ const TeacherCertificates = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-yellow-50 to-orange-50">
-      <div className="p-6 max-w-7xl mx-auto">
-        {/* Header Ultra-Moderno */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 p-6">
+      <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center space-x-3 mb-2">
-                <div className="p-3 bg-gradient-to-r from-yellow-600 to-orange-600 rounded-2xl shadow-lg">
-                  <Award className="h-8 w-8 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
-                    Certificados
-                  </h1>
-                  <div className="flex items-center space-x-2 mt-1">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <p className="text-gray-600">Sistema ativo</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl hover:scale-105 transition-all duration-300 shadow-lg flex items-center space-x-2">
-              <Plus className="h-5 w-5" />
-              <span>Novo Certificado</span>
-            </button>
-          </div>
-
-          {/* Barra de Pesquisa */}
-          <div className="flex items-center space-x-4 mt-6">
-            <div className="flex-1 relative">
-              <Search className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
-              <input
-                type="text"
-                placeholder="Buscar por estudante ou projeto..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-white rounded-2xl border border-gray-200 focus:ring-4 focus:ring-yellow-500/20 focus:border-yellow-500 transition-all duration-300"
-              />
-            </div>
-          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Certificados</h1>
+          <p className="text-gray-600">Gerencie e acompanhe os certificados dos seus alunos</p>
         </div>
 
         {/* Estatísticas */}
-        <div className="mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-white rounded-3xl shadow-xl p-6 hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-3xl font-bold text-gray-900">{stats.totalCertificates}</div>
-                  <div className="text-sm text-gray-600">Total</div>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl">
-                  <Award className="h-6 w-6 text-white" />
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600 mb-1">Total</p>
+                <p className="text-2xl font-bold text-gray-900">{stats.totalCertificates}</p>
+              </div>
+              <div className="p-3 bg-blue-100 rounded-lg">
+                <Award className="h-6 w-6 text-blue-600" />
               </div>
             </div>
+          </div>
 
-            <div className="bg-white rounded-3xl shadow-xl p-6 hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-3xl font-bold text-green-600">{stats.issuedCertificates}</div>
-                  <div className="text-sm text-gray-600">Emitidos</div>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl">
-                  <CheckCircle className="h-6 w-6 text-white" />
-                </div>
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600 mb-1">Emitidos</p>
+                <p className="text-2xl font-bold text-green-600">{stats.issuedCertificates}</p>
+              </div>
+              <div className="p-3 bg-green-100 rounded-lg">
+                <CheckCircle className="h-6 w-6 text-green-600" />
               </div>
             </div>
+          </div>
 
-            <div className="bg-white rounded-3xl shadow-xl p-6 hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-3xl font-bold text-purple-600">{stats.averageGrade}</div>
-                  <div className="text-sm text-gray-600">Nota Média</div>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl">
-                  <Star className="h-6 w-6 text-white" />
-                </div>
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600 mb-1">Pendentes</p>
+                <p className="text-2xl font-bold text-yellow-600">{stats.pendingCertificates}</p>
+              </div>
+              <div className="p-3 bg-yellow-100 rounded-lg">
+                <Clock className="h-6 w-6 text-yellow-600" />
               </div>
             </div>
+          </div>
 
-            <div className="bg-white rounded-3xl shadow-xl p-6 hover:scale-105 transition-all duration-300">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-3xl font-bold text-indigo-600">{stats.totalDownloads}</div>
-                  <div className="text-sm text-gray-600">Downloads</div>
-                </div>
-                <div className="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl">
-                  <Download className="h-6 w-6 text-white" />
-                </div>
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600 mb-1">Média</p>
+                <p className="text-2xl font-bold text-purple-600">{stats.averageGrade}</p>
+              </div>
+              <div className="p-3 bg-purple-100 rounded-lg">
+                <Star className="h-6 w-6 text-purple-600" />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600 mb-1">Downloads</p>
+                <p className="text-2xl font-bold text-indigo-600">{stats.totalDownloads}</p>
+              </div>
+              <div className="p-3 bg-indigo-100 rounded-lg">
+                <Download className="h-6 w-6 text-indigo-600" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Lista de Certificados */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {certificates.map((cert) => {
-            const statusColors = getStatusColor(cert.status)
-            const StatusIcon = statusColors.icon
-            
-            return (
-              <div
-                key={cert.id}
-                className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:scale-[1.02] transition-all duration-500 cursor-pointer group"
-                onClick={() => setSelectedCertificate(selectedCertificate === cert.id ? null : cert.id)}
-              >
-                {/* Header do Card */}
-                <div className="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 p-6 text-white">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="text-3xl">{cert.avatar}</div>
-                      <div>
-                        <h3 className="text-xl font-bold">{cert.studentName}</h3>
-                        <div className="flex items-center space-x-2">
-                          <div className={`w-3 h-3 ${statusColors.badge} rounded-full`}></div>
-                          <span className="text-sm opacity-90 capitalize">{cert.status}</span>
+        {/* Filtros */}
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-8">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="text"
+                  placeholder="Buscar por aluno ou projeto..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <Filter className="h-5 w-5 text-gray-400" />
+                <select
+                  value={filterStatus}
+                  onChange={(e) => setFilterStatus(e.target.value)}
+                  className="border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                >
+                  <option value="all">Todos os Status</option>
+                  <option value="issued">Emitidos</option>
+                  <option value="pending">Pendentes</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Lista de certificados */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          {filteredCertificates.length === 0 ? (
+            <div className="col-span-full bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center">
+              <Award className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum certificado encontrado</h3>
+              <p className="text-gray-600">
+                {certificates.length === 0 
+                  ? 'Nenhum projeto foi concluído ainda.'
+                  : 'Tente ajustar os filtros de busca.'
+                }
+              </p>
+            </div>
+          ) : (
+            filteredCertificates.map((cert) => {
+              const statusInfo = getStatusColor(cert.status)
+              const IconComponent = statusInfo.icon
+
+              return (
+                <div
+                  key={cert.id}
+                  className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group"
+                  onMouseEnter={() => setHoveredCard(Number(cert.id))}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  onClick={() => setSelectedCertificate(selectedCertificate === cert.id ? null : cert.id)}
+                >
+                  {/* Header do Card */}
+                  <div className={`p-4 ${statusInfo.bg} border-b border-gray-100`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="text-2xl">{cert.avatar}</div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900">{cert.studentName}</h4>
+                          <p className="text-sm text-gray-600">{cert.class}</p>
                         </div>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <Trophy className="h-5 w-5 text-yellow-300 mb-1" />
-                      <div className="text-2xl font-bold">{cert.grade}</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Conteúdo do Card */}
-                <div className="p-6">
-                  <div className="mb-4">
-                    <h4 className="text-lg font-bold text-gray-900 mb-2">{cert.projectTitle}</h4>
-                    <p className="text-gray-600 text-sm">{cert.description}</p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="bg-gray-50 rounded-2xl p-3">
-                      <div className="flex items-center space-x-2 text-sm">
-                        <Users className="h-4 w-4 text-gray-500" />
-                        <span className="font-medium">{cert.class}</span>
-                      </div>
-                    </div>
-                    <div className="bg-gray-50 rounded-2xl p-3">
-                      <div className="flex items-center space-x-2 text-sm">
-                        <Calendar className="h-4 w-4 text-gray-500" />
-                        <span className="font-medium">{new Date(cert.completionDate).toLocaleDateString('pt-BR')}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Skills */}
-                  <div className="mb-4">
-                    <div className="flex flex-wrap gap-2">
-                      {cert.skills.map((skill, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 text-xs rounded-full font-medium"
-                        >
-                          {skill}
+                      <div className={`flex items-center space-x-1 px-3 py-1 rounded-full ${statusInfo.bg}`}>
+                        <IconComponent className="h-4 w-4" />
+                        <span className={`text-xs font-medium ${statusInfo.text}`}>
+                          {cert.status === 'issued' ? 'Emitido' : 'Pendente'}
                         </span>
-                      ))}
+                      </div>
                     </div>
                   </div>
 
-                  {/* Ações */}
-                  <div className="flex space-x-3">
-                    <button 
-                      className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center space-x-2"
-                      disabled={cert.status !== 'issued'}
-                    >
-                      <Download className="h-4 w-4" />
-                      <span>Download</span>
-                    </button>
-                    <button className="flex-1 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center space-x-2">
-                      <Eye className="h-4 w-4" />
-                      <span>Visualizar</span>
-                    </button>
+                  {/* Conteúdo do Card */}
+                  <div className="p-6">
+                    <div className="mb-4">
+                      <h4 className="text-lg font-bold text-gray-900 mb-2">{cert.projectTitle}</h4>
+                      <p className="text-gray-600 text-sm">Projeto concluído com sucesso</p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                      <div className="bg-gray-50 rounded-lg p-3">
+                        <div className="flex items-center space-x-2 text-sm">
+                          <Calendar className="h-4 w-4 text-gray-400" />
+                          <span className="text-gray-600">Conclusão</span>
+                        </div>
+                        <p className="font-medium text-gray-900 mt-1">
+                          {new Date(cert.completionDate).toLocaleDateString('pt-BR')}
+                        </p>
+                      </div>
+
+                      <div className="bg-gray-50 rounded-lg p-3">
+                        <div className="flex items-center space-x-2 text-sm">
+                          <Star className="h-4 w-4 text-yellow-400" />
+                          <span className="text-gray-600">Nota</span>
+                        </div>
+                        <p className="font-medium text-gray-900 mt-1">{cert.grade.toFixed(1)}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                      <div className="flex items-center space-x-4 text-sm text-gray-600">
+                        <div className="flex items-center space-x-1">
+                          <Download className="h-4 w-4" />
+                          <span>{cert.downloadCount}</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Share2 className="h-4 w-4" />
+                          <span>{cert.shareCount}</span>
+                        </div>
+                      </div>                      <div className="flex items-center space-x-2">
+                        <button 
+                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          title="Visualizar certificado"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={handleGenerateCertificate}
+                          className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                          title="Gerar/Baixar certificado"
+                        >
+                          <Download className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteCertificate(cert)}
+                          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          title="Excluir certificado"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
+              )
+            })
+          )}
+        </div>        {/* Modais */}
+        <SuccessModal 
+          isOpen={successModal.isOpen} 
+          onClose={successModal.close} 
+          title="Sucesso" 
+          message="Ação realizada com sucesso!" 
+        />
+        <LoadingModal 
+          isOpen={loadingModal.isOpen} 
+          title="Processando..."
+          message="Aguarde enquanto processamos sua solicitação..."
+        />
+        <DeleteConfirmationModal 
+          isOpen={deleteModal.isOpen} 
+          onClose={deleteModal.close} 
+          onConfirm={deleteModal.confirm}
+          title="Confirmar Exclusão"
+          message="Tem certeza que deseja excluir este certificado?"
+          itemName={certificateToDelete?.studentName}
+          isLoading={deleteModal.isLoading}
+        />
       </div>
     </div>
   )

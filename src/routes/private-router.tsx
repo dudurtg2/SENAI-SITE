@@ -1,13 +1,16 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../contexts/auth-context'
+import { useGuest } from '../contexts/guest-context'
 
 interface PrivateProps {
   children: React.ReactNode
+  requireAuth?: boolean // Por padrão true, pode ser false para permitir visitantes
 }
 
-const Private: React.FC<PrivateProps> = ({ children }) => {
+const Private: React.FC<PrivateProps> = ({ children, requireAuth = true }) => {
   const { isAuthenticated, isLoading } = useAuth()
+  const { isGuest } = useGuest()
 
   if (isLoading) {
     return (
@@ -17,11 +20,13 @@ const Private: React.FC<PrivateProps> = ({ children }) => {
     )
   }
 
-  // Redirecionar para login se não autenticado
-  if (!isAuthenticated) {
+  // Se requer autenticação e não está autenticado nem é visitante
+  if (requireAuth && !isAuthenticated && !isGuest) {
     return <Navigate to="/login" replace />
   }
 
+  // Se não requer autenticação, permite acesso a qualquer um (auth, guest, ou não-auth)
+  // Se requer autenticação, só permite se autenticado OU visitante
   return <>{children}</>
 }
 

@@ -1,68 +1,55 @@
 import React, { useState, useEffect } from 'react'
 import { Search, Filter, Star, Calendar, Download, Eye, Edit, ClipboardCheck, TrendingUp, Users, Clock, CheckCircle, AlertCircle, Target, Zap, BookOpen, Award, BarChart3, Plus } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { useAvaliacoes, useProjetos } from '../../../hooks/use-queries'
 
 const TeacherEvaluations = () => {
   const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(true)
   const [filterStatus, setFilterStatus] = useState('all')
   const [filterClass, setFilterClass] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedEvaluation, setSelectedEvaluation] = useState<number | null>(null)
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 800)
-  }, [])
+  // Busca dados reais do backend
+  const { data: avaliacoes = [], isLoading: isLoadingAvaliacoes } = useAvaliacoes()
+  const { data: projetos = [], isLoading: isLoadingProjetos } = useProjetos()
 
-  const evaluations = [
-    {
-      id: 1,
-      studentName: 'João Silva',
-      avatar: '👨‍💻',
-      projectTitle: 'Sistema de Gestão Escolar',
-      class: 'TDS-2024-A',
-      submissionDate: '2025-06-08',
-      evaluationDate: '2025-06-09',
-      grade: 8.5,
-      status: 'evaluated',
-      priority: 'high',
-      feedback: 'Excelente trabalho! Demonstrou domínio das tecnologias utilizadas.',
-      criteria: {
-        technical: 9,
-        creativity: 8,
-        presentation: 8,
-        documentation: 8
-      },
-      technologies: ['React', 'Node.js', 'MongoDB'],
-      timeSpent: '12h',
-      complexity: 'high',
-      improvements: 2
-    },
-    {
-      id: 2,
-      studentName: 'Maria Santos',
-      avatar: '👩‍💻',
-      projectTitle: 'App de Controle Financeiro',
-      class: 'TDS-2024-A',
-      submissionDate: '2025-06-07',
-      evaluationDate: null,
-      grade: null,
-      status: 'pending',
-      priority: 'high',
-      feedback: '',
-      criteria: {
-        technical: 0,
-        creativity: 0,
-        presentation: 0,
-        documentation: 0
-      },
-      technologies: ['React Native', 'Firebase'],
-      timeSpent: '0h',
-      complexity: 'medium',
-      improvements: 0
-    }
-  ]
+  // Processa e combina dados de avaliações com projetos
+  const evaluations = React.useMemo(() => {
+    // Se não houver dados reais, retorna array vazio
+    if (avaliacoes.length === 0) return []
+    
+    // Combina dados de avaliações com dados de projetos
+    return avaliacoes.map((avaliacao: any, index: number) => {
+      const projeto = projetos.find(p => p.uuid === avaliacao.projetoUuid)
+      return {
+        id: avaliacao.uuid || index,
+        studentName: projeto?.liderProjeto?.usuarios?.usuario || 'Aluno desconhecido',
+        avatar: '�',
+        projectTitle: projeto?.titulo || 'Projeto sem título',
+        class: projeto?.turma || 'Turma N/A',
+        submissionDate: projeto?.criadoEm ? new Date(projeto.criadoEm).toISOString().split('T')[0] : '2025-06-08',
+        evaluationDate: avaliacao.criadoEm ? new Date(avaliacao.criadoEm).toISOString().split('T')[0] : null,
+        grade: avaliacao.nota || null,
+        status: avaliacao.status || 'pending',
+        priority: 'medium',
+        feedback: avaliacao.feedback || '',
+        criteria: {
+          technical: avaliacao.notaTecnica || 0,
+          creativity: avaliacao.notaCriatividade || 0,
+          presentation: avaliacao.notaApresentacao || 0,
+          documentation: avaliacao.notaDocumentacao || 0
+        },
+        technologies: [], // Será preenchido quando tiver dados específicos
+        timeSpent: '0h',
+        complexity: 'medium',
+        improvements: 0
+      }
+    })
+  }, [avaliacoes, projetos])
+
+  const isLoading = isLoadingAvaliacoes || isLoadingProjetos
 
   const stats = {
     totalEvaluations: evaluations.length,

@@ -16,9 +16,24 @@
     100% { transform: translateX(-50%); } /* Move metade da largura total (imagens duplicadas) */
 }
 
+@keyframes scale-in {
+    0% { 
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+}
+
 @layer utilities {
   .animate-scroll {
     animation: scroll 30s linear infinite; /* Ajuste a duração (30s) conforme necessário */
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out;
   }
 
   /* Opcional: Pausar animação no hover */

@@ -11,7 +11,7 @@ import {
 } from 'lucide-react'
 import ProjectTimeline from '../../components/project-timeline'
 import Modal from '../../components/Modal'
-import { useProjetos } from '../../hooks/use-queries'
+import { useProjetos, useEtapasProjetos } from '../../hooks/use-queries'
 
 import LampadaAcessa from '../../assets/assert/lampada_acessa.svg'
 import LampadaApagada from '../../assets/assert/lampada_apagada.svg'
@@ -21,8 +21,9 @@ const ProjectDetailPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [rating, setRating] = useState(0) // Estado para a avaliação (0 a 5)
 
-  // Buscar todos os projetos da API
+  // Buscar todos os projetos e etapas da API
   const { data: projetos, isLoading, error } = useProjetos()
+  const { data: etapasProjetos = [], isLoading: isLoadingEtapas } = useEtapasProjetos()
 
   // Encontrar o projeto específico no client-side
   const projeto = useMemo(() => {
@@ -30,13 +31,18 @@ const ProjectDetailPage = () => {
     return projetos.find(p => p.uuid === projectId)
   }, [projetos, projectId])
 
-  // Mock da timeline - você pode criar uma API específica para isso depois
-  const timelineEvents = [
-    { date: 'dd/mm/aaaa', description: 'Criatividade e Ideação' },
-    { date: 'dd/mm/aaaa', description: 'Modelagem de Projetos' },
-    { date: 'dd/mm/aaaa', description: 'Prototipagem de Projetos' },
-    { date: 'dd/mm/aaaa', description: 'Implementação de Projetos' }
-  ]
+  // Busca etapas reais do projeto ordenadas
+  const timelineEvents = useMemo(() => {
+    if (!projectId || !etapasProjetos) return []
+    return etapasProjetos
+      .filter(etapa => etapa.projeto.uuid === projectId)
+      .sort((a, b) => a.ordem - b.ordem)
+      .map(etapa => ({
+        date: new Date(etapa.criadoEm).toLocaleDateString('pt-BR'),
+        description: etapa.nomeEtapa,
+        status: etapa.status
+      }))
+  }, [etapasProjetos, projectId])
 
   const handleViewAttachmentsClick = () => {
     setIsModalOpen(true)

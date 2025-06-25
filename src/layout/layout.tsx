@@ -2,6 +2,8 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from '../components/layout/header'
 import Sidebar from '../components/layout/sidebar'
+import GuestBanner from '../components/guest-banner'
+import ModalManager from '../components/modals/modal-manager'
 import { useHideSidebar } from '../hooks/use-hide-sidebar'
 
 const Layout = () => {
@@ -9,6 +11,8 @@ const Layout = () => {
 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
+      <GuestBanner />
+      
       <div className="flex-shrink-0">
         <Header />
       </div>
@@ -24,6 +28,9 @@ const Layout = () => {
           <Outlet />
         </main>
       </div>
+
+      {/* Gerenciador de modais global */}
+      <ModalManager />
     </div>
   )
 }

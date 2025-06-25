@@ -1,83 +1,47 @@
 import React, { useState } from 'react'
 import { Search, Users, Mail, Phone, Award, BookOpen, TrendingUp } from 'lucide-react'
+import { useAlunos, useProjetos } from '../../../hooks/use-queries'
 
 const TeacherStudents = () => {
   const [selectedClass, setSelectedClass] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
 
-  const classes = [
-    { id: 'TDS-2024-A', name: 'TDS 2024 - Turma A', students: 28 },
-    { id: 'TDS-2024-B', name: 'TDS 2024 - Turma B', students: 32 },
-    { id: 'TDS-2023', name: 'TDS 2023', students: 25 }
-  ]
+  // Busca dados reais do backend
+  const { data: alunos = [], isLoading } = useAlunos()
+  const { data: projetos = [] } = useProjetos()
 
-  const students = [
-    {
-      id: 1,
-      name: 'João Silva',
-      email: 'joao.silva@ba.estudante.br',
-      ra: '2024001',
-      class: 'TDS-2024-A',
-      phone: '(71) 99999-9999',
-      projectsSubmitted: 3,
-      projectsApproved: 2,
-      averageGrade: 8.5,
-      status: 'active',
-      avatar: null
-    },
-    {
-      id: 2,
-      name: 'Maria Santos',
-      email: 'maria.santos@ba.estudante.br',
-      ra: '2024002',
-      class: 'TDS-2024-A',
-      phone: '(71) 98888-8888',
-      projectsSubmitted: 4,
-      projectsApproved: 4,
-      averageGrade: 9.2,
-      status: 'active',
-      avatar: null
-    },
-    {
-      id: 3,
-      name: 'Pedro Costa',
-      email: 'pedro.costa@ba.estudante.br',
-      ra: '2023001',
-      class: 'TDS-2023',
-      phone: '(71) 97777-7777',
-      projectsSubmitted: 5,
-      projectsApproved: 3,
-      averageGrade: 7.8,
-      status: 'active',
-      avatar: null
-    },
-    {
-      id: 4,
-      name: 'Ana Oliveira',
-      email: 'ana.oliveira@ba.estudante.br',
-      ra: '2024003',
-      class: 'TDS-2024-B',
-      phone: '(71) 96666-6666',
-      projectsSubmitted: 2,
-      projectsApproved: 1,
-      averageGrade: 8.0,
-      status: 'active',
-      avatar: null
-    },
-    {
-      id: 5,
-      name: 'Carlos Ferreira',
-      email: 'carlos.ferreira@ba.estudante.br',
-      ra: '2024004',
-      class: 'TDS-2024-B',
-      phone: '(71) 95555-5555',
-      projectsSubmitted: 1,
-      projectsApproved: 0,
-      averageGrade: 6.5,
-      status: 'attention',
-      avatar: null
-    }
-  ]
+  // Processa turmas únicas dos alunos
+  const classes = React.useMemo(() => {
+    const uniqueClasses = [...new Set(alunos.map(aluno => aluno.curso).filter(Boolean))]
+    return uniqueClasses.map(curso => ({
+      id: curso,
+      name: curso,
+      students: alunos.filter(aluno => aluno.curso === curso).length
+    }))
+  }, [alunos])
+
+  // Processa dados dos estudantes com estatísticas de projetos
+  const students = React.useMemo(() => {
+    return alunos.map((aluno, index) => {
+      // Calcula estatísticas de projetos do aluno
+      const alunoProjects = projetos.filter(projeto => projeto.liderProjeto?.uuid === aluno.uuid)
+      const approvedProjects = alunoProjects.filter(p => p.status === 'CONCLUIDO' || p.status === 'FINALIZADO')
+      
+      return {
+        id: aluno.uuid,
+        name: aluno.usuarios?.usuario || 'Nome não informado',
+        email: aluno.usuarios?.email || 'Email não informado',
+        ra: aluno.matricula || `MAT${String(index + 1).padStart(6, '0')}`,
+        class: aluno.curso || 'Curso não informado',
+        phone: aluno.telefonePessoal || 'Não informado',
+        projectsSubmitted: alunoProjects.length,
+        projectsApproved: approvedProjects.length,
+        averageGrade: 8.0, // Valor padrão até ter sistema de notas
+        status: aluno.status?.toLowerCase() === 'ativo' ? 'active' : 'inactive',
+        avatar: null
+      }
+    })
+  }, [alunos, projetos])
 
   const getGradeColor = (grade: number) => {
     if (grade >= 9) return 'text-green-600 bg-green-100'
@@ -196,9 +160,28 @@ const TeacherStudents = () => {
                     Ações
                   </th>
                 </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {filteredStudents.map((student) => (
+              </thead>              <tbody className="bg-white divide-y divide-gray-200">
+                {isLoading ? (
+                  <tr>
+                    <td colSpan={6} className="px-6 py-12 text-center">
+                      <div className="flex flex-col items-center">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
+                        <p className="text-gray-500">Carregando estudantes...</p>
+                      </div>
+                    </td>
+                  </tr>
+                ) : filteredStudents.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-6 py-12 text-center">
+                      <div className="flex flex-col items-center">
+                        <Users className="h-12 w-12 text-gray-300 mb-4" />
+                        <p className="text-gray-500 text-lg font-medium">Nenhum estudante encontrado</p>
+                        <p className="text-gray-400 text-sm">Tente ajustar os filtros de busca</p>
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  filteredStudents.map((student) => (
                   <tr key={student.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -253,25 +236,12 @@ const TeacherStudents = () => {
                         <button className="text-purple-600 hover:text-purple-900">
                           <Phone className="h-4 w-4" />
                         </button>
-                      </div>
-                    </td>
+                      </div>                    </td>
                   </tr>
-                ))}
+                  ))
+                )}
               </tbody>
-            </table>
-          </div>
-
-          {filteredStudents.length === 0 && (
-            <div className="text-center py-12">
-              <div className="text-gray-400 mb-4">
-                <Users className="h-12 w-12 mx-auto" />
-              </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum estudante encontrado</h3>
-              <p className="text-gray-600">
-                Tente ajustar os filtros ou termo de busca para encontrar estudantes.
-              </p>
-            </div>
-          )}
+            </table>          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionamento Google - Portal SENAI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f3f4f6;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner"></div>
+        <h2>Processando Login do Google</h2>
+        <p id="status">Redirecionando para o portal...</p>
+    </div>
+
+    <script>
+        console.log('🔧 Google Redirect HTML - Iniciado')
+        console.log('📍 URL atual:', window.location.href)
+        
+        const statusElement = document.getElementById('status')
+        
+        function updateStatus(message) {
+            console.log('📄', message)
+            statusElement.textContent = message
+        }
+        
+        function redirectToApp(data = null) {
+            const baseUrl = window.location.origin
+            let redirectUrl = `${baseUrl}/auth/google/callback?google_auth=true`
+            
+            // Se temos dados, salvar no sessionStorage
+            if (data) {
+                try {
+                    sessionStorage.setItem('google_auth_data', JSON.stringify(data))
+                    console.log('💾 Dados salvos no sessionStorage')
+                } catch (e) {
+                    console.error('❌ Erro ao salvar no sessionStorage:', e)
+                    // Fallback: tentar passar pela URL (limitado pelo tamanho)
+                    try {
+                        redirectUrl += `&data=${encodeURIComponent(JSON.stringify(data))}`
+                    } catch (err) {
+                        console.error('❌ Dados muito grandes para URL:', err)
+                    }
+                }
+            }
+            
+            console.log('🔄 Redirecionando para:', redirectUrl)
+            window.location.href = redirectUrl
+        }
+        
+        // Função principal que processa o redirecionamento
+        function processGoogleRedirect() {
+            try {
+                updateStatus('Verificando dados de autenticação...')
+                
+                // Método 1: Verificar se há dados JSON na URL atual
+                const urlParams = new URLSearchParams(window.location.search)
+                const dataParam = urlParams.get('data')
+                
+                if (dataParam) {
+                    console.log('✅ Dados JSON encontrados na URL')
+                    try {
+                        const userData = JSON.parse(decodeURIComponent(dataParam))
+                        console.log('📦 Dados do usuário:', userData)
+                        
+                        updateStatus('Dados encontrados! Redirecionando...')
+                        setTimeout(() => redirectToApp(userData), 1000)
+                        return
+                    } catch (e) {
+                        console.error('❌ Erro ao processar dados da URL:', e)
+                    }
+                }
+                
+                // Método 2: OAuth tradicional com code e state
+                const code = urlParams.get('code')
+                const state = urlParams.get('state')
+                
+                if (code && state) {
+                    console.log('🌐 Code e State encontrados')
+                    updateStatus('Processando autenticação...')
+                    
+                    // Redirecionar para o React com os parâmetros
+                    const redirectUrl = `${window.location.origin}/auth/google/callback?code=${code}&state=${state}`
+                    console.log('🔄 Redirecionando para React com code/state:', redirectUrl)
+                    setTimeout(() => {
+                        window.location.href = redirectUrl
+                    }, 1000)
+                    return
+                }
+                
+                // Método 3: Verificar se há JSON diretamente na URL (formato antigo)
+                const url = window.location.href
+                const jsonStart = url.indexOf('{"accessToken"')
+                
+                if (jsonStart !== -1) {
+                    console.log('✅ JSON encontrado diretamente na URL')
+                    try {
+                        let jsonString = url.substring(jsonStart)
+                        jsonString = decodeURIComponent(jsonString)
+                        
+                        const userData = JSON.parse(jsonString)
+                        console.log('📦 Dados do usuário do JSON da URL:', userData)
+                        
+                        updateStatus('Dados encontrados! Redirecionando...')
+                        setTimeout(() => redirectToApp(userData), 1000)
+                        return
+                    } catch (e) {
+                        console.error('❌ Erro ao processar JSON da URL:', e)
+                    }
+                }
+                
+                // Se chegou até aqui, redirecionar para o React para tentar processar
+                console.log('⚠️ Nenhum método específico encontrado, redirecionando para React')
+                updateStatus('Transferindo para aplicação...')
+                setTimeout(() => redirectToApp(), 2000)
+                
+            } catch (error) {
+                console.error('❌ Erro no processamento:', error)
+                updateStatus('Erro no processamento, redirecionando...')
+                setTimeout(() => redirectToApp(), 2000)
+            }
+        }
+        
+        // Executar quando a página carregar
+        window.addEventListener('load', processGoogleRedirect)
+        
+        // Fallback: executar após 1 segundo se ainda não executou
+        setTimeout(() => {
+            if (statusElement.textContent === 'Redirecionando para o portal...') {
+                console.log('🔄 Fallback executado')
+                processGoogleRedirect()
+            }
+        }, 1000)
+    </script>
+</body>
+</html>

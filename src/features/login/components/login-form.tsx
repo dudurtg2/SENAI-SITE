@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../../contexts/user-context'
-import { useLoginAuth } from '../../../hooks/use-mutation'
+import { useLoginAuth } from '../../../hooks/use-auth'
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -13,25 +13,24 @@ const LoginForm = () => {
   })
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
-  const allowedDomains = [
-    '@ba.estudante.senai.br',
-    '@ba.senai.br',
-    '@gmail.com'
-  ]
-
-  const validateEmailDomain = (email: string): boolean => {
-    return allowedDomains.some(domain => email.endsWith(domain))
-  }
-  
-  const loginMutation = useLoginAuth({
+  // Validação de domínio removida - aceita qualquer email válido
+    const loginMutation = useLoginAuth({
     onSuccess: data => {
       console.log('Login bem-sucedido:', data)
-      setUser(data)
+      
+      // Mapear dados para o contexto do usuário
+      const userData = {
+        id: data.usuariosEntity.uuid,
+        name: data.usuariosEntity.nome,
+        email: data.usuariosEntity.email,
+        token: data.accessToken
+      }
+      
+      setUser(userData)
       setIsAuthenticated(true)
       
-      // Redirecionamento baseado no tipo de usuário
-      if (formData.userType === 'teacher') {
+      // Redirecionamento baseado no tipo de usuário do backend
+      if (data.usuariosEntity.tipo === 'PROFESSOR') {
         navigate('/teacher')
       } else {
         navigate('/app')
@@ -65,12 +64,13 @@ const LoginForm = () => {
     if (!email || !password) {
       setError('Preencha todos os campos')
       return
-    }
-
+    }    // Validação de domínio removida
+    /*
     if (!validateEmailDomain(email)) {
       setError('Este domínio de e-mail não é permitido')
       return
     }
+    */
 
     setIsLoading(true)
     // Enviar requisição de login

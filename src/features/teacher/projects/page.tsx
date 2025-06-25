@@ -1,56 +1,29 @@
 import React, { useState } from 'react'
 import { Search, Filter, Eye, CheckCircle, XCircle, Clock, MessageSquare } from 'lucide-react'
+import { useProjetos } from '../../../hooks/use-queries'
 
 const TeacherProjects = () => {
   const [filterStatus, setFilterStatus] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
 
-  const projects = [
-    {
-      id: 1,
-      title: 'Sistema de Gestão Escolar',
-      student: 'João Silva',
-      class: 'TDS-2024-A',
-      status: 'pending',
-      submittedAt: '2025-06-08T10:30:00Z',
-      description: 'Sistema completo para gerenciamento de notas, frequência e comunicação escolar.',
-      technologies: ['React', 'Node.js', 'PostgreSQL'],
-      priority: 'high'
-    },
-    {
-      id: 2,
-      title: 'App de Controle Financeiro',
-      student: 'Maria Santos',
-      class: 'TDS-2024-A',
-      status: 'approved',
-      submittedAt: '2025-06-07T14:15:00Z',
-      description: 'Aplicativo mobile para controle de gastos pessoais com relatórios detalhados.',
-      technologies: ['React Native', 'Firebase', 'Chart.js'],
+  // Busca projetos reais do backend
+  const { data: projetos = [], isLoading } = useProjetos()
+
+  // Converte dados do backend para o formato esperado pelo componente
+  const projects = React.useMemo(() => {
+    return projetos.map((projeto, index) => ({
+      id: projeto.uuid,
+      title: projeto.titulo,
+      student: projeto.liderProjeto?.usuarios?.usuario || 'Aluno não informado',
+      class: projeto.turma || 'Turma não informada',
+      status: projeto.status === 'CONCLUIDO' ? 'approved' :
+              projeto.status === 'EM_ANDAMENTO' ? 'pending' :
+              projeto.status === 'REVISAO' ? 'revision' : 'pending',
+      submittedAt: projeto.criadoEm,      description: projeto.descricao || 'Descrição não disponível',
+      technologies: [], // Será implementado quando tiver dados específicos
       priority: 'medium'
-    },
-    {
-      id: 3,
-      title: 'E-commerce de Livros',
-      student: 'Pedro Costa',
-      class: 'TDS-2023',
-      status: 'revision',
-      submittedAt: '2025-06-06T09:20:00Z',
-      description: 'Plataforma de venda de livros online com sistema de recomendações.',
-      technologies: ['Vue.js', 'Express', 'MongoDB'],
-      priority: 'low'
-    },
-    {
-      id: 4,
-      title: 'Sistema de Agendamento',
-      student: 'Ana Oliveira',
-      class: 'TDS-2024-B',
-      status: 'pending',
-      submittedAt: '2025-06-09T08:45:00Z',
-      description: 'Sistema para agendamento de consultas médicas com notificações automáticas.',
-      technologies: ['Angular', 'Spring Boot', 'MySQL'],
-      priority: 'high'
-    }
-  ]
+    }))
+  }, [projetos])
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -209,11 +182,21 @@ const TeacherProjects = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Lista de projetos */}
+        </div>        {/* Lista de projetos */}
         <div className="space-y-4">
-          {filteredProjects.map((project) => (
+          {isLoading ? (
+            <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <p className="text-gray-500">Carregando projetos...</p>
+            </div>
+          ) : filteredProjects.length === 0 ? (
+            <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
+              <MessageSquare className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+              <p className="text-gray-500 text-lg font-medium">Nenhum projeto encontrado</p>
+              <p className="text-gray-400 text-sm">Tente ajustar os filtros de busca</p>
+            </div>
+          ) : (
+            filteredProjects.map((project) => (
             <div
               key={project.id}
               className={`bg-white rounded-lg shadow-sm border-l-4 ${getPriorityColor(project.priority)} hover:shadow-md transition-shadow`}
@@ -273,23 +256,11 @@ const TeacherProjects = () => {
                       </>
                     )}
                   </div>
-                </div>
-              </div>
+                </div>              </div>
             </div>
-          ))}
+            ))
+          )}
         </div>
-
-        {filteredProjects.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
-              <Eye className="h-12 w-12 mx-auto" />
-            </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum projeto encontrado</h3>
-            <p className="text-gray-600">
-              Tente ajustar os filtros ou termo de busca para encontrar projetos.
-            </p>
-          </div>
-        )}
       </div>
     </div>
   )

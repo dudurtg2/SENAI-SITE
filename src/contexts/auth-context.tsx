@@ -6,6 +6,7 @@ import React, {
   ReactNode
 } from 'react'
 import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 
 interface User {
   uuid: string
@@ -33,6 +34,9 @@ interface AuthContextType {
   logout: () => void
   isAuthenticated: boolean
   isLoading: boolean
+  showLogoutModal: boolean
+  setShowLogoutModal: (show: boolean) => void
+  confirmLogout: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -46,6 +50,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [accessToken, setAccessToken] = useState<string | null>(null)
   const [refreshToken, setRefreshToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [showLogoutModal, setShowLogoutModal] = useState(false)
 
   useEffect(() => {
     // Verificar se há dados de autenticação salvos nos cookies
@@ -64,11 +69,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         Cookies.remove('accessToken')
         Cookies.remove('refreshToken')
         Cookies.remove('user')
-      }
-    }
+      }    }
     setIsLoading(false)
   }, [])
-
+  
   const login = (data: any) => {
     const { accessToken, refreshToken, usuariosEntity } = data
 
@@ -80,13 +84,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Salvar no localStorage também (backup)
     localStorage.setItem('accessTokenIntegrado', accessToken)
 
-    // Atualizar estado
+    // Limpar estado de visitante quando fazer login
+    localStorage.removeItem('isGuest')    // Atualizar estado
     setAccessToken(accessToken)
     setRefreshToken(refreshToken)
     setUser(usuariosEntity)
+
+    // Não mostrar modal de sucesso - redirecionamento direto
   }
 
   const logout = () => {
+    // Apenas mostrar o modal de confirmação
+    setShowLogoutModal(true)
+  }
+
+  const confirmLogout = () => {
     // Remover dos cookies
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
@@ -99,20 +111,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setAccessToken(null)
     setRefreshToken(null)
     setUser(null)
+    setShowLogoutModal(false)
+
+    // Redirecionar para landing page
+    window.location.href = '/'
   }
 
   const isAuthenticated = !!accessToken && !!user
-
   return (
-    <AuthContext.Provider
-      value={{
+    <AuthContext.Provider      value={{
         user,
         accessToken,
         refreshToken,
         login,
         logout,
         isAuthenticated,
-        isLoading
+        isLoading,
+        showLogoutModal,
+        setShowLogoutModal,
+        confirmLogout
       }}
     >
       {children}

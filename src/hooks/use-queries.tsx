@@ -12,7 +12,8 @@ import {
   getProjetoAlunos,
   getProjetoProfessores,
   getEtapasProjetos,
-  getAnexosEtapas
+  getAnexosEtapas,
+  getAvaliacoes
 } from '../api/queries'
 import { useQueries, UseQueryOptions, useQuery } from '@tanstack/react-query'
 import {
@@ -194,6 +195,16 @@ export function useAnexosEtapas(
   return useQuery({
     queryKey: ['getAnexosEtapas'],
     queryFn: () => getAnexosEtapas(),
+    retry: 1,
+    ...options
+  })
+}
+
+// Avaliações
+export function useAvaliacoes(options?: UseQueryOptions<any[], Error>) {
+  return useQuery({
+    queryKey: ['getAvaliacoes'],
+    queryFn: () => getAvaliacoes(),
     retry: 1,
     ...options
   })
