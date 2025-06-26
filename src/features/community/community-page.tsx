@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import { getCommunityData } from '../../api/queries';
 import { CommunityData } from '../../types/types-queries';
+import { useGuest } from '../../contexts/guest-context'
+import { useAuth } from '../../contexts/auth-context'
 
 const CommunityPage: React.FC = () => {
+  const navigate = useNavigate()
+  const { isGuest } = useGuest()
+  const { isAuthenticated } = useAuth()
+
+  // Redirecionar visitantes para o dashboard
+  useEffect(() => {
+    if (isGuest || !isAuthenticated) {
+      navigate('/app/dashboard', { replace: true })
+      return
+    }
+  }, [isGuest, isAuthenticated, navigate])
+
   const { data, isLoading, error } = useQuery<CommunityData>({
     queryKey: ['communityData'],
     queryFn: getCommunityData,

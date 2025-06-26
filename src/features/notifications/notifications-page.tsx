@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 import { Notification } from '../../types/types-queries';
 import NotificationCard from '../../components/notification-card';
 import { useNotifications } from '../../contexts/notification-context';
+import { useGuest } from '../../contexts/guest-context'
+import { useAuth } from '../../contexts/auth-context'
 
 const NotificationsPage: React.FC = () => {
+  const navigate = useNavigate()
+  const { isGuest } = useGuest()
+  const { isAuthenticated } = useAuth()
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [filterOption, setFilterOption] = useState<string>('Mais recentes');
   const [filteredNotifications, setFilteredNotifications] = useState<Notification[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  
+  // Redirecionar visitantes para o dashboard
+  useEffect(() => {
+    if (isGuest || !isAuthenticated) {
+      navigate('/app/dashboard', { replace: true })
+      return
+    }
+  }, [isGuest, isAuthenticated, navigate])
   
   // Usando o contexto de notificações
   const { 

@@ -107,15 +107,9 @@ const EnhancedLoginForm = () => {
       alert('Erro na configuração do Google OAuth. Verifique a configuração do servidor.')
     }
   }
-
   const handleGuestAccess = () => {
-    // Acesso como visitante - verificar se já tem guest=true na URL
-    const searchParams = new URLSearchParams(location.search)
-    if (searchParams.get('guest') === 'true') {
-      navigate('/app')
-    } else {
-      navigate('/app?guest=true')
-    }
+    // Acesso como visitante - sempre redirecionar para dashboard com parâmetro guest
+    navigate('/app/dashboard?guest=true')
   }
 
   const handleSubmit = async (e: React.FormEvent) => {

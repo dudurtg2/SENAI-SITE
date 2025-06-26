@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Search,
   ChevronDown,
@@ -15,10 +16,23 @@ import ProjectCard from '../../components/project-card'
 import { Link } from 'react-router-dom'
 import { useProjetos } from '../../hooks/use-queries'
 import { Projeto } from '../../types/types-queries'
+import { useGuest } from '../../contexts/guest-context'
+import { useAuth } from '../../contexts/auth-context'
 
 type StatusType = 'development' | 'planning' | 'production' | 'completed'
 
 const ProjectsPage = () => {
+  const navigate = useNavigate()
+  const { isGuest } = useGuest()
+  const { isAuthenticated } = useAuth()
+  
+  // Redirecionar visitantes para o dashboard
+  useEffect(() => {
+    if (isGuest || !isAuthenticated) {
+      navigate('/app/dashboard', { replace: true })
+    }
+  }, [isGuest, isAuthenticated, navigate])
+
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(9)
   const [searchTerm, setSearchTerm] = useState('')

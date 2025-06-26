@@ -4,6 +4,7 @@ import { Eye, EyeOff, User, Users, Mail, Lock, UserPlus, AlertCircle } from 'luc
 import { useAuth } from '../../../contexts/auth-context'
 import { useRegisterAuth } from '../../../hooks/use-auth'
 import RegistroSucessoModal from '../../../components/modals/registro-sucesso-modal'
+import ErrorModal from '../../../components/modals/error-modal'
 
 interface FormData {
   nome: string
@@ -28,11 +29,15 @@ const RegisterForm = () => {
     userType: 'aluno',
     termsAccepted: false
   })
-    const [errors, setErrors] = useState<Record<string, string>>({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [isLoading, setIsLoading] = useState(false)
   
-  // Estados para o modal de sucesso
+  // Estados para modais
   const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [showErrorModal, setShowErrorModal] = useState(false)
+  const [errorType, setErrorType] = useState<'email_already_exists' | 'terms_required' | 'weak_password' | 'network_error' | 'server_error' | 'generic'>('generic')
+  
+  // Estados para o modal de sucesso
   const [registeredUserData, setRegisteredUserData] = useState<{
     nome: string
     tipo: 'PROFESSOR' | 'ALUNO'
@@ -92,11 +97,31 @@ const RegisterForm = () => {
       
       // Mostrar modal de sucesso
       setShowSuccessModal(true)
-    },
-    onError: (error: any) => {
+    },    onError: (error: any) => {
       console.error('Erro no registro:', error)
-      setErrors({ submit: 'Erro ao criar conta. Tente novamente.' })
       setIsLoading(false)
+      
+      // Determinar tipo de erro baseado na resposta
+      let errorTypeToShow: typeof errorType = 'generic'
+      
+      if (error?.response?.status === 409) {
+        errorTypeToShow = 'email_already_exists'
+      } else if (error?.response?.status === 400) {
+        const errorMessage = error?.response?.data?.message?.toLowerCase() || ''
+        
+        if (errorMessage.includes('termos') || errorMessage.includes('aceite')) {
+          errorTypeToShow = 'terms_required'
+        } else if (errorMessage.includes('senha') || errorMessage.includes('password')) {
+          errorTypeToShow = 'weak_password'
+        }
+      } else if (error?.response?.status >= 500) {
+        errorTypeToShow = 'server_error'
+      } else if (!error?.response) {
+        errorTypeToShow = 'network_error'
+      }
+      
+      setErrorType(errorTypeToShow)
+      setShowErrorModal(true)
     }
   })
 
@@ -172,7 +197,6 @@ const RegisterForm = () => {
   const handleCloseSuccessModal = () => {
     setShowSuccessModal(false)
   }
-
   const handleRedirectToDashboard = () => {
     setShowSuccessModal(false)
     
@@ -183,16 +207,9 @@ const RegisterForm = () => {
       navigate('/app')
     }
   }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Erro geral */}
-      {errors.submit && (
-        <div className="bg-red-50 border border-red-200 rounded-md p-3 flex items-center space-x-2">
-          <AlertCircle className="h-5 w-5 text-red-600" />
-          <span className="text-red-700 text-sm">{errors.submit}</span>
-        </div>
-      )}
-
       {/* Nome e Email em grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Nome */}
@@ -419,8 +436,7 @@ const RegisterForm = () => {
           <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
         </svg>        Continuar com Google
       </button>
-      
-      {/* Modal de Sucesso */}
+        {/* Modal de Sucesso */}
       {showSuccessModal && registeredUserData && (
         <RegistroSucessoModal
           isOpen={showSuccessModal}
@@ -430,6 +446,18 @@ const RegisterForm = () => {
           onRedirect={handleRedirectToDashboard}
         />
       )}
+
+      {/* Modal de Erro */}
+      <ErrorModal
+        isOpen={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+        errorType={errorType}
+        onRetry={() => {
+          setShowErrorModal(false)
+          // Opcional: retentar o registro com os mesmos dados
+        }}
+        showRetryButton={true}
+      />
     </form>
   )
 }

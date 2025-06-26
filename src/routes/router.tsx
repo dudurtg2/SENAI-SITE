@@ -12,6 +12,7 @@ import LoginPage from '../features/login/page'
 import RegisterPage from '../features/register/page'
 import GoogleCallback from '../features/auth/google-callback'
 import GoogleOAuthDiagnostico from '../features/auth/google-oauth-diagnostico'
+import GuestTestPage from '../features/guest-test/page'
 import ProjectDetailPage from '../features/project-detail/page'
 import CreateProjectPage from '../features/create-project/page'
 import NotificationsPage from '../features/notifications/notifications-page'
@@ -59,6 +60,7 @@ const Routers: React.FC = () => {
                 />                <Route path="/auth/google/callback" element={<GoogleCallback />} />
                 <Route path="/login/oauth2/code/google" element={<GoogleCallback />} />
                 <Route path="/debug/google-oauth" element={<GoogleOAuthDiagnostico />} />
+                <Route path="/guest-test" element={<GuestTestPage />} />
               {/* Rotas do Estudante */}
               <Route
                 path="/app"

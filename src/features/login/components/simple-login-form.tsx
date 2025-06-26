@@ -24,7 +24,7 @@ const LoginForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isLoading, setIsLoading] = useState(false)
   const [showErrorModal, setShowErrorModal] = useState(false)
-  const [errorType, setErrorType] = useState<'invalid_credentials' | 'email_not_found' | 'wrong_password' | 'network_error' | 'server_error' | 'generic'>('generic')
+  const [errorType, setErrorType] = useState<'invalid_credentials' | 'email_not_found' | 'wrong_password' | 'account_locked' | 'network_error' | 'server_error' | 'generic'>('generic')
   
   // Validação de domínio removida - aceita qualquer email válido
 
@@ -67,11 +67,12 @@ const LoginForm = () => {
       
       if (error?.response?.status === 401) {
         const errorMessage = error?.response?.data?.message?.toLowerCase() || ''
-        
-        if (errorMessage.includes('email') || errorMessage.includes('usuário')) {
+          if (errorMessage.includes('email') || errorMessage.includes('usuário')) {
           errorTypeToShow = 'email_not_found'
         } else if (errorMessage.includes('senha') || errorMessage.includes('password')) {
           errorTypeToShow = 'wrong_password'
+        } else if (errorMessage.includes('bloqueada') || errorMessage.includes('locked') || errorMessage.includes('inativa')) {
+          errorTypeToShow = 'account_locked'
         } else {
           errorTypeToShow = 'invalid_credentials'
         }

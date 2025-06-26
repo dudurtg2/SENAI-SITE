@@ -1,11 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AccountInfo from './components/account-info'
 import AccountProjects from './components/account-projects'
 
 import { Link } from 'react-router-dom'
+import { useGuest } from '../../contexts/guest-context'
+import { useAuth } from '../../contexts/auth-context'
 
 const AccountPage = () => {
+  const navigate = useNavigate()
+  const { isGuest } = useGuest()
+  const { isAuthenticated } = useAuth()
   const [tab, setTab] = useState<'projetos' | 'conta'>('projetos')
+
+  // Redirecionar visitantes para o dashboard
+  useEffect(() => {
+    if (isGuest || !isAuthenticated) {
+      navigate('/app/dashboard', { replace: true })
+    }
+  }, [isGuest, isAuthenticated, navigate])
 
   return (
     <div className="p-6">

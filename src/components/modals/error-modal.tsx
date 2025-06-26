@@ -4,7 +4,7 @@ import { AlertTriangle, X, RefreshCw, Mail, Lock, Eye, EyeOff } from 'lucide-rea
 interface ErrorModalProps {
   isOpen: boolean
   onClose: () => void
-  errorType: 'invalid_credentials' | 'email_not_found' | 'wrong_password' | 'account_locked' | 'network_error' | 'server_error' | 'generic'
+  errorType: 'invalid_credentials' | 'email_not_found' | 'wrong_password' | 'account_locked' | 'network_error' | 'server_error' | 'email_already_exists' | 'terms_required' | 'weak_password' | 'generic'
   onRetry?: () => void
   showRetryButton?: boolean
 }
@@ -66,8 +66,7 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
         }
       case 'network_error':
         return {
-          title: 'Erro de Conexão',
-          message: 'Não foi possível conectar ao servidor. Verifique sua conexão com a internet.',
+          title: 'Erro de Conexão',          message: 'Não foi possível conectar ao servidor. Verifique sua conexão com a internet.',
           icon: <RefreshCw className="h-6 w-6 text-red-600" />,
           suggestions: [
             'Verifique sua conexão com a internet',
@@ -84,6 +83,39 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
             'Tente novamente em alguns minutos',
             'Se o problema persistir, entre em contato com o suporte',
             'Verifique se não há manutenção programada'
+          ]
+        }
+      case 'email_already_exists':
+        return {
+          title: 'Email Já Cadastrado',
+          message: 'Este email já está registrado em nosso sistema.',
+          icon: <Mail className="h-6 w-6 text-red-600" />,
+          suggestions: [
+            'Faça login se já tem uma conta',
+            'Use outro endereço de email para criar uma nova conta',
+            'Use a opção "Esqueci minha senha" se necessário'
+          ]
+        }
+      case 'terms_required':
+        return {
+          title: 'Aceite dos Termos Obrigatório',
+          message: 'É obrigatório aceitar os termos de uso para se cadastrar.',
+          icon: <AlertTriangle className="h-6 w-6 text-red-600" />,
+          suggestions: [
+            'Marque a caixa de aceite dos termos de uso',
+            'Leia os termos de uso antes de aceitar',
+            'Entre em contato se tiver dúvidas sobre os termos'
+          ]
+        }
+      case 'weak_password':
+        return {
+          title: 'Senha Muito Fraca',
+          message: 'A senha deve ter pelo menos 6 caracteres e ser mais segura.',
+          icon: <Lock className="h-6 w-6 text-red-600" />,
+          suggestions: [
+            'Use pelo menos 6 caracteres',
+            'Combine letras, números e símbolos',
+            'Evite senhas muito simples como "123456"'
           ]
         }
       default:

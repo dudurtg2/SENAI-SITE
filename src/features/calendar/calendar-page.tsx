@@ -1,14 +1,28 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 import { useCalendarEvents } from '../../hooks/use-queries';
 import { CalendarEvent } from '../../types/types-queries';
 import EventCard from '../../components/EventCard';
 import { Search as SearchIcon } from 'lucide-react';
+import { useGuest } from '../../contexts/guest-context'
+import { useAuth } from '../../contexts/auth-context'
 
 const CalendarPage: React.FC = () => {
+  const navigate = useNavigate()
+  const { isGuest } = useGuest()
+  const { isAuthenticated } = useAuth()
   const { data: eventsData, isLoading, error } = useCalendarEvents();
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
+
+  // Redirecionar visitantes para o dashboard
+  useEffect(() => {
+    if (isGuest || !isAuthenticated) {
+      navigate('/app/dashboard', { replace: true })
+      return
+    }
+  }, [isGuest, isAuthenticated, navigate])
 
   const today = new Date();
   const nextWeek = new Date();

@@ -9,8 +9,18 @@ function Dashboard() {
   const { user, isAuthenticated, isLoading } = useAuth()
   const { isGuest } = useGuest()
 
+  // Debug logs
+  console.log('📊 Dashboard Debug:', {
+    isAuthenticated,
+    isLoading,
+    isGuest,
+    user: user ? { nome: user.nome, tipo: user.tipo } : null,
+    hasUser: !!user
+  })
+
   // Se ainda está carregando, não renderizar nada ou um loading
   if (isLoading) {
+    console.log('⏳ Dashboard: Carregando...')
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
@@ -20,6 +30,7 @@ function Dashboard() {
 
   // Visitante - não autenticado OU explicitamente em modo guest
   if (!isAuthenticated || !user || isGuest) {
+    console.log('🎯 Dashboard: Modo visitante detectado')
     return <GuestDashboard />
   }
 
