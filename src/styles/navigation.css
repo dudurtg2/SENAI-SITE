@@ -1,0 +1,25 @@
+/* Scroll suave global */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset para navegação com header fixo */
+section[id] {
+  scroll-margin-top: 80px; /* Ajuste conforme a altura do header */
+}
+
+/* Transições suaves para os elementos de navegação */
+.nav-link {
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #1e40af; /* Cor azul do SENAI */
+}
+
+/* Estilos para melhorar a acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,17 +1,13 @@
 import React from 'react';
 import LinkCard from './LinkCard';
 
-const LinksSection: React.FC = () => {
-  const links = [
-    { id: 1, title: 'Nome do site', description: 'Breve descrição do site' },
-    { id: 2, title: 'Nome do site', description: 'Breve descrição do site' },
-    { id: 3, title: 'Nome do site', description: 'Breve descrição do site' },
-    { id: 4, title: 'Nome do site', description: 'Breve descrição do site' },
-    { id: 5, title: 'Nome do site', description: 'Breve descrição do site' },
-    { id: 6, title: 'Nome do site', description: 'Breve descrição do site' },
-    //{ id: 7, title: 'Nome do site', description: 'Breve descrição do site' },
-    //{ id: 8, title: 'Nome do site', description: 'Breve descrição do site' },
-    //{ id: 9, title: 'Nome do site', description: 'Breve descrição do site' }
+const LinksSection: React.FC = () => {  const links = [
+    { id: 1, title: 'Portal SENAI', description: 'Acesse o portal oficial do SENAI' },
+    { id: 2, title: 'Processo Seletivo', description: 'Inscreva-se nos nossos cursos' },
+    { id: 3, title: 'FIEB', description: 'Federação das Indústrias da Bahia' },
+    { id: 4, title: 'SENAI EAD', description: 'Cursos online e ensino à distância' },
+    { id: 5, title: 'Biblioteca Digital', description: 'Acervo digital de livros e materiais' },
+    { id: 6, title: 'Mundo SENAI', description: 'Competições e olimpíadas do conhecimento' },
   ];
 
   return (

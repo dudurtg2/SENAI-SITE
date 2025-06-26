@@ -1,4 +1,6 @@
 import React from 'react'
+import { useSmoothScroll } from '../../hooks/use-smooth-scroll'
+import '../../styles/navigation.css'
 import Header from './components/Header/Header'
 import Banner from './components/Banner/Banner'
 import CardSection from './components/Cards/CardSection'
@@ -9,16 +11,29 @@ import InfoSection from './components/Info/InfoSection'
 import Footer from './components/Footer/Footer'
 
 function LandingPage() {
+  // Aplicar scroll suave para navegação
+  useSmoothScroll()
+
   return (
     <div className="App">
       <Header />
       <Banner />
-      <CardSection />
+      <section id="sobre-senai">
+        <CardSection />
+      </section>
       <SocialMediaSection />
-      <EventsSection />
-      <LinksSection />
-      <InfoSection />
-      <Footer />
+      <section id="eventos-noticias">
+        <EventsSection />
+      </section>
+      <section id="outros-links">
+        <LinksSection />
+      </section>
+      <section id="equipe">
+        <InfoSection />
+      </section>
+      <section id="contato">
+        <Footer />
+      </section>
     </div>
   )
 }

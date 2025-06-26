@@ -53,16 +53,16 @@ const Banner: React.FC = () => {  // Array com os itens do banner usando as imag
     },
     {
       imageUrl: img3,
-      title: 'Lab Maker'
+      title: 'Laboratório Maker'
     },
     {
       imageUrl: img4,
-      title: 'Reprodução de Projetos'
+      title: 'Projetos Inovadores'
     },
     {
       // Adiciona o novo card usando uma das imagens disponíveis
       imageUrl: img5,
-      title: 'Oficina Criativa' // Título genérico para o novo card
+      title: 'Educação Tecnológica' // Título relacionado ao SENAI
     }
   ]
 

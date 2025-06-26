@@ -10,43 +10,42 @@ interface InfoSectionProps {
   // Propriedades do componente, se necessário
 }
 
-const InfoSection: React.FC<InfoSectionProps> = () => {
-  const teamMembers = [
+const InfoSection: React.FC<InfoSectionProps> = () => {  const teamMembers = [
     {
       id: 1,
       imageUrl: Img1,
-      name: 'Nome',
-      details: 'Curso e turma'
+      name: 'Prof. João Silva',
+      details: 'Mecânica Industrial'
     },
     {
       id: 2,
       imageUrl: Img2,
-      name: 'Nome',
-      details: 'Curso e turma'
+      name: 'Prof. Maria Santos',
+      details: 'Eletrônica Digital'
     },
     {
       id: 3,
       imageUrl: Img3,
-      name: 'Nome',
-      details: 'Curso e turma'
+      name: 'Prof. Carlos Lima',
+      details: 'Automação Industrial'
     },
     {
       id: 4,
       imageUrl: Img4,
-      name: 'Nome',
-      details: 'Curso e turma'
+      name: 'Prof. Ana Costa',
+      details: 'Desenvolvimento de Sistemas'
     },
     {
       id: 5,
       imageUrl: Img5,
-      name: 'Nome',
-      details: 'Curso e turma'
+      name: 'Prof. Roberto Alves',
+      details: 'Segurança do Trabalho'
     },
     {
       id: 6,
       imageUrl: Img6,
-      name: 'Nome',
-      details: 'Curso e turma'
+      name: 'Prof. Fernanda Rocha',
+      details: 'Gestão da Qualidade'
     }
     // Adicione mais membros aqui se necessário
   ]
@@ -56,14 +55,14 @@ const InfoSection: React.FC<InfoSectionProps> = () => {
 
   return (
     <section className="py-8 bg-gray-100">
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-light text-center mb-4">
-          INFORMAÇÃO SOBRE
+      <div className="container mx-auto px-4">        <h2 className="text-2xl font-light text-center mb-4">
+          NOSSA EQUIPE
         </h2>
         <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
-          Lorem ipsum dolor sit amet. Ut nihil praesentium eos enim esse est
-          possimus internos sit soluta tempore et maiores veritatis ab
-          asperiores sequi ut repudiandae quia.
+          Conheça os profissionais dedicados que fazem parte da nossa equipe, 
+          trabalhando diariamente para oferecer educação de qualidade e formar 
+          os profissionais do futuro. Cada membro traz experiência e conhecimento 
+          únicos para enriquecer sua jornada educacional no SENAI.
         </p>
 
         {/* Carrossel em Loop */}

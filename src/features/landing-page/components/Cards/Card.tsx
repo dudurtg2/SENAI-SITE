@@ -5,9 +5,23 @@ interface CardProps {
   description: string;
   imageUrl: string;
   isReversed?: boolean;
+  actionLink?: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, imageUrl, isReversed = false }) => {
+const Card: React.FC<CardProps> = ({ title, description, imageUrl, isReversed = false, actionLink = "#eventos-noticias" }) => {
+  const handleSaberMais = () => {
+    if (actionLink.startsWith('#')) {
+      // Navegação interna
+      const element = document.getElementById(actionLink.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      // Link externo
+      window.open(actionLink, '_blank');
+    }
+  };
+
   return (
     // Adicionado mx-auto para centralizar o card horizontalmente e max-w-5xl para limitar a largura
     <div className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} my-12 items-center gap-4 mx-auto max-w-5xl`}> 
@@ -23,7 +37,10 @@ const Card: React.FC<CardProps> = ({ title, description, imageUrl, isReversed = 
         <h2 className="text-2xl font-semibold mb-3 text-gray-800">{title}</h2> 
         <p className="text-gray-600 mb-6 text-base leading-relaxed">{description}</p> 
         <div>
-          <button className="border border-gray-400 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors rounded">
+          <button 
+            onClick={handleSaberMais}
+            className="border border-gray-400 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors rounded"
+          >
             Saber mais
           </button>
         </div>

@@ -3,36 +3,37 @@ import Card from './Card'
 import image1 from '../../../../assets/images/Imagens/005-Titulo sobre o Senai.png'
 import image2 from '../../../../assets/images/Imagens/005-Titulo sobre o Senai - 2.png'
 
-const CardSection: React.FC = () => {
-  const cardData = [
+const CardSection: React.FC = () => {  const cardData = [
     {
       id: 1,
-      title: 'TÍTULO SOBRE O SENAI',
+      title: 'INOVAÇÃO E TECNOLOGIA',
       description:
-        'Lorem ipsum dolor sit amet. Ut nihil praesentium eos enim esse est possimus internos sit soluta tempore et maiores veritatis ab asperiores sequi ut repudiandae quia.',
+        'O SENAI Feira de Santana é referência em educação profissional e tecnológica, oferecendo cursos técnicos, graduação e pós-graduação alinhados às demandas da indústria. Nossos laboratórios modernos e professores especializados garantem uma formação de excelência para o mercado de trabalho.',
       imageUrl: image1,
-      isReversed: false
+      isReversed: false,
+      actionLink: '#outros-links'
     },
     {
       id: 2,
-      title: 'TÍTULO SOBRE O SENAI',
+      title: 'EDUCAÇÃO PARA O FUTURO',
       description:
-        'Lorem ipsum dolor sit amet. Ut nihil praesentium eos enim esse est possimus internos sit soluta tempore et maiores veritatis ab asperiores sequi ut repudiandae quia.',
+        'Com mais de 70 anos de história, o SENAI é pioneiro na formação de profissionais qualificados para a indústria brasileira. Nossa metodologia conecta teoria e prática, preparando estudantes para os desafios da Indústria 4.0 e as profissões do futuro.',
       imageUrl: image2,
-      isReversed: true
+      isReversed: true,
+      actionLink: '#equipe'
     }
   ]
 
   return (
     <section className="py-8 bg-white">
-      <div className="container mx-auto px-4">
-        {cardData.map(card => (
+      <div className="container mx-auto px-4">        {cardData.map(card => (
           <Card
             key={card.id}
             title={card.title}
             description={card.description}
             imageUrl={card.imageUrl}
             isReversed={card.isReversed}
+            actionLink={card.actionLink}
           />
         ))}
       </div>

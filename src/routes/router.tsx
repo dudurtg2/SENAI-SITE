@@ -11,8 +11,6 @@ import AccountPage from '../features/account/page'
 import LoginPage from '../features/login/page'
 import RegisterPage from '../features/register/page'
 import GoogleCallback from '../features/auth/google-callback'
-import GoogleOAuthDiagnostico from '../features/auth/google-oauth-diagnostico'
-import GuestTestPage from '../features/guest-test/page'
 import ProjectDetailPage from '../features/project-detail/page'
 import CreateProjectPage from '../features/create-project/page'
 import NotificationsPage from '../features/notifications/notifications-page'
@@ -40,14 +38,20 @@ const Routers: React.FC = () => {
       <AuthProvider>
         <GuestProvider>
           <UserProvider>
-            <NotificationProvider>              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route 
-                  path="/login" 
-                  element={
-                    <AuthGuard redirectIfAuthenticated={true}>
-                      <LoginPage />
-                    </AuthGuard>
+            <Routes>
+              {/* Landing page sem NotificationProvider para evitar chamadas de API */}
+              <Route path="/" element={<LandingPage />} />
+              
+              {/* Rotas que precisam do NotificationProvider */}
+              <Route path="/*" element={
+                <NotificationProvider>
+                  <Routes>
+                    <Route 
+                      path="/login" 
+                      element={
+                        <AuthGuard redirectIfAuthenticated={true}>
+                          <LoginPage />
+                        </AuthGuard>
                   } 
                 />
                 <Route 
@@ -59,8 +63,6 @@ const Routers: React.FC = () => {
                   } 
                 />                <Route path="/auth/google/callback" element={<GoogleCallback />} />
                 <Route path="/login/oauth2/code/google" element={<GoogleCallback />} />
-                <Route path="/debug/google-oauth" element={<GoogleOAuthDiagnostico />} />
-                <Route path="/guest-test" element={<GuestTestPage />} />
               {/* Rotas do Estudante */}
               <Route
                 path="/app"
@@ -100,15 +102,16 @@ const Routers: React.FC = () => {
                 <Route path="evaluations" element={<TeacherEvaluations />} />
                 <Route path="reports" element={<TeacherReports />} />
                 <Route path="certificates" element={<TeacherCertificates />} />                <Route path="messages" element={<TeacherMessages />} />
-                <Route path="resources" element={<TeacherResources />} />
-                <Route path="settings" element={<TeacherSettings />} />
+                <Route path="resources" element={<TeacherResources />} />                <Route path="settings" element={<TeacherSettings />} />
               </Route>
+                  </Routes>
+                </NotificationProvider>
+              } />
             </Routes>
-          </NotificationProvider>
-        </UserProvider>
-      </GuestProvider>
-    </AuthProvider>
-  </Router>
+          </UserProvider>
+        </GuestProvider>
+      </AuthProvider>
+    </Router>
   )
 }
 

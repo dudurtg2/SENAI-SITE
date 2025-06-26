@@ -32,28 +32,38 @@ const Header: React.FC<HeaderProps> = () => {
           <a href="/">
             <img src={senaiLogoPath} alt="Logo SENAI" className="h-10" />{' '}
             {/* Ajuste a altura (h-8) conforme necessário */}
-          </a>
-          {/* Links de Navegação (Visível em telas médias+) */}
+          </a>          {/* Links de Navegação (Visível em telas médias+) */}
           <nav className="hidden md:flex space-x-8">
-            {' '}
             {/* Ajustado espaço entre links */}
             <a
-              href="#repositorio"
-              className="text-gray-600 hover:text-senai-blue text-sm"
+              href="#sobre-senai"
+              className="text-gray-600 hover:text-senai-blue text-sm transition-colors duration-200"
             >
-              Repositório
+              Sobre o SENAI
             </a>
             <a
-              href="#lab-maker"
-              className="text-gray-600 hover:text-senai-blue text-sm"
+              href="#eventos-noticias"
+              className="text-gray-600 hover:text-senai-blue text-sm transition-colors duration-200"
             >
-              Lab Maker
+              Eventos e Notícias
             </a>
             <a
-              href="#biblioteca-maker"
-              className="text-gray-600 hover:text-senai-blue text-sm"
+              href="#outros-links"
+              className="text-gray-600 hover:text-senai-blue text-sm transition-colors duration-200"
             >
-              Biblioteca Maker
+              Links Úteis
+            </a>
+            <a
+              href="#equipe"
+              className="text-gray-600 hover:text-senai-blue text-sm transition-colors duration-200"
+            >
+              Equipe
+            </a>
+            <a
+              href="#contato"
+              className="text-gray-600 hover:text-senai-blue text-sm transition-colors duration-200"
+            >
+              Contato
             </a>
           </nav>
         </div>
@@ -105,26 +115,37 @@ const Header: React.FC<HeaderProps> = () => {
         </div>
       </div>
       {/* Menu Mobile (Aparece quando o botão Hamburger é clicado) */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white px-6 pb-4">
+      {isMobileMenuOpen && (        <div className="md:hidden bg-white px-6 pb-4">
           <nav className="flex flex-col space-y-2">
             <a
-              href="#repositorio"
+              href="#sobre-senai"
               className="text-gray-600 hover:text-senai-blue py-1"
             >
-              Repositório
+              Sobre o SENAI
             </a>
             <a
-              href="#lab-maker"
+              href="#eventos-noticias"
               className="text-gray-600 hover:text-senai-blue py-1"
             >
-              Lab Maker
+              Eventos e Notícias
             </a>
             <a
-              href="#biblioteca-maker"
+              href="#outros-links"
               className="text-gray-600 hover:text-senai-blue py-1"
             >
-              Biblioteca Maker
+              Links Úteis
+            </a>
+            <a
+              href="#equipe"
+              className="text-gray-600 hover:text-senai-blue py-1"
+            >
+              Equipe
+            </a>
+            <a
+              href="#contato"
+              className="text-gray-600 hover:text-senai-blue py-1"
+            >
+              Contato
             </a>
             <button 
               onClick={handleLogin}

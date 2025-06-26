@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Eye, Users, BookOpen, TrendingUp, UserPlus, LogIn, AlertCircle } from 'lucide-react'
 import { useProjetos } from '../../../hooks/use-queries'
-import ApiTestComponent from '../../../components/ApiTestComponent'
 
 const GuestDashboard = () => {
   const [corsError, setCorsError] = useState<string | null>(null)
@@ -57,15 +56,13 @@ const GuestDashboard = () => {
               Criar Conta
             </Link>
             <Link
-              to="/login"
-              className="inline-flex items-center px-6 py-3 border border-white/30 text-white rounded-lg font-medium hover:bg-white/10 transition-colors"
+              to="/login"              className="inline-flex items-center px-6 py-3 border border-white/30 text-white rounded-lg font-medium hover:bg-white/10 transition-colors"
             >
               <LogIn className="h-5 w-5 mr-2" />
               Fazer Login
             </Link>
           </div>
-        </div>        {/* Teste de CORS */}
-        <ApiTestComponent />
+        </div>
         
         {corsError && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
