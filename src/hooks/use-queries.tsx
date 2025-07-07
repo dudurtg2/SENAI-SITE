@@ -13,7 +13,10 @@ import {
   getProjetoProfessores,
   getEtapasProjetos,
   getAnexosEtapas,
-  getAvaliacoes
+  getAvaliacoes,
+  getCursos,
+  getTurmas,
+  getTurmasByCurso
 } from '../api/queries'
 import { useQueries, UseQueryOptions, useQuery } from '@tanstack/react-query'
 import {
@@ -206,6 +209,36 @@ export function useAvaliacoes(options?: UseQueryOptions<any[], Error>) {
     queryKey: ['getAvaliacoes'],
     queryFn: () => getAvaliacoes(),
     retry: 1,
+    ...options
+  })
+}
+
+// Cursos
+export function useCursos(options?: UseQueryOptions<any[], Error>) {
+  return useQuery({
+    queryKey: ['cursos'],
+    queryFn: getCursos,
+    staleTime: 5 * 60 * 1000, // 5 minutos
+    ...options
+  })
+}
+
+// Turmas
+export function useTurmas(options?: UseQueryOptions<any[], Error>) {
+  return useQuery({
+    queryKey: ['turmas'],
+    queryFn: getTurmas,
+    staleTime: 5 * 60 * 1000, // 5 minutos
+    ...options
+  })
+}
+
+export function useTurmasByCurso(cursoUuid: string, options?: UseQueryOptions<any[], Error>) {
+  return useQuery({
+    queryKey: ['turmas', 'curso', cursoUuid],
+    queryFn: () => getTurmasByCurso(cursoUuid),
+    enabled: !!cursoUuid,
+    staleTime: 5 * 60 * 1000, // 5 minutos
     ...options
   })
 }

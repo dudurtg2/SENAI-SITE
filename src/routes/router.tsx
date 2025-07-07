@@ -12,7 +12,7 @@ import LoginPage from '../features/login/page'
 import RegisterPage from '../features/register/page'
 import GoogleCallback from '../features/auth/google-callback'
 import ProjectDetailPage from '../features/project-detail/page'
-import CreateProjectPage from '../features/create-project/page'
+import CreateProjectPage from '../features/create-project/NewPage'
 import NotificationsPage from '../features/notifications/notifications-page'
 import { NotificationProvider } from '../contexts/notification-context'
 import { UserProvider } from '../contexts/user-context'
@@ -72,8 +72,9 @@ const Routers: React.FC = () => {
                   </Private>
                 }
               >
-                <Route index element={<ProjectsPage />} />
+                <Route index element={<Dashboard />} />
                 <Route path="dashboard" element={<Dashboard />} />
+                <Route path="projects" element={<ProjectsPage />} />
                 <Route path="account" element={<AccountPage />} />
                 <Route
                   path="projects/:projectId"

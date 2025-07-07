@@ -223,15 +223,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               </div>
 
               {githubUrl && (
-                <a
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-gray-800 transition-colors"
-                  onClick={e => e.stopPropagation()}
+                <div
+                  className="text-gray-600 hover:text-gray-800 transition-colors cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    window.open(githubUrl, '_blank', 'noopener,noreferrer')
+                  }}
                 >
                   <Github size={18} />
-                </a>
+                </div>
               )}
             </div>
           </div>

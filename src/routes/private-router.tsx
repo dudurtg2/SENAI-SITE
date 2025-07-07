@@ -25,6 +25,11 @@ const Private: React.FC<PrivateProps> = ({ children, requireAuth = true }) => {
     return <Navigate to="/login" replace />
   }
 
+  // Se não está autenticado nem é visitante, mas a rota não requer auth
+  if (!requireAuth && !isAuthenticated && !isGuest) {
+    return <Navigate to="/" replace />
+  }
+
   // Se não requer autenticação, permite acesso a qualquer um (auth, guest, ou não-auth)
   // Se requer autenticação, só permite se autenticado OU visitante
   return <>{children}</>

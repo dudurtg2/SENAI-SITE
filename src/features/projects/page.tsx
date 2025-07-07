@@ -5,7 +5,9 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  ChevronUp
+  ChevronUp,
+  Plus,
+  FolderPlus
 } from 'lucide-react'
 import bgcard from '../../assets/bg-card.jpg'
 import developmentIcon from '../../assets/icons/lets-icons_lamp-fill.svg'
@@ -24,7 +26,7 @@ type StatusType = 'development' | 'planning' | 'production' | 'completed'
 const ProjectsPage = () => {
   const navigate = useNavigate()
   const { isGuest } = useGuest()
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, user } = useAuth()
   
   // Redirecionar visitantes para o dashboard
   useEffect(() => {
@@ -61,6 +63,11 @@ const ProjectsPage = () => {
 
   // Filtragem e paginação
   const filteredProjects = (projetos || []).filter(projeto => {
+    // Primeiro, filtrar apenas projetos do usuário logado (como líder)
+    const isUserProject = projeto.liderProjeto && projeto.liderProjeto.uuid === user?.uuid
+    
+    if (!isUserProject) return false
+    
     const matchesSearch =
       projeto.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
       projeto.descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -149,9 +156,18 @@ const ProjectsPage = () => {
   return (
     <div className="p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">
-          Projetos ({filteredProjects.length})
-        </h1>
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-2xl font-bold text-gray-800">
+            Meus Projetos ({filteredProjects.length})
+          </h1>
+          <Link
+            to="/app/create-project"
+            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <Plus className="h-5 w-5 mr-2" />
+            Novo Projeto
+          </Link>
+        </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between mb-6 space-y-4 sm:space-y-0">
           <div className="flex items-center space-x-4">
@@ -307,8 +323,30 @@ const ProjectsPage = () => {
 
       {/* Projects Grid */}
       {currentProjects.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Nenhum projeto encontrado.</p>
+        <div className="text-center py-16">
+          <div className="max-w-md mx-auto">
+            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <FolderPlus size={48} className="text-gray-400" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              Nenhum projeto encontrado
+            </h3>
+            <p className="text-gray-600 mb-6">
+              {(projetos || []).filter(p => p.liderProjeto?.uuid === user?.uuid).length === 0 
+                ? "Você ainda não criou nenhum projeto. Que tal começar agora?"
+                : "Nenhum projeto encontrado com os filtros aplicados."
+              }
+            </p>
+            {(projetos || []).filter(p => p.liderProjeto?.uuid === user?.uuid).length === 0 && (
+              <Link
+                to="/app/create-project"
+                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                <Plus className="h-5 w-5 mr-2" />
+                Criar Meu Primeiro Projeto
+              </Link>
+            )}
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">

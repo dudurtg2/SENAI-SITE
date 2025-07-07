@@ -168,7 +168,7 @@ const Sidebar = ({ isLoggedIn }: SidebarProps) => {
 
         <div className="space-y-2 px-4">
           <Link 
-            to="/app/projects/new"
+            to="/app/create-project"
             className="flex items-center space-x-2 w-full justify-center p-2 rounded-md hover:bg-button-primary hover:text-gray-100 border border-primary-text transition-colors duration-200"
           >
             <Plus size={16} />

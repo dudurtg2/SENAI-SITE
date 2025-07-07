@@ -204,3 +204,33 @@ export async function getAvaliacoes() {
     return []
   }
 }
+
+// Cursos
+export async function getCursos() {
+  const response = await axiosInstance.get('/api/v1/senai/curso/findAtivos', {
+    headers: getAuthHeaders()
+  })
+  return response.data
+}
+
+export async function getCursosByCodigo(codigo: string) {
+  const response = await axiosInstance.get(`/api/v1/senai/curso/findByCodigo/${codigo}`, {
+    headers: getAuthHeaders()
+  })
+  return response.data
+}
+
+// Turmas  
+export async function getTurmas() {
+  const response = await axiosInstance.get('/api/v1/senai/turma/findAll', {
+    headers: getAuthHeaders()
+  })
+  return response.data
+}
+
+export async function getTurmasByCurso(cursoUuid: string) {
+  const response = await axiosInstance.get(`/api/v1/senai/turma/findByCurso/${cursoUuid}`, {
+    headers: getAuthHeaders()
+  })
+  return response.data
+}

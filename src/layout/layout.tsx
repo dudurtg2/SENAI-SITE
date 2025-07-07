@@ -32,7 +32,7 @@ const Layout = () => {
       <ModalManager />
       
       {/* Debug do estado de visitante - apenas em desenvolvimento */}
-      {import.meta.env.DEV && <GuestDebug />}
+      {/* {import.meta.env.DEV && <GuestDebug />} */}
     </div>
   )
 }
