@@ -31,19 +31,45 @@ Exemplo de fluxo:
 
 ## Estrutura de Pastas
 
+> **📋 IMPORTANTE: O projeto foi reorganizado por tipo de usuário para melhor manutenibilidade.**
+>
+> **📖 Documentação Completa:** Veja [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) para detalhes da nova estrutura.
+
 ```bash
 src/
-├─ assets/                  # Imagens, logos e ícones
-├─ components/              # Componentes reutilizáveis (botões, cards, inputs)
-├─ controllers/             # Hooks e funções que fazem chamadas à API
-├─ context/                 # Providers e contexts para estado global
-├─ pages/                   # Páginas principais (Home, Login, Dashboard)
-├─ routes/                  # Configuração de rotas com React Router
-├─ services/                # Camada de comunicação com a API (Axios instances)
-├─ styles/                  # Configurações de Tailwind e estilos globais
-├─ utils/                   # Funções utilitárias e helpers
-└─ index.js                 # Ponto de entrada da aplicação
+├─ features/                  # Funcionalidades organizadas por tipo de usuário
+│  ├─ visitor/               # Páginas públicas (landing page, sobre)
+│  ├─ auth/                  # Sistema de autenticação (login, register)
+│  ├─ student/               # Funcionalidades de estudante (dashboard, projetos)
+│  ├─ teacher/               # Funcionalidades de professor (gerenciamento)
+│  ├─ shared/                # Funcionalidades compartilhadas (notificações)
+│  └─ admin/                 # Funcionalidades de administrador (futuro)
+├─ components/               # Componentes reutilizáveis globais
+├─ contexts/                 # Providers e contexts para estado global
+├─ hooks/                    # Custom hooks
+├─ layout/                   # Layouts base da aplicação
+├─ routes/                   # Configuração de rotas com React Router
+├─ services/                 # Camada de comunicação com a API
+├─ types/                    # Definições de tipos TypeScript
+├─ utils/                    # Funções utilitárias e helpers
+├─ styles/                   # Configurações de estilos
+├─ assets/                   # Imagens, logos e ícones
+└─ index.tsx                 # Ponto de entrada da aplicação
 ```
+
+### Tipos de Usuário
+
+- **👥 Visitor**: Acesso público (landing page, informações)
+- **🎓 Student**: Dashboard, projetos, calendário, comunidade
+- **👨‍🏫 Teacher**: Gerenciamento de alunos, avaliações, relatórios
+- **👨‍💼 Admin**: Controle total do sistema (futuro)
+
+### Rotas Principais
+
+- `/` - Landing page pública
+- `/app/*` - Área do estudante
+- `/teacher/*` - Área do professor
+- `/login`, `/register` - Autenticação
 
 ---
 
