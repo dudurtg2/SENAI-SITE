@@ -31,6 +31,7 @@ import TeacherReports from '../features/teacher/reports/page'
 import TeacherCertificates from '../features/teacher/certificates/page'
 import TeacherResources from '../features/teacher/resources/page'
 import TeacherSettings from '../features/teacher/settings/page'
+import AboutProjectPage from '../features/about-project/page'
 
 const Routers: React.FC = () => {
   return (
@@ -41,6 +42,7 @@ const Routers: React.FC = () => {
             <Routes>
               {/* Landing page sem NotificationProvider para evitar chamadas de API */}
               <Route path="/" element={<LandingPage />} />
+              <Route path="/sobre-projeto" element={<AboutProjectPage />} />
               
               {/* Rotas que precisam do NotificationProvider */}
               <Route path="/*" element={

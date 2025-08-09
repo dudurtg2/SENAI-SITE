@@ -1,13 +1,44 @@
 import React from 'react';
 import LinkCard from './LinkCard';
 
-const LinksSection: React.FC = () => {  const links = [
-    { id: 1, title: 'Portal SENAI', description: 'Acesse o portal oficial do SENAI' },
-    { id: 2, title: 'Processo Seletivo', description: 'Inscreva-se nos nossos cursos' },
-    { id: 3, title: 'FIEB', description: 'Federação das Indústrias da Bahia' },
-    { id: 4, title: 'SENAI EAD', description: 'Cursos online e ensino à distância' },
-    { id: 5, title: 'Biblioteca Digital', description: 'Acervo digital de livros e materiais' },
-    { id: 6, title: 'Mundo SENAI', description: 'Competições e olimpíadas do conhecimento' },
+const LinksSection: React.FC = () => {
+  const links = [
+    { 
+      id: 1, 
+      title: 'SENAI Bahia', 
+      description: 'Portal oficial do SENAI Bahia com informações sobre cursos e serviços',
+      url: 'https://www.senaibahia.com.br/'
+    },
+    { 
+      id: 2, 
+      title: 'SENAI CIMATEC', 
+      description: 'Centro de Inovação e Tecnologia em Manufatura Avançada e Robótica',
+      url: 'http://www.senaicimatec.com.br/'
+    },
+    { 
+      id: 3, 
+      title: 'FIEB', 
+      description: 'Federação das Indústrias do Estado da Bahia',
+      url: 'https://www.fieb.org.br/'
+    },
+    { 
+      id: 4, 
+      title: 'Portal Educacional', 
+      description: 'Acesso ao sistema educacional do SENAI para estudantes',
+      url: 'https://senaiweb6.fieb.org.br/framehtml/web/app/edu/PortalEducacional/login/'
+    },
+    { 
+      id: 5, 
+      title: 'Portal do Professor', 
+      description: 'Sistema exclusivo para professores e educadores',
+      url: 'https://senaiweb6.fieb.org.br/FrameHTML/web/app/Edu/PortalDoProfessor/#/login'
+    },
+    { 
+      id: 6, 
+      title: 'Sobre o Projeto', 
+      description: 'Conheça mais sobre este projeto desenvolvido por alunos para alunos',
+      url: '/sobre-projeto'
+    },
   ];
 
   return (
@@ -20,6 +51,7 @@ const LinksSection: React.FC = () => {  const links = [
               key={link.id}
               title={link.title}
               description={link.description}
+              url={link.url}
             />
           ))}
         </div>
