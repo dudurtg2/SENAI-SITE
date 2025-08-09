@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import RegisterForm from './components/register-form'
-import bgCard from '../../assets/bg-card.jpg'
-import senaiLogo from '../../assets/senai-logo.png'
+import bgCard from '@/assets/bg-card.jpg'
+import senaiLogo from '@/assets/senai-logo.png'
 
 const RegisterPage = () => {
   return (

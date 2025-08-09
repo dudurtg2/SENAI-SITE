@@ -1,11 +1,11 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { useCalendarEvents } from '../../hooks/use-queries';
-import { CalendarEvent } from '../../types/types-queries';
-import EventCard from '../../components/EventCard';
+import { useCalendarEvents } from '@/hooks/use-queries';
+import { CalendarEvent } from '@/types/types-queries';
+import EventCard from '@/components/EventCard';
 import { Search as SearchIcon } from 'lucide-react';
-import { useGuest } from '../../contexts/guest-context'
-import { useAuth } from '../../contexts/auth-context'
+import { useGuest } from '@/contexts/guest-context'
+import { useAuth } from '@/contexts/auth-context'
 
 const CalendarPage: React.FC = () => {
   const navigate = useNavigate()

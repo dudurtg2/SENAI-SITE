@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
-import { getCommunityData } from '../../api/queries';
-import { CommunityData } from '../../types/types-queries';
-import { useGuest } from '../../contexts/guest-context'
-import { useAuth } from '../../contexts/auth-context'
+import { getCommunityData } from '@/api/queries';
+import { CommunityData } from '@/types/types-queries';
+import { useGuest } from '@/contexts/guest-context'
+import { useAuth } from '@/contexts/auth-context'
 
 const CommunityPage: React.FC = () => {
   const navigate = useNavigate()

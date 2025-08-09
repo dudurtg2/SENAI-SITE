@@ -4,8 +4,8 @@ import AccountInfo from './components/account-info'
 import AccountProjects from './components/account-projects'
 
 import { Link } from 'react-router-dom'
-import { useGuest } from '../../contexts/guest-context'
-import { useAuth } from '../../contexts/auth-context'
+import { useGuest } from '@/contexts/guest-context'
+import { useAuth } from '@/contexts/auth-context'
 
 const AccountPage = () => {
   const navigate = useNavigate()

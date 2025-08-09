@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Eye, EyeOff, User, Users, Mail, Lock, LogIn, AlertCircle } from 'lucide-react'
-import { useAuth } from '../../../contexts/auth-context'
-import { useLoginAuth } from '../../../hooks/use-auth'
-import ErrorModal from '../../../components/modals/error-modal'
+import { useAuth } from '@/contexts/auth-context'
+import { useLoginAuth } from '@/hooks/use-auth'
+import ErrorModal from '@/components/modals/error-modal'
 
 interface FormData {
   email: string

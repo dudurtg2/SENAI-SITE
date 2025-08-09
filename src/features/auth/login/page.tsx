@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import LoginForm from './components/simple-login-form'
-import bgCard from '../../assets/bg-card.jpg'
-import senaiLogo from '../../assets/senai-logo.png'
+import bgCard from '@/assets/bg-card.jpg'
+import senaiLogo from '@/assets/senai-logo.png'
 
 const LoginPage = () => {
   return (

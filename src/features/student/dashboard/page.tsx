@@ -1,6 +1,6 @@
 import React from 'react'
-import { useAuth } from '../../contexts/auth-context'
-import { useGuest } from '../../contexts/guest-context'
+import { useAuth } from '@/contexts/auth-context'
+import { useGuest } from '@/contexts/guest-context'
 import StudentDashboard from './components/student-dashboard'
 import TeacherDashboard from './components/teacher-dashboard'
 import GuestDashboard from './components/guest-dashboard'

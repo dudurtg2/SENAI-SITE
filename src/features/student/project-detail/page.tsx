@@ -9,12 +9,12 @@ import {
   Linkedin,
   ChevronRight
 } from 'lucide-react'
-import ProjectTimeline from '../../components/project-timeline'
-import Modal from '../../components/Modal'
-import { useProjetos, useEtapasProjetos } from '../../hooks/use-queries'
+import ProjectTimeline from '@/components/project-timeline'
+import Modal from '@/components/Modal'
+import { useProjetos, useEtapasProjetos } from '@/hooks/use-queries'
 
-import LampadaAcessa from '../../assets/assert/lampada_acessa.svg'
-import LampadaApagada from '../../assets/assert/lampada_apagada.svg'
+import LampadaAcessa from '@/assets/assert/lampada_acessa.svg'
+import LampadaApagada from '@/assets/assert/lampada_apagada.svg'
 
 const ProjectDetailPage = () => {
   const { projectId } = useParams<{ projectId: string }>()

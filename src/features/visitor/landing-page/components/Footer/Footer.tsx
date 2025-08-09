@@ -1,11 +1,11 @@
 import React from 'react'
-import ReliableMap from '../../../../components/ReliableMap'
+import ReliableMap from '@/components/ReliableMap'
 
 // Importar os novos ícones e logo
-import senaiLogoPath from '../../../../assets/images/Imagens/022-Senai.png'
-import instagramIconPath from '../../../../assets/images/Imagens/023-Instagram.png'
-import whatsappIconPath from '../../../../assets/images/Imagens/024-WhatsApp.png'
-import facebookIconPath from '../../../../assets/images/Imagens/025-Facebook.png'
+import senaiLogoPath from '@/assets/images/Imagens/022-Senai.png'
+import instagramIconPath from '@/assets/images/Imagens/023-Instagram.png'
+import whatsappIconPath from '@/assets/images/Imagens/024-WhatsApp.png'
+import facebookIconPath from '@/assets/images/Imagens/025-Facebook.png'
 
 interface FooterProps {
   // Propriedades do componente, se necessário

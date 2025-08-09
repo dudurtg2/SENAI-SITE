@@ -2,10 +2,10 @@ import React from 'react' // useState removido, pois o estado do carrossel não 
 import EventCard from './EventCard'
 
 // Importar imagens - Ajuste os caminhos se necessário com base nos locais reais dos arquivos
-import imgMundoSenai from '../../../../assets/images/Imagens/010-Saiba mais - Eventos e Noticias.jpg' // Placeholder - Substitua pela imagem real do evento Mundo Senai, se disponível
-import imgStudent from '../../../../assets/images/Imagens/011-Eventos e Noticias.png' // Placeholder - Substitua pela imagem real do estudante, se disponível
-import imgWorkshop from '../../../../assets/images/Imagens/012-Saiba mais - Eventos e Noticias.jpg' // Placeholder - Substitua pela imagem real do workshop, se disponível
-import imgBuilding from '../../../../assets/images/Imagens/013-Saiba mais - Eventos e Noticias.jpg' // Placeholder - Substitua pela imagem real do prédio, se disponível
+import imgMundoSenai from '@/assets/images/Imagens/010-Saiba mais - Eventos e Noticias.jpg' // Placeholder - Substitua pela imagem real do evento Mundo Senai, se disponível
+import imgStudent from '@/assets/images/Imagens/011-Eventos e Noticias.png' // Placeholder - Substitua pela imagem real do estudante, se disponível
+import imgWorkshop from '@/assets/images/Imagens/012-Saiba mais - Eventos e Noticias.jpg' // Placeholder - Substitua pela imagem real do workshop, se disponível
+import imgBuilding from '@/assets/images/Imagens/013-Saiba mais - Eventos e Noticias.jpg' // Placeholder - Substitua pela imagem real do prédio, se disponível
 
 const EventsSection: React.FC = () => {
   // Definir dados dos eventos com base na estrutura da imagem de referência

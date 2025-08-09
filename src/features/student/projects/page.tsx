@@ -9,17 +9,17 @@ import {
   Plus,
   FolderPlus
 } from 'lucide-react'
-import bgcard from '../../assets/bg-card.jpg'
-import developmentIcon from '../../assets/icons/lets-icons_lamp-fill.svg'
-import planningIcon from '../../assets/icons/solar_notes-bold.svg'
-import productionIcon from '../../assets/icons/mingcute_ruler-fill.svg'
-import completedIcon from '../../assets/icons/oi_check.svg'
-import ProjectCard from '../../components/project-card'
+import bgcard from '@/assets/bg-card.jpg'
+import developmentIcon from '@/assets/icons/lets-icons_lamp-fill.svg'
+import planningIcon from '@/assets/icons/solar_notes-bold.svg'
+import productionIcon from '@/assets/icons/mingcute_ruler-fill.svg'
+import completedIcon from '@/assets/icons/oi_check.svg'
+import ProjectCard from '@/components/project-card'
 import { Link } from 'react-router-dom'
-import { useProjetos } from '../../hooks/use-queries'
-import { Projeto } from '../../types/types-queries'
-import { useGuest } from '../../contexts/guest-context'
-import { useAuth } from '../../contexts/auth-context'
+import { useProjetos } from '@/hooks/use-queries'
+import { Projeto } from '@/types/types-queries'
+import { useGuest } from '@/contexts/guest-context'
+import { useAuth } from '@/contexts/auth-context'
 
 type StatusType = 'development' | 'planning' | 'production' | 'completed'
 

@@ -11,8 +11,8 @@ import {
   FileText,
   Award
 } from 'lucide-react'
-import { useProjetos } from '../../../hooks/use-queries'
-import { useNotifications } from '../../../hooks/use-queries'
+import { useProjetos } from '@/hooks/use-queries'
+import { useNotifications } from '@/hooks/use-queries'
 
 interface User {
   uuid: string

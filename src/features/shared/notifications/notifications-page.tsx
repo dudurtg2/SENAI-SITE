@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { Notification } from '../../types/types-queries';
-import NotificationCard from '../../components/notification-card';
-import { useNotifications } from '../../contexts/notification-context';
-import { useGuest } from '../../contexts/guest-context'
-import { useAuth } from '../../contexts/auth-context'
+import { Notification } from '@/types/types-queries';
+import NotificationCard from '@/components/notification-card';
+import { useNotifications } from '@/contexts/notification-context';
+import { useGuest } from '@/contexts/guest-context'
+import { useAuth } from '@/contexts/auth-context'
 
 const NotificationsPage: React.FC = () => {
   const navigate = useNavigate()

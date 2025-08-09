@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, User, Users, Mail, Lock, UserPlus, AlertCircle } from 'lucide-react'
-import { useAuth } from '../../../contexts/auth-context'
-import { useRegisterAuth } from '../../../hooks/use-auth'
-import RegistroSucessoModal from '../../../components/modals/registro-sucesso-modal'
-import ErrorModal from '../../../components/modals/error-modal'
+import { useAuth } from '@/contexts/auth-context'
+import { useRegisterAuth } from '@/hooks/use-auth'
+import RegistroSucessoModal from '@/components/modals/registro-sucesso-modal'
+import ErrorModal from '@/components/modals/error-modal'
 
 interface FormData {
   nome: string

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import Img1 from '../../../../assets/images/Imagens/014-Nome Cuso e turma.png'
-import Img2 from '../../../../assets/images/Imagens/015-Nome Cuso e turma.png'
-import Img3 from '../../../../assets/images/Imagens/016-Nome Cuso e turma.png'
-import Img4 from '../../../../assets/images/Imagens/017-Nome Cuso e turma.png'
-import Img5 from '../../../../assets/images/Imagens/018-Nome Cuso e turma.png'
-import Img6 from '../../../../assets/images/Imagens/019-Nome Cuso e turma.png'
-import TeamMemberModal from '../../../../components/modals/team-member-modal'
+import Img1 from '@/assets/images/Imagens/014-Nome Cuso e turma.png'
+import Img2 from '@/assets/images/Imagens/015-Nome Cuso e turma.png'
+import Img3 from '@/assets/images/Imagens/016-Nome Cuso e turma.png'
+import Img4 from '@/assets/images/Imagens/017-Nome Cuso e turma.png'
+import Img5 from '@/assets/images/Imagens/018-Nome Cuso e turma.png'
+import Img6 from '@/assets/images/Imagens/019-Nome Cuso e turma.png'
+import TeamMemberModal from '@/components/modals/team-member-modal'
 
 interface TeamMember {
   id: number

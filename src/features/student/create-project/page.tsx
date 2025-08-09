@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import ProjectInfoSection from './components/project-info-section'
 import AttachmentsTimelineSection from './components/attachments-timeline-section'
 import ReviewSection from './components/review-section'
-import { useGuest } from '../../contexts/guest-context'
-import { useAuth } from '../../contexts/auth-context'
+import { useGuest } from '@/contexts/guest-context'
+import { useAuth } from '@/contexts/auth-context'
 
 interface ProjectData {
   curso: string

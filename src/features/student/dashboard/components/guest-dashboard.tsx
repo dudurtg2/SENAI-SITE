@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Eye, Users, BookOpen, TrendingUp, UserPlus, LogIn, AlertCircle } from 'lucide-react'
-import { useProjetos } from '../../../hooks/use-queries'
+import { useProjetos } from '@/hooks/use-queries'
 
 const GuestDashboard = () => {
   const [corsError, setCorsError] = useState<string | null>(null)

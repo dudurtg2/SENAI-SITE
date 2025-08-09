@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 // Importar o logo
 
-import senaiLogoPath from '../../../../assets/images/Imagens/022-Senai.png'
+import senaiLogoPath from '@/assets/images/Imagens/022-Senai.png'
 
 interface HeaderProps {
   // Propriedades do componente, se necessário

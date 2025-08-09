@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Eye, EyeOff, User, Users, UserPlus } from 'lucide-react'
-import { useAuth } from '../../../contexts/auth-context'
-import { useLoginAuth, useRegisterAuth } from '../../../hooks/use-auth'
+import { useAuth } from '@/contexts/auth-context'
+import { useLoginAuth, useRegisterAuth } from '@/hooks/use-auth'
 
 interface FormData {
   email: string

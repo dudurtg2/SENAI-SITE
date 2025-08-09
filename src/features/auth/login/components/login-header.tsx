@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import senaiLogo from '../../../assets/senai-logo.png'
+import senaiLogo from '@/assets/senai-logo.png'
 
 const LoginHeader = () => {
   return (

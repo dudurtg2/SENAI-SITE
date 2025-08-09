@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useAuth } from '../../../contexts/auth-context'
+import { useAuth } from '@/contexts/auth-context'
 import { useQuery } from '@tanstack/react-query'
-import { getUnidadesCurriculares, getCursos, getTurmasByCurso } from '../../../api/queries'
+import { getUnidadesCurriculares, getCursos, getTurmasByCurso } from '@/api/queries'
 
 export interface FormOption {
   value: string

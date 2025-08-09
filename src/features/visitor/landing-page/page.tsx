@@ -1,6 +1,6 @@
 import React from 'react'
-import { useSmoothScroll } from '../../hooks/use-smooth-scroll'
-import '../../styles/navigation.css'
+import { useSmoothScroll } from '@/hooks/use-smooth-scroll'
+import '@/styles/navigation.css'
 import Header from './components/Header/Header'
 import Banner from './components/Banner/Banner'
 import CardSection from './components/Cards/CardSection'

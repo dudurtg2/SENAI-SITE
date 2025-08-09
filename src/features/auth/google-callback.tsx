@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useAuth } from '../../contexts/auth-context'
+import { useAuth } from '@/contexts/auth-context'
 
 interface UserData {
   accessToken: string

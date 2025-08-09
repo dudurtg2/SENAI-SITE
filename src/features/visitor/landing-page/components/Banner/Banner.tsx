@@ -1,11 +1,11 @@
 import React from 'react'
 
 // Importar as imagens diretamente
-import img1 from '../../../../assets/images/Imagens/001-Comunidade Maker.jpg'
-import img2 from '../../../../assets/images/Imagens/002-Biblioteca Maker.jpg'
-import img3 from '../../../../assets/images/Imagens/003-Lab Maker.jpg'
-import img4 from '../../../../assets/images/Imagens/004-Reproducao de Projetos.jpg'
-import img5 from '../../../../assets/images/Imagens/005-Titulo sobre o Senai.png'
+import img1 from '@/assets/images/Imagens/001-Comunidade Maker.jpg'
+import img2 from '@/assets/images/Imagens/002-Biblioteca Maker.jpg'
+import img3 from '@/assets/images/Imagens/003-Lab Maker.jpg'
+import img4 from '@/assets/images/Imagens/004-Reproducao de Projetos.jpg'
+import img5 from '@/assets/images/Imagens/005-Titulo sobre o Senai.png'
 
 // Define a interface para as propriedades de cada item do banner
 interface BannerItemProps {

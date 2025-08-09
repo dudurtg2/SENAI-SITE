@@ -1,12 +1,12 @@
 import React from 'react'
 
 // Caminhos das imagens
-import instagramIconPath from '../../../../assets/images/Imagens/020-Instagram.png'
-import facebookIconPath from '../../../../assets/images/Imagens/021-Facebook.png'
-import img1 from '../../../../assets/images/Imagens/006.jpg'
-import img2 from '../../../../assets/images/Imagens/007.jpg'
-import img3 from '../../../../assets/images/Imagens/008.jpg'
-import img4 from '../../../../assets/images/Imagens/009.png'
+import instagramIconPath from '@/assets/images/Imagens/020-Instagram.png'
+import facebookIconPath from '@/assets/images/Imagens/021-Facebook.png'
+import img1 from '@/assets/images/Imagens/006.jpg'
+import img2 from '@/assets/images/Imagens/007.jpg'
+import img3 from '@/assets/images/Imagens/008.jpg'
+import img4 from '@/assets/images/Imagens/009.png'
 
 interface SocialMediaSectionProps {
   // Propriedades do componente, se necessário
