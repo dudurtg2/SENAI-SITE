@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 // Importar o logo
 
@@ -12,9 +12,31 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleLogin = () => {
     navigate('/login')
+  }
+
+  const handleLogoClick = () => {
+    navigate('/')
+  }
+
+  // Verificar se estamos na landing page
+  const isLandingPage = location.pathname === '/'
+
+  // Função para lidar com navegação dos links
+  const handleNavigation = (section: string) => {
+    if (isLandingPage) {
+      // Se estivermos na landing page, usar scroll suave
+      const element = document.querySelector(section)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      // Se não estivermos na landing page, navegar para a landing page com a seção
+      navigate(`/${section}`)
+    }
   }
 
   return (
@@ -29,42 +51,41 @@ const Header: React.FC<HeaderProps> = () => {
           {' '}
           {/* Aumentado espaço entre logo e links */}
           {/* Logo como Imagem */}
-          <a href="/">
-            <img src={senaiLogoPath} alt="Logo SENAI" className="h-10" />{' '}
-            {/* Ajuste a altura (h-8) conforme necessário */}
-          </a>          {/* Links de Navegação (Visível em telas médias+) */}
+          <button onClick={handleLogoClick} className="cursor-pointer">
+            <img src={senaiLogoPath} alt="Logo SENAI" className="h-10" />
+          </button>          {/* Links de Navegação (Visível em telas médias+) */}
           <nav className="hidden md:flex space-x-8">
             {/* Ajustado espaço entre links */}
-            <a
-              href="#sobre-senai"
+            <button
+              onClick={() => handleNavigation('#sobre-senai')}
               className="text-gray-600 hover:text-senai-blue text-sm transition-colors duration-200"
             >
               Sobre o SENAI
-            </a>
-            <a
-              href="#eventos-noticias"
+            </button>
+            <button
+              onClick={() => handleNavigation('#eventos-noticias')}
               className="text-gray-600 hover:text-senai-blue text-sm transition-colors duration-200"
             >
               Eventos e Notícias
-            </a>
-            <a
-              href="#outros-links"
+            </button>
+            <button
+              onClick={() => handleNavigation('#outros-links')}
               className="text-gray-600 hover:text-senai-blue text-sm transition-colors duration-200"
             >
               Links Úteis
-            </a>
-            <a
-              href="#equipe"
+            </button>
+            <button
+              onClick={() => handleNavigation('#equipe')}
               className="text-gray-600 hover:text-senai-blue text-sm transition-colors duration-200"
             >
               Equipe
-            </a>
-            <a
-              href="#contato"
+            </button>
+            <button
+              onClick={() => handleNavigation('#contato')}
               className="text-gray-600 hover:text-senai-blue text-sm transition-colors duration-200"
             >
               Contato
-            </a>
+            </button>
           </nav>
         </div>
         {/* Botão de Login (Visível em telas médias+) */}
@@ -117,36 +138,36 @@ const Header: React.FC<HeaderProps> = () => {
       {/* Menu Mobile (Aparece quando o botão Hamburger é clicado) */}
       {isMobileMenuOpen && (        <div className="md:hidden bg-white px-6 pb-4">
           <nav className="flex flex-col space-y-2">
-            <a
-              href="#sobre-senai"
-              className="text-gray-600 hover:text-senai-blue py-1"
+            <button
+              onClick={() => handleNavigation('#sobre-senai')}
+              className="text-gray-600 hover:text-senai-blue py-1 text-left"
             >
               Sobre o SENAI
-            </a>
-            <a
-              href="#eventos-noticias"
-              className="text-gray-600 hover:text-senai-blue py-1"
+            </button>
+            <button
+              onClick={() => handleNavigation('#eventos-noticias')}
+              className="text-gray-600 hover:text-senai-blue py-1 text-left"
             >
               Eventos e Notícias
-            </a>
-            <a
-              href="#outros-links"
-              className="text-gray-600 hover:text-senai-blue py-1"
+            </button>
+            <button
+              onClick={() => handleNavigation('#outros-links')}
+              className="text-gray-600 hover:text-senai-blue py-1 text-left"
             >
               Links Úteis
-            </a>
-            <a
-              href="#equipe"
-              className="text-gray-600 hover:text-senai-blue py-1"
+            </button>
+            <button
+              onClick={() => handleNavigation('#equipe')}
+              className="text-gray-600 hover:text-senai-blue py-1 text-left"
             >
               Equipe
-            </a>
-            <a
-              href="#contato"
-              className="text-gray-600 hover:text-senai-blue py-1"
+            </button>
+            <button
+              onClick={() => handleNavigation('#contato')}
+              className="text-gray-600 hover:text-senai-blue py-1 text-left"
             >
               Contato
-            </a>
+            </button>
             <button 
               onClick={handleLogin}
               className="bg-black text-white px-4 py-2 rounded-md flex items-center justify-center space-x-2 text-sm hover:bg-gray-800 transition-colors mt-2"
