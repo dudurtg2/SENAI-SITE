@@ -43,7 +43,7 @@ const SocialMediaSection: React.FC<SocialMediaSectionProps> = () => {
         {' '}
         {/* Alterado py-12 expessura da faixa azul */}
         {/* Bloco Instagram */}
-        <div className="flex items-center text-white">
+        <div className="flex items-center text-white cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.open('https://www.instagram.com/mobiliza.senaifeira/', '_blank')}>
           <img
             src={instagramIconPath}
             alt="Instagram"
@@ -55,7 +55,7 @@ const SocialMediaSection: React.FC<SocialMediaSectionProps> = () => {
           </div>
         </div>
         {/* Bloco Facebook */}
-        <div className="flex items-center text-white">
+        <div className="flex items-center text-white cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.open('https://www.facebook.com/Mobilizasenai', '_blank')}>
           <img
             src={facebookIconPath}
             alt="Facebook"

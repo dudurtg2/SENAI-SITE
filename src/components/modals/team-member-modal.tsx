@@ -87,8 +87,8 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ isOpen, onClose, memb
 
             {/* Social media buttons */}
             <div className="border-t pt-4">
-              <h4 className="text-lg font-semibold text-gray-800 mb-3">Conecte-se</h4>
-              <div className="flex gap-3">
+              <h4 className="text-lg font-semibold text-gray-800 mb-3 text-center">Conecte-se</h4>
+              <div className="flex justify-center items-center gap-3 flex-wrap">
                 {member.github && (
                   <button
                     onClick={() => handleSocialClick(member.github, 'github')}

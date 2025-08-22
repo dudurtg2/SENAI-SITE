@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import Img1 from '@/assets/images/Imagens/014-Nome Cuso e turma.png'
-import Img2 from '@/assets/images/Imagens/015-Nome Cuso e turma.png'
-import Img3 from '@/assets/images/Imagens/016-Nome Cuso e turma.png'
-import Img4 from '@/assets/images/Imagens/017-Nome Cuso e turma.png'
-import Img5 from '@/assets/images/Imagens/018-Nome Cuso e turma.png'
-import Img6 from '@/assets/images/Imagens/019-Nome Cuso e turma.png'
+import GiuliaImg from '@/assets/Equipe/Giulia.jpg'
+import GuilhermeImg from '@/assets/Equipe/Guilherme Pontes.jpg'
+import CarlosImg from '@/assets/Equipe/Carlos Eduardo Oliveira Savegnago.jpg'
+import AnaImg from '@/assets/Equipe/Ana Caroline Rocha.jpg'
+import VanessaImg from '@/assets/Equipe/Vanessa Araujo.jpg'
+import HitalonImg from '@/assets/Equipe/Hítalon Saimon.jpg'
+import SilasImg from '@/assets/Equipe/SilasMatos.png'
+import ElissonImg from '@/assets/Equipe/ElissonNadson.png'
 import TeamMemberModal from '@/components/modals/team-member-modal'
 
 interface TeamMember {
@@ -30,69 +32,85 @@ const InfoSection: React.FC<InfoSectionProps> = () => {
   const teamMembers: TeamMember[] = [
     {
       id: 1,
-      imageUrl: Img1,
-      name: 'Prof. João Silva',
-      details: 'Mecânica Industrial',
-      skills: ['Soldagem', 'Usinagem', 'Manutenção Industrial', 'Pneumática', 'Hidráulica'],
-      summary: 'Engenheiro Mecânico com mais de 15 anos de experiência na indústria automobilística. Especialista em processos de manufatura e manutenção de equipamentos industriais. Possui certificações em soldagem AWS e experiência em projetos de automação industrial.',
-      github: 'https://github.com/joaosilva',
-      whatsapp: '5575999887766',
-      linkedin: 'https://linkedin.com/in/joao-silva-mecanica'
+      imageUrl: GiuliaImg,
+      name: 'Giulia Cardoso',
+      details: 'Desenvolvedora Frontend',
+      skills: ['React', 'TypeScript', 'UI/UX Design', 'JavaScript', 'CSS'],
+      summary: 'Desenvolvedora Frontend especializada em React e TypeScript. Focada em criar interfaces modernas e acessíveis, com experiência em desenvolvimento de aplicações web responsivas e otimizadas.',
+      github: 'https://github.com/GiuliaDSCardoso',
+      linkedin: 'https://www.linkedin.com/in/giuliacardoso2981'
     },
     {
       id: 2,
-      imageUrl: Img2,
-      name: 'Prof. Maria Santos',
-      details: 'Eletrônica Digital',
-      skills: ['Arduino', 'Microcontroladores', 'PCB Design', 'IoT', 'Sistemas Embarcados'],
-      summary: 'Engenheira Eletrônica com mestrado em Sistemas Digitais. Atua há 12 anos no desenvolvimento de soluções IoT e sistemas embarcados. Coordena projetos de pesquisa em parceria com a indústria local, focando em Indústria 4.0.',
-      github: 'https://github.com/mariasantos',
-      whatsapp: '5575988776655',
-      linkedin: 'https://linkedin.com/in/maria-santos-eletronica'
+      imageUrl: GuilhermeImg,
+      name: 'Guilherme Pontes',
+      details: 'Designer & Desenvolvedor',
+      skills: ['Design', 'Frontend', 'UI/UX', 'Figma', 'Adobe Creative'],
+      summary: 'Designer e desenvolvedor com foco em experiência do usuário e interfaces inovadoras. Especialista em criar soluções visuais impactantes e funcionais para projetos web e mobile.',
+      github: 'https://github.com/guilermePontes',
+      linkedin: 'http://www.linkedin.com/in/pontes-design'
     },
     {
       id: 3,
-      imageUrl: Img3,
-      name: 'Prof. Carlos Lima',
-      details: 'Automação Industrial',
-      skills: ['CLP', 'SCADA', 'Redes Industriais', 'Robótica', 'Instrumentação'],
-      summary: 'Técnico em Automação com especialização em Sistemas de Controle. Trabalhou por 10 anos em grandes indústrias químicas e petroquímicas. Expert em programação de CLPs Siemens e Allen-Bradley, com experiência em projetos de retrofit industrial.',
-      github: 'https://github.com/carloslima',
-      whatsapp: '5575977665544',
-      linkedin: 'https://linkedin.com/in/carlos-lima-automacao'
+      imageUrl: CarlosImg,
+      name: 'Carlos Eduardo Oliveira Savegnago',
+      details: 'Full Stack Developer',
+      skills: ['JavaScript', 'React', 'Node.js', 'Python', 'Database'],
+      summary: 'Desenvolvedor full stack versátil com sólida experiência em tecnologias web modernas. Especialista em criar aplicações completas e escaláveis, desde o frontend até o backend.',
+      github: 'https://github.com/dudurtg2',
+      linkedin: 'https://linkedin.com/in/carlos-eduardo-oliveira-savegnago-97b2b2317/'
     },
     {
       id: 4,
-      imageUrl: Img4,
-      name: 'Prof. Ana Costa',
-      details: 'Desenvolvimento de Sistemas',
-      skills: ['JavaScript', 'React', 'Node.js', 'Python', 'Banco de Dados'],
-      summary: 'Desenvolvedora Full Stack com 8 anos de experiência em startups e empresas de tecnologia. Especialista em desenvolvimento web moderno e arquitetura de sistemas. Mentora ativa na comunidade tech local e palestrante em eventos de tecnologia.',
-      github: 'https://github.com/anacosta',
-      whatsapp: '5575966554433',
-      linkedin: 'https://linkedin.com/in/ana-costa-dev'
+      imageUrl: AnaImg,
+      name: 'Ana Caroline Rocha',
+      details: 'Backend Developer',
+      skills: ['Node.js', 'Python', 'Database', 'APIs', 'DevOps'],
+      summary: 'Desenvolvedora backend especializada em arquiteturas robustas e escaláveis. Com experiência em microserviços, bancos de dados relacionais e não-relacionais, e integração de sistemas complexos.',
+      github: 'https://github.com/AnaCaroline',
+      linkedin: 'https://linkedin.com/in/ana-caroline-rocha'
     },
     {
       id: 5,
-      imageUrl: Img5,
-      name: 'Prof. Roberto Alves',
-      details: 'Segurança do Trabalho',
-      skills: ['NRs', 'Auditoria', 'Ergonomia', 'Gestão de Riscos', 'CIPA'],
-      summary: 'Técnico em Segurança do Trabalho com 20 anos de experiência em indústrias de grande porte. Especialista em implementação de sistemas de gestão de segurança e saúde ocupacional. Auditor interno ISO 45001 e instrutor de NRs.',
-      github: 'https://github.com/robertoalves',
-      whatsapp: '5575955443322',
-      linkedin: 'https://linkedin.com/in/roberto-alves-seguranca'
+      imageUrl: VanessaImg,
+      name: 'Vanessa Araujo',
+      details: 'Frontend Developer',
+      skills: ['React', 'Vue.js', 'TypeScript', 'UX/UI', 'Figma'],
+      summary: 'Desenvolvedora frontend apaixonada por criar experiências digitais incríveis. Especialista em frameworks modernos, design responsivo e performance web. Sempre buscando as melhores práticas de acessibilidade e usabilidade.',
+      github: 'https://github.com/VanessaAraujo',
+      linkedin: 'https://linkedin.com/in/vanessa-araujo'
     },
     {
       id: 6,
-      imageUrl: Img6,
-      name: 'Prof. Fernanda Rocha',
-      details: 'Gestão da Qualidade',
-      skills: ['ISO 9001', 'Lean Manufacturing', 'Six Sigma', 'Auditoria', 'Controle Estatístico'],
-      summary: 'Engenheira de Produção com MBA em Gestão da Qualidade. Black Belt Six Sigma com experiência na implementação de sistemas de qualidade em indústrias alimentícias e farmacêuticas. Consultora em processos de certificação ISO.',
-      github: 'https://github.com/fernandarocha',
-      whatsapp: '5575944332211',
-      linkedin: 'https://linkedin.com/in/fernanda-rocha-qualidade'
+      imageUrl: HitalonImg,
+      name: 'Hítalon Saimon',
+      details: 'Full Stack Developer',
+      skills: ['JavaScript', 'React', 'Node.js', 'Python', 'DevOps'],
+      summary: 'Desenvolvedor full stack versátil com experiência em múltiplas tecnologias. Especialista em criar soluções completas, desde o frontend até o backend, com foco em arquiteturas escaláveis e performáticas.',
+      github: 'https://github.com/HitalonSaimon',
+      linkedin: 'https://linkedin.com/in/hitalon-saimon'
+    },
+    {
+      id: 7,
+      imageUrl: SilasImg,
+      name: 'Silas Matos',
+      details: 'Developer',
+      skills: ['JavaScript', 'React', 'Frontend', 'UI/UX', 'Web Development'],
+      summary: 'Desenvolvedor apaixonado por tecnologia e inovação. Focado em criar soluções eficientes e experiências de usuário excepcionais. Sempre em busca de novos desafios e aprendizado contínuo.',
+      github: 'https://github.com/SilasMatos',
+      linkedin: 'https://www.linkedin.com/in/silas-matos/',
+      whatsapp: '5575999887766'
+    },
+    {
+      id: 8,
+      imageUrl: ElissonImg,
+      name: 'Elisson Nadson',
+      details: 'Developer',
+      skills: ['JavaScript', 'Frontend', 'Backend', 'Web Development', 'Programming'],
+      summary: 'Desenvolvedor versátil com experiência em desenvolvimento web. Especialista em criar aplicações robustas e funcionais, com foco em qualidade de código e boas práticas de desenvolvimento.',
+      github: 'https://github.com/ElissonNadson',
+      linkedin: 'https://www.linkedin.com/in/elissonmarques/',
+      whatsapp: '5575988776655'
     }
   ]
 
@@ -111,7 +129,8 @@ const InfoSection: React.FC<InfoSectionProps> = () => {
 
   return (
     <section className="py-8 bg-gray-100">
-      <div className="container mx-auto px-4">        <h2 className="text-2xl font-light text-center mb-4">
+      <div className="container mx-auto px-4">
+        <h2 className="text-2xl font-light text-center mb-4">
           NOSSA EQUIPE
         </h2>
         <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">

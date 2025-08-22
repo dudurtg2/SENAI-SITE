@@ -34,3 +34,67 @@ export const useSmoothScroll = () => {
     }
   }, [])
 }
+
+// Hook para navegação por teclado
+export const useKeyboardNavigation = () => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Tab navigation enhancement
+      if (e.key === 'Tab') {
+        document.body.classList.add('keyboard-navigation')
+      }
+
+      // Escape para fechar modais/menus
+      if (e.key === 'Escape') {
+        const openModals = document.querySelectorAll('[role="dialog"], .modal-open')
+        openModals.forEach(modal => {
+          const closeButton = modal.querySelector('button[aria-label*="fechar"], button[aria-label*="Fechar"]') as HTMLButtonElement
+          if (closeButton) {
+            closeButton.click()
+          }
+        })
+      }
+
+      // Navegação por setas em menus
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        const activeElement = document.activeElement
+        if (activeElement && activeElement.closest('[role="menu"], nav')) {
+          e.preventDefault()
+          const menuItems = Array.from(activeElement.closest('[role="menu"], nav')?.querySelectorAll('a, button') || [])
+          const currentIndex = menuItems.indexOf(activeElement as Element)
+          
+          if (e.key === 'ArrowDown') {
+            const nextIndex: number = (currentIndex + 1) % menuItems.length
+            const nextElement = menuItems[nextIndex] as HTMLElement
+            nextElement?.focus()
+          } else {
+            const prevIndex: number = currentIndex === 0 ? menuItems.length - 1 : currentIndex - 1
+            const prevElement = menuItems[prevIndex] as HTMLElement
+            prevElement?.focus()
+          }
+        }
+      }
+
+      // Enter em elementos focáveis
+      if (e.key === 'Enter') {
+        const activeElement = document.activeElement as HTMLElement
+        if (activeElement && (activeElement.tagName === 'BUTTON' || activeElement.role === 'button')) {
+          e.preventDefault()
+          activeElement.click()
+        }
+      }
+    }
+
+    const handleMouseDown = () => {
+      document.body.classList.remove('keyboard-navigation')
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('mousedown', handleMouseDown)
+    
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('mousedown', handleMouseDown)
+    }
+  }, [])
+}

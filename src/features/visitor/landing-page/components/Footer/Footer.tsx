@@ -142,21 +142,21 @@ const Footer: React.FC<FooterProps> = () => {
                 </h3>
                 {/* Ícones de redes sociais - Usando as imagens fornecidas */}
                 <div className="flex space-x-4 justify-center sm:justify-start">
-                  <a href="#" aria-label="Instagram">
+                  <a href="https://www.instagram.com/mobiliza.senaifeira/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <img
                       src={instagramIconPath}
                       alt="Instagram"
                       className="w-10 h-10 hover:opacity-80 transition-opacity"
                     />
                   </a>
-                  <a href="#" aria-label="Whatsapp">
+                  <a href="https://wa.me/5575999999999" target="_blank" rel="noopener noreferrer" aria-label="Whatsapp">
                     <img
                       src={whatsappIconPath}
                       alt="Whatsapp"
                       className="w-8 h-8 hover:opacity-80 transition-opacity"
                     />
                   </a>
-                  <a href="#" aria-label="Facebook">
+                  <a href="https://www.facebook.com/Mobilizasenai" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                     <img
                       src={facebookIconPath}
                       alt="Facebook"
@@ -165,6 +165,28 @@ const Footer: React.FC<FooterProps> = () => {
                   </a>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Copyright Section */}
+      <div className="bg-gray-900 text-white border-t border-gray-700">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm">
+            <div className="mb-2 md:mb-0">
+              <p>© 2025 SENAI Feira de Santana. Todos os direitos reservados.</p>
+            </div>
+            <div className="flex space-x-6">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                Termos de Uso
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                Política de Privacidade
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                Contato
+              </a>
             </div>
           </div>
         </div>
