@@ -12,6 +12,15 @@ const Private: React.FC<PrivateProps> = ({ children, requireAuth = true }) => {
   const { isAuthenticated, isLoading } = useAuth()
   const { isGuest } = useGuest()
 
+  // Debug logs
+  console.log('🛡️ Private Router Debug:', {
+    isAuthenticated,
+    isLoading,
+    isGuest,
+    requireAuth,
+    currentUrl: window.location.href
+  })
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -22,6 +31,7 @@ const Private: React.FC<PrivateProps> = ({ children, requireAuth = true }) => {
 
   // Se requer autenticação e não está autenticado nem é visitante
   if (requireAuth && !isAuthenticated && !isGuest) {
+    console.log('🛡️ Private Router: Redirecting to login - not authenticated and not guest')
     return <Navigate to="/login" replace />
   }
 

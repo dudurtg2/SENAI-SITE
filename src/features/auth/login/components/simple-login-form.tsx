@@ -134,7 +134,17 @@ const LoginForm = () => {
   }
 
   const handleGuestAccess = () => {
-    navigate('/app')
+    console.log('🎯 handleGuestAccess - Iniciando modo visitante')
+    
+    // Definir isGuest no localStorage ANTES de navegar
+    localStorage.setItem('isGuest', 'true')
+    console.log('🎯 handleGuestAccess - localStorage definido:', localStorage.getItem('isGuest'))
+    
+    // Aguardar um pouco para garantir que o localStorage seja processado
+    setTimeout(() => {
+      console.log('🎯 handleGuestAccess - Navegando para /app?guest=true via window.location')
+      window.location.href = '/app?guest=true'
+    }, 100) // 100ms de delay
   }
   return (
     <form onSubmit={handleSubmit} className="space-y-6">

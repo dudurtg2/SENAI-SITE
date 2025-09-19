@@ -33,10 +33,12 @@ export const GuestProvider: React.FC<GuestProviderProps> = ({ children }) => {
   const location = useLocation()
   
   console.log('🎯 GuestProvider - Location change:', location.pathname, location.search)
+  console.log('🎯 GuestProvider - Current isGuest state:', isGuest)
   
   // Verificar se o usuário está em modo visitante pela URL ou localStorage
   useEffect(() => {
     console.log('🎯 GuestProvider - useEffect triggered')
+    console.log('🎯 GuestProvider - Current location:', { pathname: location.pathname, search: location.search })
     
     // Primeiro, verificar se o usuário está autenticado
     const savedAccessToken = Cookies.get('accessToken')
@@ -63,20 +65,21 @@ export const GuestProvider: React.FC<GuestProviderProps> = ({ children }) => {
     console.log('🎯 GuestProvider - Guest param:', guestParam)
     
     if (guestParam === 'true') {
-      console.log('🎯 Guest mode detectado via URL')
+      console.log('🎯 Guest mode detectado via URL - setando isGuest para true')
       setIsGuest(true)
       // Salvar no localStorage para persistir durante a sessão
       localStorage.setItem('isGuest', 'true')
+      console.log('🎯 Guest mode ativado via URL')
     } else {
       // Verificar localStorage apenas se não há autenticação
       const savedGuestStatus = localStorage.getItem('isGuest')
       console.log('🎯 GuestProvider - localStorage isGuest:', savedGuestStatus)
       
       if (savedGuestStatus === 'true') {
-        console.log('🎯 Guest mode detectado via localStorage')
+        console.log('🎯 Guest mode detectado via localStorage - setando isGuest para true')
         setIsGuest(true)
       } else {
-        console.log('🎯 GuestProvider - NOT guest mode')
+        console.log('🎯 GuestProvider - NOT guest mode - setando isGuest para false')
         setIsGuest(false)
       }
     }
