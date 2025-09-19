@@ -18,7 +18,10 @@ const SectionBreadcrumb: React.FC = () => {
     '/biblioteca-maker': { name: 'Biblioteca Maker', description: 'Acesse recursos educacionais' }, 
     '/laboratorio-maker': { name: 'Laboratório Maker', description: 'Equipamentos e prototipagem' },
     '/projetos-inovadores': { name: 'Projetos Inovadores', description: 'Desenvolvimento e inovação' },
-    '/educacao-tecnologica': { name: 'Educação Tecnológica', description: 'Cursos e formação' }
+    '/educacao-tecnologica': { name: 'Educação Tecnológica', description: 'Cursos e formação' },
+    '/sobre': { name: 'Sobre o SENAI', description: 'Conheça nossa história e missão' },
+    '/equipe': { name: 'Nossa Equipe', description: 'Profissionais dedicados à excelência' },
+    '/contato': { name: 'Contato', description: 'Entre em contato conosco' }
   }
   
   const currentSection = sectionPages[location.pathname as keyof typeof sectionPages]

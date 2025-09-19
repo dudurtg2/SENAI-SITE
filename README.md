@@ -1,4 +1,4 @@
-# Plataforma Acadêmica - Frontend Web
+# Prosen Senai - Frontend Web
 
 Este repositório contém a **interface web** do sistema de cadastro e compartilhamento de projetos acadêmicos, desenvolvida em **React** seguindo o padrão **MVC**.
 
@@ -89,11 +89,11 @@ src/
 
 1. Clone o repositório:
    ```bash
-git clone https://github.com/seu-usuario/plataforma-academica-frontend.git
+git clone https://github.com/seu-usuario/prosen-senai-frontend.git
 ```
 2. Instale dependências:
    ```bash
-cd plataforma-academica-frontend
+cd prosen-senai-frontend
 npm install
 ```
 3. Defina variáveis de ambiente (exemplo `.env`):
@@ -126,4 +126,4 @@ O resultado ficará em `build/`, pronto para ser servido por um servidor estáti
 
 ## Licença
 
-© SENAI
+© Prosen Senai

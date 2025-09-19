@@ -31,14 +31,16 @@ import TeacherReports from '../features/teacher/reports/page'
 import TeacherCertificates from '../features/teacher/certificates/page'
 import TeacherResources from '../features/teacher/resources/page'
 import TeacherSettings from '../features/teacher/settings/page'
-import AboutProjectPage from '../features/visitor/about-project/page'
 import SectionLayout from '../features/visitor/layout/SectionLayout'
 import { 
   ComunidadeMaker, 
   BibliotecaMaker, 
   LaboratorioMaker, 
   ProjetosInovadores, 
-  EducacaoTecnologica
+  EducacaoTecnologica,
+  Sobre,
+  Equipe,
+  Contato
 } from '../features/visitor/sections'
 
 const Routers: React.FC = () => {
@@ -50,7 +52,7 @@ const Routers: React.FC = () => {
             <Routes>
               {/* Landing page sem NotificationProvider para evitar chamadas de API */}
               <Route path="/" element={<LandingPage />} />
-              <Route path="/sobre-projeto" element={<AboutProjectPage />} />
+              {/* <Route path="/sobre-projeto" element={<AboutProjectPage />} /> */}
                 
                 {/* Páginas das Seções */}
                 <Route path="/comunidade-maker" element={<ComunidadeMaker />} />
@@ -58,6 +60,11 @@ const Routers: React.FC = () => {
                 <Route path="/laboratorio-maker" element={<LaboratorioMaker />} />
                 <Route path="/projetos-inovadores" element={<ProjetosInovadores />} />
                 <Route path="/educacao-tecnologica" element={<EducacaoTecnologica />} />
+                
+                {/* Novas páginas */}
+                <Route path="/sobre" element={<Sobre />} />
+                <Route path="/equipe" element={<Equipe />} />
+                <Route path="/contato" element={<Contato />} />
                 <Route path="/politica-de-privacidade" element={
                   <SectionLayout>
                     <div className="min-h-screen bg-gray-50">
