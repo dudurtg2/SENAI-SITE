@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste do Botão Visitante</title>
+</head>
+<body>
+    <h1>Teste Manual do Botão Visitante</h1>
+    
+    <button onclick="testGuestAccess()">Testar Acesso como Visitante</button>
+    
+    <div id="status"></div>
+    
+    <script>
+        function testGuestAccess() {
+            console.log('🎯 Teste - Iniciando modo visitante')
+            
+            // Definir isGuest no localStorage
+            localStorage.setItem('isGuest', 'true')
+            console.log('🎯 Teste - localStorage definido:', localStorage.getItem('isGuest'))
+            
+            // Navegar para /app com parâmetro guest=true
+            console.log('🎯 Teste - Navegando para /app?guest=true')
+            window.location.href = 'http://localhost:3001/app?guest=true'
+        }
+        
+        // Mostrar status atual
+        document.getElementById('status').innerHTML = `
+            <p>localStorage isGuest: ${localStorage.getItem('isGuest')}</p>
+            <p>URL atual: ${window.location.href}</p>
+        `
+    </script>
+</body>
+</html>

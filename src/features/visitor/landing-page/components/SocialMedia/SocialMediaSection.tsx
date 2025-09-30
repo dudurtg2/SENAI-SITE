@@ -33,15 +33,23 @@ const SocialMediaSection: React.FC<SocialMediaSectionProps> = () => {
     // Adicione mais imagens aqui se desejar
   ]
 
-  // Duplica as imagens para o efeito de loop infinito
-  const doubledImages = [...carouselImages, ...carouselImages]
+  // Duplica as imagens múltiplas vezes para garantir que toda a tela seja preenchida
+  // Criamos muitas cópias para cobrir telas grandes
+  const doubledImages = [
+    ...carouselImages,
+    ...carouselImages,
+    ...carouselImages,
+    ...carouselImages,
+    ...carouselImages,
+    ...carouselImages
+  ]
 
   return (
     <section className="w-full">
-      {/* Seção Superior com fundo escuro - Altura aumentada novamente */}
-      <div className="bg-slate-900 py-12 flex flex-col md:flex-row justify-center items-center space-y- md:space-y-0 md:space-x-20">
+      {/* Seção Superior com fundo azul - Mesma cor do header "Prosen Senai" */}
+      <div className="bg-blue-600 py-12 flex flex-col md:flex-row justify-center items-center space-y- md:space-y-0 md:space-x-20">
         {' '}
-        {/* Alterado py-12 expessura da faixa azul */}
+        {/* Alterado bg-slate-900 para bg-blue-600 */}
         {/* Bloco Instagram */}
         <div className="flex items-center text-white cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.open('https://www.instagram.com/mobiliza.senaifeira/', '_blank')}>
           <img
@@ -70,18 +78,16 @@ const SocialMediaSection: React.FC<SocialMediaSectionProps> = () => {
 
       {/* Seção Inferior com Carrossel Horizontal em Loop */}
       {/* Container principal com overflow hidden. */}
-      <div className="overflow-hidden w-full group">
+      <div className="overflow-hidden w-full group bg-gray-100">
         {/* Container interno que se move com a animação. */}
-        <div className="flex whitespace-nowrap animate-scroll group-hover:pause">
+        <div className="flex animate-scroll group-hover:pause" style={{ width: 'max-content' }}>
           {doubledImages.map((image, index) => (
-            // Cada item do carrossel: largura fixa, altura aumentada novamente, não encolher.
-            <div key={index} className="inline-block w-64 h-80 flex-shrink-0">
-              {' '}
-              {/* Alterado h-64 para h-80 */}
+            // Cada item do carrossel: largura fixa, altura aumentada, sem espaços
+            <div key={index} className="flex-shrink-0 w-96 h-80">
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-cover shadow-md" // Bordas retas (sem rounded-lg), mantido shadow-md
+                className="w-full h-full object-cover"
               />
             </div>
           ))}
