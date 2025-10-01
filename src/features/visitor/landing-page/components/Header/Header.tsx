@@ -14,10 +14,10 @@ const SectionSubNav: React.FC = () => {
   const location = useLocation()
   
   const sectionPages = {
-    '/comunidade-maker': { name: 'Comunidade Maker', icon: '👥', color: 'blue' },
+    '/vitrine-tecnologica': { name: 'Vitrine Tecnológica', icon: '�', color: 'purple' },
     '/biblioteca-maker': { name: 'Biblioteca Maker', icon: '📚', color: 'orange' }, 
     '/laboratorio-maker': { name: 'Laboratório Maker', icon: '🔬', color: 'cyan' },
-    '/projetos-inovadores': { name: 'Projetos Inovadores', icon: '🚀', color: 'purple' },
+    '/comunidade-maker': { name: 'Comunidade Maker', icon: '�', color: 'blue' },
     '/educacao-tecnologica': { name: 'Educação Tecnológica', icon: '🎓', color: 'green' }
   }
   
@@ -50,10 +50,10 @@ const Header: React.FC<HeaderProps> = () => {
   
   // Verificar se estamos em uma seção Maker (onde queremos mostrar apenas o SectionSubNav)
   const isMakerSection = [
-    '/comunidade-maker',
+    '/vitrine-tecnologica',
     '/biblioteca-maker', 
     '/laboratorio-maker',
-    '/projetos-inovadores',
+    '/comunidade-maker',
     '/educacao-tecnologica'
   ].includes(location.pathname)
 
@@ -82,10 +82,10 @@ const Header: React.FC<HeaderProps> = () => {
               <div className="flex justify-center items-center">
                 <div className="text-center">
                   <h1 className="text-lg font-semibold text-white">
-                    Prosen Senai
+                    SENAI Feira de Santana
                   </h1>
                   <p className="text-blue-100 text-sm">
-                    Inovação e Tecnologia em Educação
+                    Educação, Tecnologia e Inovação
                   </p>
                 </div>
               </div>
@@ -127,20 +127,18 @@ const Header: React.FC<HeaderProps> = () => {
                       <div className="absolute top-full left-0 w-64 bg-white shadow-xl border border-gray-200 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 mt-2">
                         <div className="py-3">
                           <button
-                            onClick={() => navigate('/comunidade-maker')}
-                            className="w-full text-left px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200 flex items-center space-x-3"
+                            onClick={() => navigate('/vitrine-tecnologica')}
+                            className="w-full text-left px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors duration-200 flex items-center space-x-3"
                           >
-                            <span className="text-blue-500">👥</span>
                             <div>
-                              <div className="font-medium">Comunidade Maker</div>
-                              <div className="text-xs text-gray-500">Colaboração e networking</div>
+                              <div className="font-medium">Vitrine Tecnológica</div>
+                              <div className="text-xs text-gray-500">Desenvolvimento e inovação</div>
                             </div>
                           </button>
                           <button
                             onClick={() => navigate('/biblioteca-maker')}
                             className="w-full text-left px-4 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-200 flex items-center space-x-3"
                           >
-                            <span className="text-orange-500">📚</span>
                             <div>
                               <div className="font-medium">Biblioteca Maker</div>
                               <div className="text-xs text-gray-500">Recursos e conhecimento</div>
@@ -150,30 +148,18 @@ const Header: React.FC<HeaderProps> = () => {
                             onClick={() => navigate('/laboratorio-maker')}
                             className="w-full text-left px-4 py-3 text-gray-700 hover:bg-cyan-50 hover:text-cyan-600 transition-colors duration-200 flex items-center space-x-3"
                           >
-                            <span className="text-cyan-500">🔬</span>
                             <div>
                               <div className="font-medium">Laboratório Maker</div>
                               <div className="text-xs text-gray-500">Equipamentos e prototipagem</div>
                             </div>
                           </button>
                           <button
-                            onClick={() => navigate('/projetos-inovadores')}
-                            className="w-full text-left px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition-colors duration-200 flex items-center space-x-3"
+                            onClick={() => navigate('/comunidade-maker')}
+                            className="w-full text-left px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200 flex items-center space-x-3"
                           >
-                            <span className="text-purple-500">🚀</span>
                             <div>
-                              <div className="font-medium">Projetos Inovadores</div>
-                              <div className="text-xs text-gray-500">Desenvolvimento e inovação</div>
-                            </div>
-                          </button>
-                          <button
-                            onClick={() => navigate('/educacao-tecnologica')}
-                            className="w-full text-left px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors duration-200 flex items-center space-x-3"
-                          >
-                            <span className="text-green-500">🎓</span>
-                            <div>
-                              <div className="font-medium">Educação Tecnológica</div>
-                              <div className="text-xs text-gray-500">Cursos e formação</div>
+                              <div className="font-medium">Comunidade Maker</div>
+                              <div className="text-xs text-gray-500">Colaboração e networking</div>
                             </div>
                           </button>
                         </div>
@@ -184,27 +170,6 @@ const Header: React.FC<HeaderProps> = () => {
                       className="text-gray-700 hover:text-blue-600 font-medium text-base transition-colors duration-200 relative group py-2"
                     >
                       Eventos e Notícias
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                    </button>
-                    <button
-                      onClick={() => handleNavigation('#outros-links')}
-                      className="text-gray-700 hover:text-blue-600 font-medium text-base transition-colors duration-200 relative group py-2"
-                    >
-                      Links Úteis
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                    </button>
-                    <button
-                      onClick={() => navigate('/equipe')}
-                      className="text-gray-700 hover:text-blue-600 font-medium text-base transition-colors duration-200 relative group py-2"
-                    >
-                      Equipe
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                    </button>
-                    <button
-                      onClick={() => navigate('/contato')}
-                      className="text-gray-700 hover:text-blue-600 font-medium text-base transition-colors duration-200 relative group py-2"
-                    >
-                      Contato
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
                     </button>
                   </nav>
@@ -279,33 +244,6 @@ const Header: React.FC<HeaderProps> = () => {
                     className="block w-full text-left text-gray-700 hover:text-blue-600 py-2 px-3 rounded-md hover:bg-gray-50 transition-colors duration-200"
                   >
                     Eventos e Notícias
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleNavigation('#outros-links')
-                      setIsMobileMenuOpen(false)
-                    }}
-                    className="block w-full text-left text-gray-700 hover:text-blue-600 py-2 px-3 rounded-md hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    Links Úteis
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleNavigation('#equipe')
-                      setIsMobileMenuOpen(false)
-                    }}
-                    className="block w-full text-left text-gray-700 hover:text-blue-600 py-2 px-3 rounded-md hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    Equipe
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleNavigation('#contato')
-                      setIsMobileMenuOpen(false)
-                    }}
-                    className="block w-full text-left text-gray-700 hover:text-blue-600 py-2 px-3 rounded-md hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    Contato
                   </button>
                   
                   {/* Login no Mobile - Aumentado */}

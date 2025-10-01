@@ -46,7 +46,7 @@ const SocialMediaSection: React.FC<SocialMediaSectionProps> = () => {
 
   return (
     <section className="w-full">
-      {/* Seção Superior com fundo azul - Mesma cor do header "Prosen Senai" */}
+      {/* Seção Superior com fundo azul - Mesma cor do header "SENAI" */}
       <div className="bg-blue-600 py-12 flex flex-col md:flex-row justify-center items-center space-y- md:space-y-0 md:space-x-20">
         {' '}
         {/* Alterado bg-slate-900 para bg-blue-600 */}

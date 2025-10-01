@@ -63,17 +63,7 @@ const LoginPage = () => {
             <div className="text-sm text-gray-500">
               © 2025 SENAI. Todos os direitos reservados.
             </div>
-            <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-gray-500 transition-colors">
-                Termos de Uso
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-500 transition-colors">
-                Política de Privacidade
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-500 transition-colors">
-                Contato
-              </a>
-            </div>
+          
           </div>
         </div>
       </footer>

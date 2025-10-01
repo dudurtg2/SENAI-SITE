@@ -1,4 +1,4 @@
-# Prosen Senai - Frontend Web
+# Vitrine de Projetos - Frontend Web
 
 Este repositório contém a **interface web** do sistema de cadastro e compartilhamento de projetos acadêmicos, desenvolvida em **React** seguindo o padrão **MVC**.
 
@@ -89,11 +89,11 @@ src/
 
 1. Clone o repositório:
    ```bash
-git clone https://github.com/seu-usuario/prosen-senai-frontend.git
+git clone https://github.com/seu-usuario/vitrine-de-projetos-frontend.git
 ```
 2. Instale dependências:
    ```bash
-cd prosen-senai-frontend
+cd vitrine-de-projetos-frontend
 npm install
 ```
 3. Defina variáveis de ambiente (exemplo `.env`):
@@ -126,4 +126,4 @@ O resultado ficará em `build/`, pronto para ser servido por um servidor estáti
 
 ## Licença
 
-© Prosen Senai
+© Vitrine de Projetos SENAI

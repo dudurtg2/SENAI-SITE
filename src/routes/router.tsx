@@ -36,11 +36,9 @@ import {
   ComunidadeMaker, 
   BibliotecaMaker, 
   LaboratorioMaker, 
-  ProjetosInovadores, 
+  VitrineTecnologica, 
   EducacaoTecnologica,
-  Sobre,
-  Equipe,
-  Contato
+  Sobre
 } from '../features/visitor/sections'
 
 const Routers: React.FC = () => {
@@ -55,16 +53,14 @@ const Routers: React.FC = () => {
               {/* <Route path="/sobre-projeto" element={<AboutProjectPage />} /> */}
                 
                 {/* Páginas das Seções */}
-                <Route path="/comunidade-maker" element={<ComunidadeMaker />} />
+                <Route path="/vitrine-tecnologica" element={<VitrineTecnologica />} />
                 <Route path="/biblioteca-maker" element={<BibliotecaMaker />} />
                 <Route path="/laboratorio-maker" element={<LaboratorioMaker />} />
-                <Route path="/projetos-inovadores" element={<ProjetosInovadores />} />
+                <Route path="/comunidade-maker" element={<ComunidadeMaker />} />
                 <Route path="/educacao-tecnologica" element={<EducacaoTecnologica />} />
                 
                 {/* Novas páginas */}
                 <Route path="/sobre" element={<Sobre />} />
-                <Route path="/equipe" element={<Equipe />} />
-                <Route path="/contato" element={<Contato />} />
                 <Route path="/politica-de-privacidade" element={
                   <SectionLayout>
                     <div className="min-h-screen bg-gray-50">

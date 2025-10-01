@@ -14,14 +14,12 @@ const SectionBreadcrumb: React.FC = () => {
   const location = useLocation()
   
   const sectionPages = {
-    '/comunidade-maker': { name: 'Comunidade Maker', description: 'Conecte-se com outros makers' },
+    '/vitrine-tecnologica': { name: 'Vitrine Tecnológica', description: 'Desenvolvimento e inovação' },
     '/biblioteca-maker': { name: 'Biblioteca Maker', description: 'Acesse recursos educacionais' }, 
     '/laboratorio-maker': { name: 'Laboratório Maker', description: 'Equipamentos e prototipagem' },
-    '/projetos-inovadores': { name: 'Projetos Inovadores', description: 'Desenvolvimento e inovação' },
+    '/comunidade-maker': { name: 'Comunidade Maker', description: 'Conecte-se com outros makers' },
     '/educacao-tecnologica': { name: 'Educação Tecnológica', description: 'Cursos e formação' },
-    '/sobre': { name: 'Sobre o SENAI', description: 'Conheça nossa história e missão' },
-    '/equipe': { name: 'Nossa Equipe', description: 'Profissionais dedicados à excelência' },
-    '/contato': { name: 'Contato', description: 'Entre em contato conosco' }
+    '/sobre': { name: 'Sobre o SENAI', description: 'Conheça nossa história e missão' }
   }
   
   const currentSection = sectionPages[location.pathname as keyof typeof sectionPages]

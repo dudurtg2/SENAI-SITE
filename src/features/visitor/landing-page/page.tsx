@@ -5,8 +5,6 @@ import Banner from './components/Banner/Banner'
 import CardSection from './components/Cards/CardSection'
 import SocialMediaSection from './components/SocialMedia/SocialMediaSection'
 import EventsSection from './components/Events/EventsSection'
-import LinksSection from './components/Links/LinksSection'
-import InfoSection from './components/Info/InfoSection'
 import Footer from './components/Footer/Footer'
 
 // Componente de navegação flutuante para a landing page
@@ -64,14 +62,8 @@ function LandingPage() {
       <section id="eventos-noticias">
         <EventsSection />
       </section>
-      <section id="outros-links">
-        <LinksSection />
-      </section>
-      <section id="equipe">
-        <InfoSection />
-      </section>
       <section id="contato">
-        <Footer />
+        <Footer showLocation={true} />
       </section>
       
       {/* Navegação flutuante com scroll suave */}

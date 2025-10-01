@@ -4,189 +4,142 @@ import SectionLayout from '../layout/SectionLayout'
 const Sobre: React.FC = () => {
   return (
     <SectionLayout>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative h-[50vh] overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-700">
-          <div className="absolute inset-0 bg-blue-900 bg-opacity-60" />
+        <section className="relative h-[50vh] overflow-hidden bg-gradient-to-r from-blue-700 to-blue-900">
+          <div className="absolute inset-0 bg-black bg-opacity-30" />
           <div className="relative z-10 flex items-center justify-center h-full">
             <div className="text-center text-white max-w-4xl px-4">
-              <h1 className="text-4xl md:text-6xl font-bold mb-4 uppercase tracking-wider">
-                Sobre o SENAI
+              <div className="mb-4 text-sm font-semibold tracking-widest uppercase text-blue-200">
+                PLATAFORMA DIGITAL
+              </div>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
+                SENAI Feira de Santana
               </h1>
-              <p className="text-lg md:text-xl font-light max-w-2xl mx-auto">
-                Conheça nossa história, missão e compromisso com a educação tecnológica
+              <p className="text-xl md:text-2xl font-light max-w-3xl mx-auto leading-relaxed">
+                Inovação, Tecnologia e Colaboração para o Futuro da Educação Profissional
               </p>
             </div>
           </div>
         </section>
 
-        {/* Missão, Visão e Valores */}
-        <section className="py-16 px-4">
+        {/* Sobre a Plataforma */}
+        <section className="py-20 px-4 bg-gray-50">
           <div className="max-w-6xl mx-auto">
+            {/* Introdução ao Site */}
+            <div className="mb-16">
+              <div className="mb-4 text-sm font-semibold tracking-widest uppercase text-blue-700">
+                SOBRE A PLATAFORMA
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+                Desenvolvemos uma solução integrada para a educação profissional
+              </h2>
+              <div className="space-y-6 text-lg text-gray-700 leading-relaxed max-w-4xl">
+                <p>
+                  O site do SENAI Feira de Santana é uma plataforma completa e integrada, com destaque para a 
+                  <strong className="text-blue-700 font-semibold"> Vitrine Tecnológica</strong>, um espaço dedicado à exposição 
+                  dos projetos inovadores desenvolvidos por nossos alunos e instrutores.
+                </p>
+                <p>
+                  Além da Vitrine Tecnológica, a plataforma oferece ferramentas modernas e colaborativas para 
+                  otimizar o uso dos recursos educacionais e promover a interação da comunidade acadêmica.
+                </p>
+              </div>
+            </div>
+
+            {/* Cards das Funcionalidades */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-blue-600 text-2xl">🎯</span>
+              <div className="bg-white border-l-4 border-purple-700 p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="mb-6">
+                  <div className="w-12 h-12 bg-purple-100 flex items-center justify-center">
+                    <div className="w-2 h-12 bg-purple-700"></div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Missão</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Promover a educação profissional e tecnológica, a inovação e a transferência 
-                  de tecnologias industriais, contribuindo para elevar a competitividade da 
-                  indústria brasileira.
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Vitrine Tecnológica</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  Espaço digital para exposição e divulgação dos projetos inovadores desenvolvidos 
+                  no SENAI, incentivando a criatividade e o empreendedorismo tecnológico.
                 </p>
               </div>
               
-              <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-green-600 text-2xl">👁️</span>
+              <div className="bg-white border-l-4 border-cyan-700 p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="mb-6">
+                  <div className="w-12 h-12 bg-cyan-100 flex items-center justify-center">
+                    <div className="w-2 h-12 bg-cyan-700"></div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Visão</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Ser reconhecido pela indústria e pela sociedade como organização de 
-                  excelência em soluções em educação profissional, tecnologia e inovação.
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Laboratório Maker</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  Disponibiliza e gerencia os recursos do Lab Maker, com visualização de estrutura e equipamentos, 
+                  reservas online de horários, gestão de estoque, custos e catalogação de materiais produzidos.
                 </p>
               </div>
               
-              <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-purple-600 text-2xl">⭐</span>
+              <div className="bg-white border-l-4 border-orange-700 p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="mb-6">
+                  <div className="w-12 h-12 bg-orange-100 flex items-center justify-center">
+                    <div className="w-2 h-12 bg-orange-700"></div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Valores</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Ética, transparência, excelência, inovação, sustentabilidade e 
-                  compromisso com a transformação social através da educação.
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Biblioteca Maker</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  Moderniza o acesso à biblioteca, possibilitando reserva de salas de estudo, integração com 
+                  repositórios digitais e oferta de conteúdos que estimulam autonomia e criatividade.
                 </p>
               </div>
             </div>
+
+            {/* Card da Comunidade - Destaque */}
+            <div className="bg-gradient-to-r from-blue-700 to-blue-900 p-12 shadow-lg">
+              <div className="flex flex-col md:flex-row items-start gap-8">
+                <div className="w-16 h-16 border-l-4 border-white flex items-center flex-shrink-0">
+                  <div className="w-2 h-16 bg-white ml-4"></div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-3xl font-bold mb-4 text-white">Comunidade Maker</h3>
+                  <p className="text-blue-50 leading-relaxed text-lg">
+                    Promove a interação colaborativa criando um espaço digital para compartilhamento de experiências, 
+                    dúvidas, eventos e ações institucionais. Divulga chamadas internas e externas, concursos, 
+                    premiações e feiras, fortalecendo o networking e a troca de conhecimentos.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* História do SENAI */}
-        <section className="py-16 px-4 bg-white">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Nossa História</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Mais de 80 anos dedicados à formação profissional e desenvolvimento tecnológico
+        {/* Compromisso Final */}
+        <section className="py-20 px-4 bg-white">
+          <div className="max-w-5xl mx-auto">
+            <div className="mb-12">
+              <div className="mb-4 text-sm font-semibold tracking-widest uppercase text-blue-700">
+                NOSSO COMPROMISSO
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+                Educação, Tecnologia e Inovação
+              </h2>
+              <p className="text-xl text-gray-700 leading-relaxed mb-12">
+                O SENAI Feira de Santana está comprometido com a formação de profissionais preparados 
+                para os desafios da Indústria 4.0. Nossa plataforma digital representa esse compromisso, 
+                oferecendo ferramentas modernas que integram educação, tecnologia e inovação em um único ambiente.
               </p>
             </div>
 
-            <div className="space-y-12">
-              <div className="flex flex-col md:flex-row items-center gap-8">
-                <div className="md:w-1/2">
-                  <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">1942 - Fundação</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      O SENAI foi criado em 22 de janeiro de 1942, por decreto-lei do então 
-                      presidente Getúlio Vargas, atendendo a uma demanda dos industriais 
-                      liderados por Roberto Simonsen.
-                    </p>
-                  </div>
-                </div>
-                <div className="md:w-1/2">
-                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-8 rounded-lg">
-                    <div className="text-4xl font-bold mb-2">80+</div>
-                    <div className="text-blue-100">Anos de História</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row-reverse items-center gap-8">
-                <div className="md:w-1/2">
-                  <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">Expansão Nacional</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Ao longo das décadas, o SENAI expandiu sua atuação para todo o território 
-                      nacional, criando uma rede de escolas técnicas e centros de tecnologia.
-                    </p>
-                  </div>
-                </div>
-                <div className="md:w-1/2">
-                  <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-8 rounded-lg">
-                    <div className="text-4xl font-bold mb-2">500+</div>
-                    <div className="text-green-100">Unidades no Brasil</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row items-center gap-8">
-                <div className="md:w-1/2">
-                  <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">Era Digital</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Hoje, o SENAI está na vanguarda da educação 4.0, oferecendo cursos 
-                      em tecnologias emergentes como IoT, IA, robótica e manufatura digital.
-                    </p>
-                  </div>
-                </div>
-                <div className="md:w-1/2">
-                  <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-8 rounded-lg">
-                    <div className="text-4xl font-bold mb-2">2M+</div>
-                    <div className="text-purple-100">Alunos Formados/Ano</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Números e Estatísticas */}
-        <section className="py-16 px-4 bg-gray-100">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">SENAI em Números</h2>
-              <p className="text-lg text-gray-600">
-                Dados que demonstram nosso impacto na educação brasileira
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
-                <div className="text-gray-600 text-sm">Unidades Operacionais</div>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                <div className="text-3xl font-bold text-green-600 mb-2">2.3M</div>
-                <div className="text-gray-600 text-sm">Matrículas/Ano</div>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">28</div>
-                <div className="text-gray-600 text-sm">Áreas Tecnológicas</div>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                <div className="text-3xl font-bold text-orange-600 mb-2">1000+</div>
-                <div className="text-gray-600 text-sm">Cursos Oferecidos</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Compromisso com a Inovação */}
-        <section className="py-16 px-4 bg-white">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
-              Compromisso com a Inovação
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed mb-8">
-              O SENAI está constantemente evoluindo para atender às demandas da Indústria 4.0, 
-              investindo em pesquisa, desenvolvimento tecnológico e formação de profissionais 
-              preparados para os desafios do futuro.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <span className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
-                Inteligência Artificial
+            <div className="flex flex-wrap gap-4">
+              <span className="px-6 py-3 bg-purple-100 text-purple-900 font-semibold border-l-4 border-purple-700">
+                Vitrine Tecnológica
               </span>
-              <span className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
-                Internet das Coisas
+              <span className="px-6 py-3 bg-cyan-100 text-cyan-900 font-semibold border-l-4 border-cyan-700">
+                Lab Maker
               </span>
-              <span className="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium">
-                Manufatura Digital
+              <span className="px-6 py-3 bg-orange-100 text-orange-900 font-semibold border-l-4 border-orange-700">
+                Biblioteca Digital
               </span>
-              <span className="bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">
-                Robótica Avançada
+              <span className="px-6 py-3 bg-blue-100 text-blue-900 font-semibold border-l-4 border-blue-700">
+                Comunidade Colaborativa
               </span>
-              <span className="bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm font-medium">
-                Sustentabilidade
+              <span className="px-6 py-3 bg-green-100 text-green-900 font-semibold border-l-4 border-green-700">
+                Gestão Inteligente
               </span>
             </div>
           </div>

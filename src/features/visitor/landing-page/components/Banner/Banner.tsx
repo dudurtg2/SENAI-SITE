@@ -74,8 +74,8 @@ const Banner: React.FC = () => {
   const bannerItems = [
     {
       imageUrl: img1,
-      title: 'Comunidade Maker',
-      route: '/comunidade-maker'
+      title: 'Vitrine Tecnológica',
+      route: '/vitrine-tecnologica'
     },
     {
       imageUrl: img2,
@@ -89,8 +89,8 @@ const Banner: React.FC = () => {
     },
     {
       imageUrl: img4,
-      title: 'Projetos Inovadores',
-      route: '/projetos-inovadores'
+      title: 'Comunidade Maker',
+      route: '/comunidade-maker'
     },
     {
       imageUrl: img5,
