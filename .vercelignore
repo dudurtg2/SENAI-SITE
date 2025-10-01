@@ -1,0 +1,17 @@
+node_modules
+.git
+*.log
+.env.local
+.env.*.local
+coverage
+*.tsbuildinfo
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+SENAI-API
+docs
+src/features/visitor/archived
