@@ -1,4 +1,4 @@
-import axiosInstance from '../Services/axios-instance'
+import axiosInstance from '@/Services/axios-instance'
 import type {
   LoginMutation,
   RegisterMutation,
