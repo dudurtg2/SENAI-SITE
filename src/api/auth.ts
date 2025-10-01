@@ -1,4 +1,4 @@
-import axiosInstance from '../services/axios-instance'
+import axiosInstance from '../Services/axios-instance'
 import { API_CONFIG } from './config'
 
 // Interfaces para as requisições de autenticação

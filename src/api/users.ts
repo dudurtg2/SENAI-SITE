@@ -1,4 +1,4 @@
-import axiosInstance from '../services/axios-instance'
+import axiosInstance from '../Services/axios-instance'
 
 // Interfaces para usuários
 export interface User {
