@@ -88,20 +88,23 @@ const ProjectInfoSection: React.FC<ProjectFormSectionProps> = ({
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Curso *
                 </label>
-                <select
+                <input
+                  type="text"
+                  list="cursos-list"
                   value={data.curso}
                   onChange={e => handleInputChange('curso', e.target.value)}
+                  placeholder="Digite ou selecione o curso"
                   className={`w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                     errors.curso ? 'border-red-500' : 'border-gray-300'
                   }`}
-                >
-                  <option value="">Selecione o curso</option>
+                />
+                <datalist id="cursos-list">
                   {cursosDisponiveis.map((curso: any) => (
                     <option key={curso.value} value={curso.value}>
                       {curso.label}
                     </option>
                   ))}
-                </select>
+                </datalist>
                 {errors.curso && <p className="text-red-500 text-xs mt-1">{errors.curso}</p>}
               </div>
 
@@ -110,21 +113,23 @@ const ProjectInfoSection: React.FC<ProjectFormSectionProps> = ({
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Turma *
                 </label>
-                <select
+                <input
+                  type="text"
+                  list="turmas-list"
                   value={data.turma}
                   onChange={e => handleInputChange('turma', e.target.value)}
-                  disabled={!data.curso}
+                  placeholder="Digite a turma"
                   className={`w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                     errors.turma ? 'border-red-500' : 'border-gray-300'
-                  } ${!data.curso ? 'bg-gray-100' : ''}`}
-                >
-                  <option value="">Selecione a turma</option>
+                  }`}
+                />
+                <datalist id="turmas-list">
                   {data.curso && getTurmasByCurso(data.curso).map(turma => (
                     <option key={turma.value} value={turma.value}>
                       {turma.label}
                     </option>
                   ))}
-                </select>
+                </datalist>
                 {errors.turma && <p className="text-red-500 text-xs mt-1">{errors.turma}</p>}
               </div>
             </div>
@@ -134,24 +139,24 @@ const ProjectInfoSection: React.FC<ProjectFormSectionProps> = ({
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Unidade Curricular *
               </label>
-              <select
+              <input
+                type="text"
+                list="unidades-curriculares-list"
                 value={data.unidadeCurricular}
                 onChange={e => handleInputChange('unidadeCurricular', e.target.value)}
+                placeholder={loadingUCs ? "Carregando..." : "Digite ou selecione a unidade curricular"}
+                disabled={loadingUCs}
                 className={`w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                   errors.unidadeCurricular ? 'border-red-500' : 'border-gray-300'
-                }`}
-              >
-                <option value="">Selecione a unidade curricular</option>
-                {loadingUCs ? (
-                  <option disabled>Carregando...</option>
-                ) : (
-                  unidadesCurricularesOptions.map((uc: any) => (
-                    <option key={uc.value} value={uc.value}>
-                      {uc.label}
-                    </option>
-                  ))
-                )}
-              </select>
+                } ${loadingUCs ? 'bg-gray-100' : ''}`}
+              />
+              <datalist id="unidades-curriculares-list">
+                {!loadingUCs && unidadesCurricularesOptions.map((uc: any) => (
+                  <option key={uc.value} value={uc.value}>
+                    {uc.label}
+                  </option>
+                ))}
+              </datalist>
               {errors.unidadeCurricular && <p className="text-red-500 text-xs mt-1">{errors.unidadeCurricular}</p>}
             </div>
 

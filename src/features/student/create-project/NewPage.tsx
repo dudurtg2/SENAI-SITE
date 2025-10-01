@@ -116,12 +116,12 @@ const NewCreateProjectPage = () => {
       {/* Container principal */}
       <div className="max-w-6xl mx-auto">
         {/* Header com indicador de progresso */}
-        <div className="bg-white border-b border-gray-200 px-6 py-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <div className="bg-white border-b border-gray-200 px-6 py-4">
+          <div className="text-center mb-6">
+            <h1 className="text-2xl font-bold text-gray-900 mb-1">
               Criar Novo Projeto
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm text-gray-600">
               Siga as etapas para publicar seu projeto na plataforma SENAI
             </p>
           </div>
@@ -134,7 +134,7 @@ const NewCreateProjectPage = () => {
         </div>
 
         {/* Conteúdo principal */}
-        <div className="px-6 py-8">
+        <div className="px-6 py-6">
           {renderCurrentStep()}
         </div>
 
@@ -146,19 +146,6 @@ const NewCreateProjectPage = () => {
           isSubmitting={state.isSubmitting}
         />
       </div>
-
-      {/* Debug info - apenas em desenvolvimento */}
-      {import.meta.env.DEV && (
-        <div className="fixed bottom-4 right-4 bg-black bg-opacity-75 text-white p-4 rounded-lg text-xs max-w-sm">
-          <div className="font-bold mb-2">Debug Info:</div>
-          <div>Etapa: {state.currentStep}</div>
-          <div>Pode prosseguir: {canProceed ? 'Sim' : 'Não'}</div>
-          <div>Erros: {Object.keys(state.errors).length}</div>
-          <div>Enviando: {state.isSubmitting ? 'Sim' : 'Não'}</div>
-          <div>Título: {state.data.titulo || 'Vazio'}</div>
-          <div>Autores: {state.data.autores.length}</div>
-        </div>
-      )}
     </div>
   )
 }

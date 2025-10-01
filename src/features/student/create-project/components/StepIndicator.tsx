@@ -60,10 +60,13 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({
                 {/* Linha conectora */}
                 {index < steps.length - 1 && (
                   <div
-                    className={`absolute top-4 left-full w-full h-0.5 -translate-y-1/2 ${
+                    className={`absolute top-4 h-0.5 ${
                       status === 'completed' ? 'bg-blue-500' : 'bg-gray-300'
                     }`}
-                    style={{ width: 'calc(100% + 2rem)' }}
+                    style={{ 
+                      left: '2rem',
+                      width: 'calc(100% - 2rem + 4rem)'
+                    }}
                   />
                 )}
 

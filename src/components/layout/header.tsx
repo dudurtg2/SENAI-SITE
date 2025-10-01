@@ -17,7 +17,7 @@ import {
   UserPlus,
   Eye
 } from 'lucide-react'
-import senailogo from '../../assets/senai-logo.png'
+import senailogo from '../../assets/images/Imagens/022-Senai.png'
 import { Link, useLocation } from 'react-router-dom'
 import { useNotifications } from '../../contexts/notification-context'
 import { useAuth } from '../../contexts/auth-context'
@@ -76,10 +76,10 @@ const Header = () => {
   return (
     <header className="bg-bg-layouts shadow-sm rounded-lg border-b m-3">
       <div className="flex items-center justify-between px-6 py-3">
-        {/* Logo */}
+        {/* Logo - Clicável para todos os usuários */}
         <div className="flex items-center">
-          <Link to="/app">
-            <img src={senailogo} alt="Logo SENAI" className="w-auto h-auto transform transition-transform duration-200 hover:scale-105" />
+          <Link to={isAuthenticated ? "/app" : "/"} className="transform transition-transform duration-200 hover:scale-105">
+            <img src={senailogo} alt="Logo SENAI" className="w-auto h-auto" />
           </Link>
         </div>        {/* Navigation */}
         <div className="flex items-center space-x-6">

@@ -36,13 +36,13 @@ const StepNavigation: React.FC<StepNavigationProps> = ({
   }
 
   return (
-    <div className="flex items-center justify-between py-6 border-t border-gray-200 bg-white sticky bottom-0 z-10">
+    <div className="flex items-center justify-between py-3 px-6 border-t border-gray-200 bg-white sticky bottom-0 z-10">
       <div className="flex items-center gap-4">
         {/* Botão Voltar */}
         <button
           onClick={handlePrevious}
           disabled={isFirstStep || isSubmitting}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
             isFirstStep || isSubmitting
               ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
               : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
@@ -64,7 +64,7 @@ const StepNavigation: React.FC<StepNavigationProps> = ({
           <button
             onClick={handleNext}
             disabled={!canProceed || isSubmitting}
-            className={`flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all ${
+            className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all ${
               canProceed && !isSubmitting
                 ? 'bg-blue-600 hover:bg-blue-700 text-white'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'

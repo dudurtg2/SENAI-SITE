@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import LoginForm from './components/simple-login-form'
 import bgCard from '@/assets/bg-card.jpg'
-import senaiLogo from '@/assets/senai-logo.png'
+import senaiLogo from '@/assets/images/Imagens/022-Senai.png'
 
 const LoginPage = () => {
   return (
@@ -14,7 +14,7 @@ const LoginPage = () => {
       <header className="bg-white/90 backdrop-blur-sm shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
-            <div className="flex items-center">
+            <Link to="/" className="flex items-center">
               <img
                 className="h-10 w-auto"
                 src={senaiLogo}
@@ -24,7 +24,7 @@ const LoginPage = () => {
                 <h1 className="text-xl font-bold text-gray-900">SENAI</h1>
                 <p className="text-sm text-gray-600">Portal do Estudante</p>
               </div>
-            </div>
+            </Link>
             <nav className="flex space-x-4">
               <Link
                 to="/"
